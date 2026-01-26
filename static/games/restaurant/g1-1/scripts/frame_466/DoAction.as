@@ -1,0 +1,2 @@
+btnWin.enabled = true;
+stop();

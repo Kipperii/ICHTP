@@ -1,0 +1,11 @@
+on(press){
+   s1.stop("Sound_Replay");
+   s1.stop("Sound_Fail");
+   s1.stop("Sound_Time");
+   s1.stop("Sound_Time_Next");
+   s1.stop("Sound_Win1");
+   s1.stop("Sound_Win2");
+   s1.stop("Sound_Win3");
+   gotoAndStop("LevelStart");
+   play();
+}

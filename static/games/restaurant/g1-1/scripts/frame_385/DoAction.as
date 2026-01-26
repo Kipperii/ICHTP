@@ -1,0 +1,10 @@
+var tempMovie = current_level + "_" + current_no + "_";
+ChoiceA.loadMovie(gamePath + tempMovie + "A.jpg","POST");
+ChoiceB.loadMovie(gamePath + tempMovie + "B.jpg","POST");
+ChoiceC.loadMovie(gamePath + tempMovie + "C.jpg","POST");
+ChoiceD.loadMovie(gamePath + tempMovie + "D.jpg","POST");
+ChoiceA_btn._visible = true;
+ChoiceB_btn._visible = true;
+ChoiceC_btn._visible = true;
+ChoiceD_btn._visible = true;
+CorrectAnswer._x = -1000;

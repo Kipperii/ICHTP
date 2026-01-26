@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Similarity Pipeline Console</title>
+    <!-- TensorFlow.js and MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@latest"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .upload-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .image-comparison { display: flex; gap: 20px; margin: 20px 0; }
+        .image-box { flex: 1; text-align: center; }
+        .image-box img { max-width: 300px; max-height: 300px; border: 2px solid #ccc; }
+        .results { margin: 20px 0; padding: 15px; background: #f5f5f5; }
+        .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .metric { padding: 8px; background: white; border-radius: 4px; }
+        .slider-container { margin: 10px 0; }
+        .difficulty-display { font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Similarity Pipeline Console</h1>
+        
+        <div class="upload-section">
+            <h3>Upload Images for Comparison</h3>
+            <div>
+                <label>Original Image: <input type="file" id="originalImage" accept="image/*"></label>
+                <label>Variant Image: <input type="file" id="variantImage" accept="image/*"></label>
+            </div>
+            
+            <div class="slider-container">
+                <label>Difficulty Level: <span id="difficultyValue" class="difficulty-display">0.5</span></label>
+                <input type="range" id="difficultySlider" min="0.1" max="1" step="0.1" value="0.5">
+            </div>
+            
+            <button onclick="compareImages()">Compare Images</button>
+        </div>
+
+        <div class="image-comparison">
+            <div class="image-box">
+                <h4>Original Image</h4>
+                <img id="originalPreview" src="" alt="Original">
+            </div>
+            <div class="image-box">
+                <h4>Variant Image</h4>
+                <img id="variantPreview" src="" alt="Variant">
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <h3>Similarity Analysis Results</h3>
+            <div class="metrics" id="metrics"></div>
+            <div id="decision"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize file previews
+        document.getElementById('originalImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('originalPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('variantImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('variantPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Update difficulty display
+        document.getElementById('difficultySlider').addEventListener('input', function(e) {
+            document.getElementById('difficultyValue').textContent = e.target.value;
+        });
+
+        // Your Similarity Pipeline Code (slightly modified for standalone use)
+        /* similarity-pipeline.js - Console Version */
+        (function(global){
+            const SP = {};
+
+            /* ================== Config ================== */
+            const defaultWeights = {
+                mseW: 0.05,      // Reduced further
+                hdiffW: 0.15,    // Color distribution
+                ssimW: 0.40,     // Structure
+                aiW: 0.30,       // New: AI Perceptual Similarity
+                orbW: 0.00,      
+                diversityW: 0.10 
+            };
+
+            // Linear interpolation for difficulty-based thresholds
+            const defaultRanges = {
+                mse:   { min:  90, max: 2600 },
+                hist:  { min:  0.08, max: 0.42 },
+                ssim:  { min:  0.55, max: 0.88 },
+                ham:   { min:  8, max: 26 },
+                orb:   { min:  6, max: 42 }
+            };
+
+            const interpolate = {
+                mseMin: (d)=>lerp(defaultRanges.mse.min*0.7, defaultRanges.mse.min, d),
+                mseMax: (d)=>lerp(defaultRanges.mse.max*0.85, defaultRanges.mse.max, d),
+                histMin:(d)=>lerp(defaultRanges.hist.min*0.6, defaultRanges.hist.min, d),
+                histMax:(d)=>lerp(defaultRanges.hist.max*0.85, defaultRanges.hist.max, d),
+                ssimMin:(d)=>lerp(defaultRanges.ssim.min*0.9, defaultRanges.ssim.min, d),
+                ssimMax:(d)=>lerp(defaultRanges.ssim.max*0.95, defaultRanges.ssim.max, d),
+                hamMin: (d)=>lerp(defaultRanges.ham.min*0.9, defaultRanges.ham.min, d),
+                hamMax: (d)=>lerp(defaultRanges.ham.max*0.9, defaultRanges.ham.max, d),
+                orbMin: (d)=>lerp(defaultRanges.orb.min*0.9, defaultRanges.orb.min, d),
+                orbMax: (d)=>lerp(defaultRanges.orb.max*0.85, defaultRanges.orb.max, d)
+            };
+
+            const scorePassLow = (d)=>lerp(0.28, 0.35, d);
+            const scorePassHigh= (d)=>lerp(0.72, 0.82, d);
+
+            SP.config = {
+                weights: { ...defaultWeights },
+                interpolate,
+                enabled: true
+            };
+
+            /* ================== Core Algorithms ================== */
+            function lerp(a,b,t){ return a + (b-a)*Math.max(0,Math.min(1,t)); }
+            function clamp(v,min,max){ return v<min?min:v>max?max:v; }
+            
+            function computeMSE(sampleA, canvasB){
+                const w=64,h=64;
+                const c=document.createElement('canvas'); c.width=w; c.height=h;
+                const ctx=c.getContext('2d',{willReadFrequently:true});
+                ctx.drawImage(canvasB,0,0,w,h);
+                const b=ctx.getImageData(0,0,w,h).data;
+                let mse=0,n=0;
+                for(let i=0;i<b.length;i+=4){
+                    const da=sampleA[i]-b[i];
+                    const db=sampleA[i+1]-b[i+1];
+                    const dc=sampleA[i+2]-b[i+2];
+                    mse += da*da + db*db + dc*dc;
+                    n++;
+                }
+                return mse/Math.max(1,n);
+            }
+
+            function computeGrayHist(canvas, bins=64){
+                const w=canvas.width, h=canvas.height;
+                const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                const data=ctx.getImageData(0,0,w,h).data;
+                const hist=new Array(bins).fill(0);
+                for(let i=0;i<data.length;i+=4){
+                    const g = (data[i]*0.299 + data[i+1]*0.587 + data[i+2]*0.114)|0;
+                    const idx = Math.min(bins-1, (g/256*bins)|0);
+                    hist[idx]++;
+                }
+                const tot = hist.reduce((a,b)=>a+b,0);
+                return hist.map(v=>v/tot);
+            }
+
+            function histDiff(h1,h2){
+                let d=0;
+                for(let i=0;i<h1.length;i++) d += Math.abs(h1[i]-h2[i]);
+                return d;
+            }
+
+            function computeAHash(canvas){
+                const size=8;
+                const c=document.createElement('canvas'); c.width=size; c.height=size;
+                const ctx=c.getContext('2d',{willReadFrequently:true});
+                ctx.drawImage(canvas,0,0,size,size);
+                const data=ctx.getImageData(0,0,size,size).data;
+                let sum=0; const gray=[];
+                for(let i=0;i<data.length;i+=4){
+                    const g=(data[i]*0.299 + data[i+1]*0.587 + data[i+2]*0.114);
+                    gray.push(g); sum+=g;
+                }
+                const avg=sum/gray.length;
+                let bits='';
+                for(const g of gray) bits += g>avg?'1':'0';
+                return bits;
+            }
+
+            function hammingHash(h1,h2){
+                if(!h1||!h2||h1.length!==h2.length) return 64;
+                let dist=0;
+                for(let i=0;i<h1.length;i++){
+                    if(h1[i]!==h2[i]) dist++;
+                }
+                return dist;
+            }
+
+            function computeSSIM(canvasA, canvasB){
+                const w=64, h=64;
+                const cA=document.createElement('canvas'); cA.width=w; cA.height=h;
+                const ctxA=cA.getContext('2d',{willReadFrequently:true});
+                ctxA.drawImage(canvasA,0,0,w,h);
+                const dataA=ctxA.getImageData(0,0,w,h).data;
+
+                const cB=document.createElement('canvas'); cB.width=w; cB.height=h;
+                const ctxB=cB.getContext('2d',{willReadFrequently:true});
+                ctxB.drawImage(canvasB,0,0,w,h);
+                const dataB=ctxB.getImageData(0,0,w,h).data;
+
+                const lumaA = new Float32Array(w*h);
+                const lumaB = new Float32Array(w*h);
+                for(let i=0; i<w*h; i++){
+                    lumaA[i] = 0.299*dataA[i*4] + 0.587*dataA[i*4+1] + 0.114*dataA[i*4+2];
+                    lumaB[i] = 0.299*dataB[i*4] + 0.587*dataB[i*4+1] + 0.114*dataB[i*4+2];
+                }
+
+                const K1=0.01, K2=0.03, L=255;
+                const C1=(K1*L)**2, C2=(K2*L)**2;
+                
+                const winSize=8;
+                let mssimSum=0, count=0;
+
+                for(let y=0; y<=h-winSize; y+=winSize){
+                    for(let x=0; x<=w-winSize; x+=winSize){
+                        let muA=0, muB=0;
+                        let sumA2=0, sumB2=0, sumAB=0;
+                        
+                        for(let dy=0; dy<winSize; dy++){
+                            for(let dx=0; dx<winSize; dx++){
+                                const idx = (y+dy)*w + (x+dx);
+                                const va = lumaA[idx];
+                                const vb = lumaB[idx];
+                                muA += va;
+                                muB += vb;
+                                sumA2 += va*va;
+                                sumB2 += vb*vb;
+                                sumAB += va*vb;
+                            }
+                        }
+                        
+                        const N = winSize*winSize;
+                        muA /= N;
+                        muB /= N;
+                        
+                        const sigmaA2 = (sumA2/N) - muA*muA;
+                        const sigmaB2 = (sumB2/N) - muB*muB;
+                        const sigmaAB = (sumAB/N) - muA*muB;
+                        
+                        const ssim = ((2*muA*muB + C1)*(2*sigmaAB + C2)) / 
+                                     ((muA*muA + muB*muB + C1)*(sigmaA2 + sigmaB2 + C2));
+                        
+                        mssimSum += ssim;
+                        count++;
+                    }
+                }
+                return count>0 ? mssimSum/count : 0;
+            }
+
+            /* ================== Evaluation ================== */
+            SP.evaluateSimilarity = function(origCanvas, variantCanvas, difficulty, aiScore = 0){
+                const d = clamp(difficulty||0.5,0.05,1);
+
+                // Extract features from original
+                const origAHash = computeAHash(origCanvas);
+                const origHist = computeGrayHist(origCanvas);
+                const origSample = sampleCanvasRGB(origCanvas);
+
+                // Extract features from variant
+                const varAHash = computeAHash(variantCanvas);
+                const varHist = computeGrayHist(variantCanvas);
+
+                // Compute individual metrics
+                const hamToOrig = hammingHash(origAHash, varAHash);
+                const hdiff = histDiff(origHist, varHist);
+                const mse = computeMSE(origSample, variantCanvas);
+                const ssim = computeSSIM(origCanvas, variantCanvas);
+
+                // ORB simulation (simplified for console)
+                const orbCount = 0, orbGood = 0;
+
+                // Adaptive thresholds
+                const mseMin = interpolate.mseMin(d), mseMax=interpolate.mseMax(d);
+                const histMin=interpolate.histMin(d), histMax=interpolate.histMax(d);
+                const ssimMin=interpolate.ssimMin(d), ssimMax=interpolate.ssimMax(d);
+                const hamMin = interpolate.hamMin(d), hamMax = interpolate.hamMax(d);
+
+                // Normalize scores (higher is better)
+                const mseScore  = 1 - clamp((mse - mseMin)/(mseMax - mseMin),0,1);
+                const hdiffScore= 1 - clamp((hdiff - histMin)/(histMax - histMin),0,1);
+                const ssimScore = clamp((ssim - ssimMin)/(ssimMax - ssimMin),0,1);
+                const orbScore  = 0; // Simplified for console
+                const diversityScore = clamp((hamToOrig - hamMin)/(hamMax - hamMin),0,1);
+                
+                // AI Score is already normalized 0-1 (Cosine Similarity)
+                const finalAiScore = clamp(aiScore, 0, 1);
+
+                // Weighted combination
+                const {mseW, hdiffW, ssimW, orbW, diversityW, aiW} = SP.config.weights;
+                const simScore = (
+                    mseScore * mseW +
+                    hdiffScore * hdiffW +
+                    ssimScore * ssimW +
+                    orbScore * orbW +
+                    diversityScore * diversityW +
+                    finalAiScore * aiW
+                );
+
+                // Decision logic
+                let reject = false;
+                let decisionReason = "";
+
+                if(hamToOrig < 0.5) {
+                    reject = true;
+                    decisionReason = "Images are too similar (aHash Hamming < 0.5)";
+                } else if(simScore < scorePassLow(d)) {
+                    reject = true;
+                    decisionReason = `Similarity score ${simScore.toFixed(3)} below minimum threshold ${scorePassLow(d).toFixed(3)}`;
+                } else if(simScore >= scorePassHigh(d)) {
+                    reject = false;
+                    decisionReason = `High quality match - score ${simScore.toFixed(3)} above acceptance threshold ${scorePassHigh(d).toFixed(3)}`;
+                } else {
+                    const midQuality = (mseScore + hdiffScore + ssimScore + finalAiScore)/4;
+                    if(diversityScore < 0.35 || midQuality < 0.45) {
+                        reject = true;
+                        decisionReason = "Insufficient diversity or quality in middle range";
+                    } else {
+                        reject = false;
+                        decisionReason = "Acceptable variant in middle quality range";
+                    }
+                }
+
+                return {
+                    reject,
+                    decisionReason,
+                    metrics: {
+                        mse, hdiff, ssim, 
+                        orbCount, orbGood,
+                        aHashHam: hamToOrig,
+                        aiScore: finalAiScore,
+                        simScore,
+                        normalizedScores: {
+                            mse: mseScore,
+                            histogram: hdiffScore,
+                            ssim: ssimScore,
+                            diversity: diversityScore,
+                            ai: finalAiScore
+                        },
+                        thresholds: {
+                            mse: { min: mseMin, max: mseMax },
+                            histogram: { min: histMin, max: histMax },
+                            similarity: { low: scorePassLow(d), high: scorePassHigh(d) }
+                        }
+                    }
+                };
+            };
+
+            function sampleCanvasRGB(canvas, w=64,h=64){
+                const c=document.createElement('canvas'); c.width=w; c.height=h;
+                const ctx=c.getContext('2d',{willReadFrequently:true});
+                ctx.drawImage(canvas,0,0,w,h);
+                return ctx.getImageData(0,0,w,h).data;
+            }
+
+            global.SimilarityPipeline = SP;
+        })(window);
+
+        // AI Model Management
+        let aiModel = null;
+        let isModelLoading = false;
+
+        async function loadAIModel() {
+            if (aiModel) return aiModel;
+            if (isModelLoading) return null; // Wait for existing load
+            
+            isModelLoading = true;
+            const statusDiv = document.getElementById('decision');
+            statusDiv.innerHTML = "Loading AI Model (MobileNet)... please wait.";
+            
+            try {
+                // Load MobileNet - efficient for browser
+                aiModel = await mobilenet.load({version: 2, alpha: 1.0});
+                console.log("MobileNet loaded successfully");
+                return aiModel;
+            } catch (e) {
+                console.error("Failed to load AI model", e);
+                statusDiv.innerHTML = "Failed to load AI model. Check console.";
+                return null;
+            } finally {
+                isModelLoading = false;
+            }
+        }
+
+        async function getAIEmbedding(model, canvas) {
+            // MobileNet infer returns logits by default if embedding=true
+            // We use the internal activation to get a feature vector
+            const embedding = model.infer(canvas, true);
+            return embedding;
+        }
+
+        function cosineSimilarity(tensorA, tensorB) {
+            // Cosine Similarity = (A . B) / (||A|| * ||B||)
+            const dotProduct = tf.sum(tf.mul(tensorA, tensorB));
+            const normA = tf.norm(tensorA);
+            const normB = tf.norm(tensorB);
+            const similarity = tf.div(dotProduct, tf.mul(normA, normB));
+            return similarity.dataSync()[0];
+        }
+
+        // Comparison function
+        async function compareImages() {
+            const originalFile = document.getElementById('originalImage').files[0];
+            const variantFile = document.getElementById('variantImage').files[0];
+            const difficulty = parseFloat(document.getElementById('difficultySlider').value);
+
+            if (!originalFile || !variantFile) {
+                alert('Please select both original and variant images');
+                return;
+            }
+
+            try {
+                // Ensure AI model is loaded
+                if (!aiModel) {
+                    await loadAIModel();
+                }
+
+                const originalCanvas = await loadImageToCanvas(originalFile);
+                const variantCanvas = await loadImageToCanvas(variantFile);
+
+                // Compute AI Similarity
+                let aiScore = 0;
+                if (aiModel) {
+                    const embA = await getAIEmbedding(aiModel, originalCanvas);
+                    const embB = await getAIEmbedding(aiModel, variantCanvas);
+                    aiScore = cosineSimilarity(embA, embB);
+                    
+                    // Cleanup tensors
+                    embA.dispose();
+                    embB.dispose();
+                }
+
+                const result = SimilarityPipeline.evaluateSimilarity(originalCanvas, variantCanvas, difficulty, aiScore);
+                
+                displayResults(result, difficulty);
+            } catch (error) {
+                console.error('Error comparing images:', error);
+                alert('Error comparing images: ' + error.message);
+            }
+        }
+
+        function loadImageToCanvas(file) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        resolve(canvas);
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function displayResults(result, difficulty) {
+            const metricsDiv = document.getElementById('metrics');
+            const decisionDiv = document.getElementById('decision');
+            const resultsDiv = document.getElementById('results');
+            
+            const m = result.metrics;
+            
+            metricsDiv.innerHTML = `
+                <div class="metric">
+                    <strong>Overall Similarity Score</strong><br>
+                    ${m.simScore.toFixed(4)}
+                </div>
+                <div class="metric">
+                    <strong>aHash Hamming Distance</strong><br>
+                    ${m.aHashHam} (target: ${m.thresholds.histogram.min.toFixed(1)}-${m.thresholds.histogram.max.toFixed(1)})
+                </div>
+                <div class="metric">
+                    <strong>MSE (Mean Squared Error)</strong><br>
+                    ${m.mse.toFixed(1)} (target: ${m.thresholds.mse.min.toFixed(0)}-${m.thresholds.mse.max.toFixed(0)})
+                </div>
+                <div class="metric">
+                    <strong>Histogram Difference</strong><br>
+                    ${m.hdiff.toFixed(4)} (target: ${m.thresholds.histogram.min.toFixed(3)}-${m.thresholds.histogram.max.toFixed(3)})
+                </div>
+                <div class="metric">
+                    <strong>Structural Similarity (SSIM)</strong><br>
+                    ${m.ssim.toFixed(4)}
+                </div>
+                <div class="metric" style="background-color: #e8f5e9; border: 1px solid #c8e6c9;">
+                    <strong>AI Perceptual Similarity</strong><br>
+                    ${m.aiScore.toFixed(4)} (MobileNet v2)
+                </div>
+                <div class="metric">
+                    <strong>Acceptance Thresholds</strong><br>
+                    Low: ${m.thresholds.similarity.low.toFixed(3)}, High: ${m.thresholds.similarity.high.toFixed(3)}
+                </div>
+            `;
+
+            decisionDiv.innerHTML = `
+                <h4>Decision: ${result.reject ? 'REJECTED' : 'ACCEPTED'}</h4>
+                <p><strong>Reason:</strong> ${result.decisionReason}</p>
+                <p><strong>Difficulty Level:</strong> ${difficulty}</p>
+                <p><strong>Interpretation:</strong> ${
+                    result.reject ? 
+                    'This variant would not be suitable for the current difficulty level.' : 
+                    'This variant meets the criteria for the current difficulty level.'
+                }</p>
+            `;
+
+            resultsDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

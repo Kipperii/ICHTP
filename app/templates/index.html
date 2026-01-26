@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <title>ICHTP 首頁地圖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#000; }
+    #game-container { width:100%; height:100%; overflow:hidden; }
+    img, canvas { -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
+    
+    /* --- 修改開始 --- */
+    /* 只在遊戲畫布上隱藏系統指標，因為我們用小人代替了它 */
+    #game-container canvas {
+      cursor: none;
+    }
+    /* --- 修改結束 --- */
+
+    /* 管理面板入口按鈕樣式 */
+    .admin-link {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        z-index: 1000;
+        cursor: pointer; /* 確保在按鈕上顯示指標 */
+    }
+    .admin-link:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+<div id="game-container"></div>
+<!-- 管理面板入口按鈕 -->
+<a href="/admin/supermarket" class="admin-link">⚙️ 題目設置</a>
+
+<script>
+  // 地圖原始尺寸
+  const MAP_W = 1024;
+  const MAP_H = 768;
+
+  // 8 大場景熱區
+  const HOTSPOTS = [
+    { key:'school',      name:'學校篇',     type:'rect', x: 382, y: 60,  w: 175, h: 160, target:'/games/school' },
+    { key:'sports',      name:'運動篇',     type:'rect', x: 835, y: 60,  w: 170, h: 180, target:'/games/sports' },
+    { key:'court',       name:'學校操場',   type:'rect', x: 230, y: 210, w: 170, h: 110, target:'/games/school' },
+    { key:'career',      name:'職業篇',     type:'rect', x: 528, y: 312, w: 130, h: 190, target:'/games/career' },
+    { key:'park',        name:'遊樂場篇',   type:'rect', x: 760, y: 330, w: 210, h: 170, target:'/games/park' },
+    { key:'restaurant',  name:'餐廳篇',     type:'rect', x: 810, y: 520, w: 190, h: 190, target:'/games/restaurant' },
+    { key:'farm',        name:'牧場篇',     type:'rect', x: 20,  y: 560, w: 150, h: 150, target:'/games/farm' },
+    { key:'supermarket', name:'超級市場篇', type:'rect', x: 380, y: 560, w: 210, h: 180, target:'/games/supermarket' }
+  ];
+
+  const FOLLOW_SMOOTH = 0.22;
+  const LABEL_PAD_W   = 22;
+  const LABEL_H       = 46;
+
+  function pointInHotspot(hs, px, py) {
+    if (hs.type === 'rect') {
+      return (px >= hs.x && px <= hs.x + hs.w && py >= hs.y && py <= hs.y + hs.h);
+    }
+    return false;
+  }
+
+  class SceneIndex extends Phaser.Scene {
+    constructor(){
+      super('index');
+      this.hoverKey = null;
+      this.char = null;
+      this.nameGfx = null;
+      this.nameText = null;
+    }
+
+    preload(){
+      this.load.image('map', '/static/games/index/154.jpg');
+      this.load.image('ch1', '/static/games/index/262.png');
+      this.load.image('ch2', '/static/games/index/264.png');
+    }
+
+    create(){
+      this.add.image(0, 0, 'map').setOrigin(0, 0);
+
+      // 名稱浮標
+      this.nameGfx = this.add.graphics().setAlpha(0).setDepth(10);
+      this.nameText = this.add.text(0, 0, '', {
+        font:'bold 26px Arial', fill:'#222', stroke:'#fff', strokeThickness:4
+      }).setOrigin(0.5).setAlpha(0).setDepth(11);
+
+      // 小人 (作為自訂指標)
+      this.char = this.add.image(MAP_W * 0.5, MAP_H * 0.8, 'ch1').setDepth(12).setScale(0.9);
+      this.time.addEvent({
+        delay: 220,
+        loop: true,
+        callback: () => {
+          this.char.setTexture(this.char.texture.key === 'ch1' ? 'ch2' : 'ch1');
+        }
+      });
+
+      // 點擊導向
+      this.input.on('pointerdown', (pointer) => {
+        const hs = this.hitHotspot(pointer.x, pointer.y);
+        if (hs && hs.target) {
+          window.location.href = hs.target;
+        }
+      });
+    }
+
+    update(time, delta){
+      const pointer = this.input.activePointer;
+
+      // 小人平滑跟隨指標
+      const dx = pointer.x - this.char.x;
+      const dy = pointer.y - this.char.y;
+      this.char.x += dx * FOLLOW_SMOOTH;
+      this.char.y += dy * FOLLOW_SMOOTH;
+      if (Math.abs(dx) > 1) {
+        this.char.setFlipX(dx < 0);
+      }
+
+      // 更新懸停狀態
+      this.updateHover(pointer.x, pointer.y);
+    }
+
+    hitHotspot(px, py){
+      for (const hs of HOTSPOTS) {
+        if (pointInHotspot(hs, px, py)) return hs;
+      }
+      return null;
+    }
+
+    updateHover(px, py){
+      const hs = this.hitHotspot(px, py);
+
+      // 如果沒有命中或命中的是同一個，則不處理
+      if (this.hoverKey === (hs ? hs.key : null)) {
+        return;
+      }
+      this.hoverKey = hs ? hs.key : null;
+
+      // 停止正在進行的動畫
+      this.tweens.killTweensOf([this.nameGfx, this.nameText]);
+
+      if (!hs) {
+        // 淡出標籤
+        this.tweens.add({ targets: [this.nameGfx, this.nameText], alpha: 0, duration: 120 });
+        return;
+      }
+
+      // 更新並淡入新標籤
+      const cx = hs.x + hs.w / 2;
+      const cy = hs.y - 16;
+      const labelW = Math.max(140, hs.name.length * 22 + LABEL_PAD_W * 2);
+
+      this.nameGfx.clear();
+      this.nameGfx.fillStyle(0xffffff, 0.88).fillRoundedRect(cx - labelW / 2, cy - LABEL_H / 2, labelW, LABEL_H, 10);
+      this.nameGfx.lineStyle(2, 0x333333, 1).strokeRoundedRect(cx - labelW / 2, cy - LABEL_H / 2, labelW, LABEL_H, 10);
+
+      this.nameText.setText(hs.name).setPosition(cx, cy);
+      this.tweens.add({ targets: [this.nameGfx, this.nameText], alpha: 1, duration: 120 });
+    }
+  }
+
+  const game = new Phaser.Game({
+    type: Phaser.AUTO,
+    width: MAP_W,
+    height: MAP_H,
+    parent: 'game-container',
+    backgroundColor: '#000000',
+    scene: [SceneIndex],
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      expandParent: true
+    }
+  });
+  
+</script>
+</body>
+</html>

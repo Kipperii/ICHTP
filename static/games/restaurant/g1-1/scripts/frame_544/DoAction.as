@@ -1,0 +1,2 @@
+btnTimeOutReplay.enabled = true;
+stop();

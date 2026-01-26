@@ -1,0 +1,2 @@
+btnFail.enabled = true;
+stop();

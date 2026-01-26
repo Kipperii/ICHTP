@@ -1,0 +1,1 @@
+mcQUIT._visible = false;

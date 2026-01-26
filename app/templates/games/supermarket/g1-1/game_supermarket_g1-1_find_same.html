@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <title>Supermarket G1-1 找相同</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        height: 100%;
+      }
+      #game-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      img,
+      canvas {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <script>
+      // ---------------- 基本參數 ----------------
+      const GAME_W = 960,
+        GAME_H = 640,
+        SAFE_PAD = 24;
+      const PANEL_COLOR = 0x8f90c8,
+        PANEL_BORDER = 0xd6d6e8,
+        CARD_BG = 0xa9aad6,
+        CARD_BORDER = 0xffffff;
+
+      const TARGET_CORRECT = 20;
+      const TIME_START = 30;
+      const TIME_BONUS = 1;
+      const MIN_CLICK_GAP_MS = 180;
+      const BONUS_ROUND_INTERVAL = 4; // 每幾關出現一次特別關
+
+      // 返回超市主題頁的路徑
+      const SUPERMARKET_THEME_URL = "/games/supermarket";
+
+      const TEXTS = {
+        loading: "載入中",
+        title: "超級市場篇\n找出相同",
+        tip: "找出與上方圖片完全相同的那一張。",
+        tip_bonus: "特別關卡！找出唯一正確的那一張！",
+        timeup: "沒時間了！",
+        chance: "機會",
+        confirmHome: "你是否要回主頁？",
+        yes: "是",
+        no: "否",
+        difficulty: "難度",
+        time: "時間",
+        stage_intro: "進入",
+        stage_difficulty: "難度提升!",
+      };
+
+      // 素材清單 (此陣列將由 API 動態填充)
+      let ALL_IMAGES = [];
+      /*
+      const ALL_IMAGES = [
+        "images/41.jpg", ...
+      ];
+      */
+
+      const rp = (a) => a[(Math.random() * a.length) | 0];
+      const shuffle = (a) => {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = (Math.random() * (i + 1)) | 0;
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
+
+      // ---------------- 指標映射 ----------------
+      function createPointerMapper(game) {
+        const state = { rect: null };
+        function updateRect() {
+          state.rect = game.canvas.getBoundingClientRect();
+        }
+        updateRect();
+        game.scale.on(Phaser.Scale.Events.RESIZE, updateRect);
+        window.addEventListener("resize", updateRect);
+        window.addEventListener("orientationchange", updateRect);
+        return function map(evt) {
+          const rect = state.rect || game.canvas.getBoundingClientRect();
+          const cssW = rect.width,
+            cssH = rect.height;
+          const gw = game.scale.gameSize.width,
+            gh = game.scale.gameSize.height;
+          const s = Math.min(cssW / gw, cssH / gh);
+          const offX = (cssW - gw * s) / 2;
+          const offY = (cssH - gh * s) / 2;
+          const cx = evt.clientX - rect.left;
+          const cy = evt.clientY - rect.top;
+          let x = (cx - offX) / s;
+          let y = (cy - offY) / s;
+          x = Math.round(x * 2) / 2;
+          y = Math.round(y * 2) / 2;
+          return {
+            x: Phaser.Math.Clamp(x, 0, gw),
+            y: Phaser.Math.Clamp(y, 0, gh),
+          };
+        };
+      }
+
+      // ---------------- 評價系統 ----------------
+      function gradeByPerformance(seconds, correctCount, totalTarget) {
+        const acc = Math.max(
+          0,
+          Math.min(1, correctCount / Math.max(1, totalTarget))
+        );
+        const timeScore =
+          seconds <= 40 ? 1 : seconds <= 60 ? 0.85 : seconds <= 90 ? 0.7 : 0.5;
+        const final = 0.6 * timeScore + 0.4 * acc;
+        if (final >= 0.9) return { grade: "A", msg: "速度與準度都很棒！" };
+        if (final >= 0.75)
+          return { grade: "B", msg: "表現優秀，再快一點更好！" };
+        if (final >= 0.6) return { grade: "C", msg: "穩定發揮，繼續加油！" };
+        return { grade: "D", msg: "別急，下一次一定更好！" };
+      }
+
+      // ---------------- 自適應難度 ----------------
+      class DifficultyManager {
+        constructor(initD = 0.5) {
+          this.d = initD;
+          this.accBuf = [];
+          this.rtBuf = [];
+          this.diffHistory = [];
+        }
+        record(ok, rtMs) {
+          const N = 12;
+          this.accBuf.push(ok ? 1 : 0);
+          if (this.accBuf.length > N) this.accBuf.shift();
+          this.rtBuf.push(rtMs);
+          if (this.rtBuf.length > N) this.rtBuf.shift();
+          const acc =
+            this.accBuf.reduce((a, b) => a + b, 0) / this.accBuf.length;
+          const sorted = [...this.rtBuf].sort((a, b) => a - b);
+          const rtMed = (sorted[Math.floor(sorted.length / 2)] || 1500) / 1000;
+          let nd = this.d;
+          if (acc >= 0.85 && rtMed <= 1.2) nd = Math.min(0.95, this.d + 0.1);
+          else if (acc <= 0.6 || rtMed >= 2.0)
+            nd = Math.max(0.15, this.d - 0.1);
+          this.d = 0.5 * this.d + 0.5 * nd;
+
+          // 記錄難度歷史
+          this.diffHistory.push({
+            difficulty: this.d,
+            accuracy: acc,
+            responseTime: rtMed,
+            timestamp: new Date().getTime(),
+          });
+        }
+      }
+
+      // ---------------- 變體生成（獨立效果） ----------------
+      function rgbToHsv(r, g, b) {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        const max = Math.max(r, g, b),
+          min = Math.min(r, g, b);
+        let h = 0,
+          s,
+          v = max,
+          d = max - min;
+        s = max === 0 ? 0 : d / max;
+        if (d !== 0) {
+          switch (max) {
+            case r:
+              h = (g - b) / d + (g < b ? 6 : 0);
+              break;
+            case g:
+              h = (b - r) / d + 2;
+              break;
+            case b:
+              h = (r - g) / d + 4;
+              break;
+          }
+          h /= 6;
+        }
+        return [h, s, v];
+      }
+
+      function avgColorOfImage(img) {
+        const s = 32,
+          c = document.createElement("canvas");
+        c.width = s;
+        c.height = s;
+        const ctx = c.getContext("2d");
+        ctx.drawImage(img, 0, 0, s, s);
+        const d = ctx.getImageData(0, 0, s, s).data;
+        let r = 0,
+          g = 0,
+          b = 0,
+          n = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          r += d[i];
+          g += d[i + 1];
+          b += d[i + 2];
+          n++;
+        }
+        return `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(
+          b / n
+        )})`;
+      }
+
+      function genVariantCanvas(img, opts) {
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+        const pad = Math.max(0, opts.cropPad | 0);
+
+        const c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext("2d", { willReadFrequently: true });
+        ctx.fillStyle = avgColorOfImage(img);
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.save();
+        const flipH = !!opts.flipH,
+          flipV = !!opts.flipV;
+        ctx.translate(flipH ? w : 0, flipV ? h : 0);
+        ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
+        ctx.drawImage(img, 0, 0);
+        ctx.restore();
+
+        if (opts.blendMode) {
+          const off = opts.overlapOffset || { x: 0, y: 0 };
+          ctx.globalCompositeOperation = opts.blendMode;
+          ctx.globalAlpha = Phaser.Math.Clamp(opts.blendAlpha ?? 0.5, 0.2, 0.9);
+          ctx.save();
+          const flipH2 = !flipH && Math.random() < 0.5;
+          const flipV2 = !flipV && Math.random() < 0.3;
+          ctx.translate(flipH2 ? w : 0, flipV2 ? h : 0);
+          ctx.scale(flipH2 ? -1 : 1, flipV2 ? -1 : 1);
+          ctx.drawImage(img, off.x, off.y);
+          ctx.restore();
+          ctx.globalCompositeOperation = "source-over";
+          ctx.globalAlpha = 1;
+        }
+
+        if (opts.hShift || opts.sMul) {
+          const id = ctx.getImageData(0, 0, w, h);
+          const data = id.data;
+          const hShift = (opts.hShift || 0) / 360;
+          const sMul = Phaser.Math.Clamp(opts.sMul ?? 1, 0.85, 1.15);
+          for (let i = 0; i < data.length; i += 4) {
+            if (data[i + 3] < 8) continue;
+            let [hh, ss, vv] = rgbToHsv(data[i], data[i + 1], data[i + 2]);
+            hh = (hh + hShift + 1) % 1;
+            ss = Math.max(0, Math.min(1, ss * sMul));
+            const h6 = hh * 6;
+            const hi = Math.floor(h6);
+            const f = h6 - hi;
+            const p = vv * (1 - ss);
+            const q = vv * (1 - ss * f);
+            const t = vv * (1 - ss * (1 - f));
+            let R, G, B;
+            switch (hi % 6) {
+              case 0:
+                R = vv;
+                G = t;
+                B = p;
+                break;
+              case 1:
+                R = q;
+                G = vv;
+                B = p;
+                break;
+              case 2:
+                R = p;
+                G = vv;
+                B = t;
+                break;
+              case 3:
+                R = p;
+                G = q;
+                B = vv;
+                break;
+              case 4:
+                R = t;
+                G = p;
+                B = vv;
+                break;
+              case 5:
+                R = vv;
+                G = p;
+                B = q;
+                break;
+            }
+            data[i] = Math.round(R * 255);
+            data[i + 1] = Math.round(G * 255);
+            data[i + 2] = Math.round(B * 255);
+          }
+          ctx.putImageData(id, 0, 0);
+        }
+
+        if (opts.blurPx && opts.blurPx > 0) {
+          const tmp = document.createElement("canvas");
+          tmp.width = w;
+          tmp.height = h;
+          const tctx = tmp.getContext("2d");
+          tctx.filter = `blur(${Phaser.Math.Clamp(opts.blurPx, 0, 4.5)}px)`; // 模糊上限提高
+          tctx.drawImage(c, 0, 0);
+          ctx.clearRect(0, 0, w, h);
+          ctx.drawImage(tmp, 0, 0);
+        }
+
+        if (pad > 0) {
+          const c2 = document.createElement("canvas");
+          c2.width = w;
+          c2.height = h;
+          const ctx2 = c2.getContext("2d");
+          ctx2.drawImage(c, pad, pad, w - 2 * pad, h - 2 * pad, 0, 0, w, h);
+          return c2;
+        }
+        return c;
+      }
+
+      function imageMSE(aCanvas, bImg) {
+        const w = 64,
+          h = 64;
+        const c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(aCanvas, 0, 0, w, h);
+        const a = ctx.getImageData(0, 0, w, h).data;
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(bImg, 0, 0, w, h);
+        const b = ctx.getImageData(0, 0, w, h).data;
+        let mse = 0,
+          n = 0;
+        for (let i = 0; i < a.length; i += 4) {
+          const da = a[i] - b[i],
+            db = a[i + 1] - b[i + 1],
+            dc = a[i + 2] - b[i + 2];
+          mse += da * da + db * db + dc * dc;
+          n++;
+        }
+        return mse / Math.max(1, n);
+      }
+
+      async function makeAnswerVariantsAsync(
+        textures,
+        correctKey,
+        variantTypes,
+        d
+      ) {
+        const srcTex = textures.get(correctKey);
+        const srcImg = srcTex.getSourceImage();
+        const tasks = [];
+        const blendSet = [
+          "multiply",
+          "screen",
+          "overlay",
+          "difference",
+          "exclusion",
+        ];
+        const blurMax = Phaser.Math.Linear(4.0, 1.8, d); // 模糊上限提高
+
+        for (const type of variantTypes) {
+          tasks.push(
+            new Promise((resolve) => {
+              const opts = {
+                flipH: type.includes("flipH"),
+                flipV: type.includes("flipV"),
+                blurPx: type.includes("blur") ? Math.random() * blurMax : 0,
+                cropPad: type.includes("crop")
+                  ? Math.round(Math.random() * Phaser.Math.Linear(15, 5, d))
+                  : 0,
+                blendMode: type.includes("blend") ? rp(blendSet) : null,
+                blendAlpha: type.includes("blend")
+                  ? Phaser.Math.Clamp(
+                      Phaser.Math.Linear(0.8, 0.4, d) + Math.random() * 0.2,
+                      0.2,
+                      0.95
+                    )
+                  : 0,
+                overlapOffset: type.includes("blend")
+                  ? {
+                      x: (Math.random() * 2 - 1) * Phaser.Math.Linear(10, 3, d),
+                      y: (Math.random() * 2 - 1) * Phaser.Math.Linear(10, 3, d),
+                    }
+                  : { x: 0, y: 0 },
+                hShift: type.includes("color")
+                  ? (Math.random() * 2 - 1) * Phaser.Math.Linear(45, 15, d)
+                  : 0,
+                sMul: type.includes("color")
+                  ? 1 +
+                    (Math.random() * 2 - 1) * Phaser.Math.Linear(0.2, 0.08, d)
+                  : 1,
+              };
+              const c = genVariantCanvas(srcImg, opts);
+              const mse = imageMSE(c, srcImg);
+              if (mse < 40 || mse > 5000) {
+                resolve(null);
+                return;
+              }
+              const key =
+                "var:" +
+                Date.now() +
+                "-" +
+                Math.random().toString(36).slice(2, 7);
+              const url = c.toDataURL("image/png");
+              const im = new Image();
+              im.crossOrigin = "anonymous";
+              im.onload = () => {
+                try {
+                  if (!textures.exists(key)) textures.addImage(key, im);
+                  resolve(key);
+                } catch (e) {
+                  resolve(null);
+                }
+              };
+              im.onerror = () => resolve(null);
+              im.src = url;
+            })
+          );
+        }
+        const settled = await Promise.allSettled(tasks);
+        return settled
+          .map((x) => (x.status === "fulfilled" ? x.value : null))
+          .filter(Boolean);
+      }
+
+      // ---------------- UI ----------------
+      function makeButton(scene, centerX, centerY, text) {
+        const w = 180,
+          h = 90;
+        const g = scene.add.graphics();
+        g.fillStyle(0x000000, 0.15).fillRoundedRect(4, 6, w, h, 18);
+        g.fillStyle(0xe56e5b, 1).fillRoundedRect(0, 0, w, h, 18);
+        g.lineStyle(3, 0xffffff, 1).strokeRoundedRect(0, 0, w, h, 18);
+        const t = scene.add
+          .text(w / 2, h / 2, text, {
+            font: "bold 28px Arial",
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 6,
+          })
+          .setOrigin(0.5);
+        const inner = scene.add.container(0, 0, [g, t]);
+        const cont = scene.add.container(centerX - w / 2, centerY - h / 2, [
+          inner,
+        ]);
+        cont.setSize(w, h);
+        cont.setInteractive(
+          new Phaser.Geom.Rectangle(0, 0, w, h),
+          Phaser.Geom.Rectangle.Contains
+        );
+        cont.input.useHandCursor = true;
+        cont.__inner = inner;
+        return cont;
+      }
+
+      function makeCard(scene, key, isQuestion, label) {
+        const w = isQuestion ? 320 : 210,
+          h = isQuestion ? 220 : 170;
+        const pad = 10,
+          boxW = w - 2 * pad,
+          boxH = h - 2 * pad;
+
+        const g = scene.add.graphics();
+        g.fillStyle(0x000000, 0.28).fillRoundedRect(4, 6, w, h, 10);
+        g.fillStyle(CARD_BG, 1).fillRoundedRect(0, 0, w, h, 10);
+        g.lineStyle(2, CARD_BORDER, 0.95).strokeRoundedRect(
+          2,
+          2,
+          w - 4,
+          h - 4,
+          8
+        );
+
+        const img = scene.add.image(0, 0, key).setOrigin(0.5);
+        const sx = boxW / (img.width || boxW),
+          sy = boxH / (img.height || boxH);
+        const s = Math.max(sx, sy);
+        img.setScale(s);
+        img.x = pad + boxW / 2;
+        img.y = pad + boxH / 2;
+
+        const inner = scene.add.container(0, 0, [g, img]);
+        if (!isQuestion && label) {
+          const lt = scene.add
+            .text(10, h - 10, label + ".", {
+              font: "bold 22px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 5,
+            })
+            .setOrigin(0, 1);
+          inner.add(lt);
+        }
+        const cont = scene.add.container(0, 0, [inner]);
+        cont.setSize(w, h);
+        cont.setInteractive(
+          new Phaser.Geom.Rectangle(0, 0, w, h),
+          Phaser.Geom.Rectangle.Contains
+        );
+        cont.input.useHandCursor = true;
+        cont.__inner = inner;
+        cont.__img = img;
+        cont.__size = { w, h, boxW, boxH, pad };
+        return cont;
+      }
+
+      // 改進的正確反饋效果，提供更生動的視覺反饋
+      function fxCorrect(scene, cont) {
+        const inner = cont.__inner;
+        const cx = cont.x + cont.width / 2;
+        const cy = cont.y + cont.height / 2;
+
+        // 立即視覺反饋 - 閃光和波紋效果
+        // 閃光效果
+        const flash = scene.add
+          .rectangle(cx, cy, cont.width + 20, cont.height + 20, 0xffff00, 0.7)
+          .setDepth(30);
+
+        // 波紋效果 - 多層同時展開
+        const rings = [];
+        for (let i = 0; i < 3; i++) {
+          const ring = scene.add
+            .circle(cx, cy, 10 + i * 15, 0x00ff88, 0.7 - i * 0.2)
+            .setDepth(31);
+          rings.push(ring);
+          scene.tweens.add({
+            targets: ring,
+            radius: 80 + i * 20,
+            alpha: 0,
+            duration: 350 + i * 100,
+            ease: "Sine.easeOut",
+            onComplete: () => ring.destroy(),
+          });
+        }
+
+        // 卡片彈跳效果
+        scene.tweens.add({
+          targets: inner,
+          scaleX: 1.15,
+          scaleY: 1.15,
+          duration: 120,
+          yoyo: true,
+          ease: "Back.easeOut",
+          onComplete: () => {
+            // 添加星星效果
+            for (let i = 0; i < 8; i++) {
+              createStar(scene, cx, cy, i);
+            }
+          },
+        });
+
+        // 閃光消失
+        scene.tweens.add({
+          targets: flash,
+          alpha: 0,
+          scale: 1.3,
+          duration: 250,
+          onComplete: () => flash.destroy(),
+        });
+
+        // 光暈效果
+        const glow = scene.add
+          .rectangle(cx, cy, cont.width + 10, cont.height + 10, 0xffff00, 0)
+          .setDepth(29);
+        scene.tweens.add({
+          targets: glow,
+          alpha: 0.4,
+          duration: 150,
+          yoyo: true,
+          onComplete: () => glow.destroy(),
+        });
+      }
+
+      // 創建星星效果
+      function createStar(scene, x, y, index) {
+        // 每個星星往不同方向發射
+        const angle = (index / 8) * Math.PI * 2;
+        const distance = 50 + Math.random() * 30;
+        const duration = 300 + Math.random() * 200;
+
+        // 創建星形
+        const points = [];
+        const outerRadius = 8;
+        const innerRadius = 4;
+        let rot = (Math.PI / 2) * 3;
+        const step = Math.PI / 5;
+
+        for (let i = 0; i < 10; i++) {
+          const radius = i % 2 === 0 ? outerRadius : innerRadius;
+          points.push({
+            x: x + Math.cos(rot) * radius,
+            y: y + Math.sin(rot) * radius,
+          });
+          rot += step;
+        }
+
+        const star = scene.add.polygon(x, y, points, 0xffff00).setDepth(32);
+
+        // 設置發射路徑
+        scene.tweens.add({
+          targets: star,
+          x: x + Math.cos(angle) * distance,
+          y: y + Math.sin(angle) * distance,
+          angle: 180 + Math.random() * 180,
+          alpha: 0,
+          scale: 0.5 + Math.random() * 0.5,
+          duration: duration,
+          ease: "Cubic.easeOut",
+          onComplete: () => star.destroy(),
+        });
+      }
+
+      // 改進的錯誤反饋效果
+      function fxWrong(scene, cont) {
+        // 震動效果
+        scene.cameras.main.shake(150, 0.006);
+
+        // 紅色閃爍覆蓋
+        const overlay = scene.add
+          .rectangle(
+            cont.x + cont.width / 2,
+            cont.y + cont.height / 2,
+            cont.width + 4,
+            cont.height + 4,
+            0xff0000,
+            0.5
+          )
+          .setDepth(30);
+
+        // X符號
+        const crossSize = Math.min(cont.width, cont.height) * 0.6;
+        const cx = cont.x + cont.width / 2;
+        const cy = cont.y + cont.height / 2;
+        const thickness = 6;
+
+        const cross1 = scene.add.graphics().setDepth(31);
+        cross1.lineStyle(thickness, 0xff0000, 0.8);
+        cross1.beginPath();
+        cross1.moveTo(cx - crossSize / 2, cy - crossSize / 2);
+        cross1.lineTo(cx + crossSize / 2, cy + crossSize / 2);
+        cross1.strokePath();
+        cross1.setAlpha(0);
+
+        const cross2 = scene.add.graphics().setDepth(31);
+        cross2.lineStyle(thickness, 0xff0000, 0.8);
+        cross2.beginPath();
+        cross2.moveTo(cx + crossSize / 2, cy - crossSize / 2);
+        cross2.lineTo(cx - crossSize / 2, cy + crossSize / 2);
+        cross2.strokePath();
+        cross2.setAlpha(0);
+
+        // 動畫序列
+        scene.tweens.add({
+          targets: [cross1, cross2],
+          alpha: 1,
+          duration: 80,
+          onComplete: () => {
+            scene.tweens.add({
+              targets: cont,
+              x: cont.x + 5,
+              duration: 50,
+              yoyo: true,
+              repeat: 2,
+              ease: "Sine.easeInOut",
+              onComplete: () => {
+                scene.tweens.add({
+                  targets: [overlay, cross1, cross2],
+                  alpha: 0,
+                  duration: 150,
+                  onComplete: () => {
+                    overlay.destroy();
+                    cross1.destroy();
+                    cross2.destroy();
+                  },
+                });
+              },
+            });
+          },
+        });
+      }
+
+      function spawnPlusOne(scene, x, y) {
+        const container = scene.add.container(x, y).setDepth(1000);
+
+        // 添加發光背景
+        const glow = scene.add.circle(0, 0, 18, 0x00ff88, 0.3);
+
+        // 添加文字
+        const t = scene.add
+          .text(0, 0, "+1s", {
+            font: "bold 28px Arial",
+            fill: "#00ff88",
+            stroke: "#001a0f",
+            strokeThickness: 6,
+          })
+          .setOrigin(0.5);
+
+        container.add([glow, t]);
+
+        // 動畫效果
+        scene.tweens.add({
+          targets: container,
+          y: y - 50,
+          alpha: 0,
+          scale: 1.2,
+          duration: 600,
+          ease: "Back.easeOut",
+          onComplete: () => container.destroy(),
+        });
+      }
+
+      // ---------------- 數據收集 ----------------
+      async function logGameData(gameData) {
+        // 收集詳細的遊戲數據以支持研究和分析
+        const sessionData = {
+          timestamp: new Date().toISOString(),
+          sessionId: gameData.sessionId || `session_${Date.now()}`,
+          playerData: {
+            accuracy: gameData.correctCount / Math.max(1, gameData.totalRounds),
+            avgResponseTime:
+              gameData.responseTimeTotal / Math.max(1, gameData.totalRounds),
+            finalDifficulty: gameData.difficulty,
+            difficultyHistory: gameData.difficultyHistory || [],
+            performanceByRound: gameData.roundStats || [],
+          },
+          gameSettings: {
+            timeLimit: TIME_START,
+            targetCorrect: TARGET_CORRECT,
+            bonusRoundInterval: BONUS_ROUND_INTERVAL,
+          },
+          deviceInfo: {
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
+            userAgent: navigator.userAgent,
+          },
+        };
+
+        // 將數據存到本地存儲
+        try {
+          const offlineData = JSON.parse(
+            localStorage.getItem("offlineGameData") || "[]"
+          );
+          offlineData.push(sessionData);
+          localStorage.setItem("offlineGameData", JSON.stringify(offlineData));
+          console.log("Game data logged to local storage");
+
+          // 可選：如果在開發環境，輸出到控制台
+          if (
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+          ) {
+            console.table({
+              "Session ID": sessionData.sessionId,
+              Timestamp: sessionData.timestamp,
+              Accuracy: sessionData.playerData.accuracy.toFixed(2),
+              "Avg Response Time":
+                sessionData.playerData.avgResponseTime.toFixed(2) + "ms",
+              "Final Difficulty":
+                sessionData.playerData.finalDifficulty.toFixed(2),
+            });
+          }
+        } catch (err) {
+          console.error("Error logging game data:", err);
+        }
+
+        return sessionData;
+      }
+
+      // ---------------- 選單 ----------------
+      class SceneMenu extends Phaser.Scene {
+        constructor() {
+          super("menu");
+        }
+        preload() {
+          this.add
+            .text(GAME_W / 2, GAME_H / 2, TEXTS.loading, {
+              font: "28px Arial",
+              fill: "#fff",
+            })
+            .setOrigin(0.5);
+          // 使用動態獲取的圖片列表進行預加載
+          ALL_IMAGES.forEach((src) => this.load.image(src, src));
+        }
+        async create() {
+          this.cameras.main.setBackgroundColor("#000");
+          this.mapPointer = createPointerMapper(this.game);
+
+          const bg = this.add.graphics();
+          bg.fillStyle(PANEL_COLOR, 1).fillRoundedRect(0, 0, GAME_W, GAME_H, 6);
+          bg.lineStyle(2, PANEL_BORDER, 1).strokeRoundedRect(
+            2,
+            2,
+            GAME_W - 4,
+            GAME_H - 4,
+            6
+          );
+
+          this.add.text(84, 64, TEXTS.title, {
+            font: "bold 48px Arial",
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 8,
+            lineSpacing: -8,
+          });
+          const play = makeButton(
+            this,
+            GAME_W / 2 - 120,
+            GAME_H / 2 + 40,
+            "遊戲開始"
+          );
+          const help = makeButton(
+            this,
+            GAME_W / 2 + 120,
+            GAME_H / 2 + 40,
+            "遊戲玩法"
+          );
+
+          this.input.on("pointerdown", (raw) => {
+            const p = this.mapPointer(raw.event);
+            const hit = (btn) =>
+              Phaser.Geom.Rectangle.Contains(btn.getBounds(), p.x, p.y);
+            if (hit(play)) this.scene.start("game");
+            else if (hit(help)) this.showHelp();
+          });
+        }
+        showHelp() {
+          const map = this.mapPointer || createPointerMapper(this.game);
+
+          // 背景遮罩
+          const dim = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2, GAME_W, GAME_H, 0x000000, 0.7)
+            .setDepth(100)
+            .setInteractive();
+
+          // 主面板 - 增加高度以容納所有內容且避免重疊
+          const panel = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2, 600, 500, 0xffffff)
+            .setDepth(101)
+            .setStrokeStyle(4, 0x4a90e2);
+
+          // 標題欄
+          const titleBar = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2 - 230, 600, 60, 0x4a90e2)
+            .setDepth(101);
+
+          // 標題文字
+          const title = this.add
+            .text(GAME_W / 2, GAME_H / 2 - 230, "遊戲玩法", {
+              font: "bold 32px Arial",
+              fill: "#ffffff",
+            })
+            .setOrigin(0.5)
+            .setDepth(102);
+
+          // 遊戲目標 - 調整位置
+          const goalHeader = this.add
+            .text(GAME_W / 2 - 270, GAME_H / 2 - 180, "【遊戲目標】", {
+              font: "bold 24px Arial",
+              fill: "#4a90e2",
+            })
+            .setDepth(102);
+
+          const goalText = this.add
+            .text(
+              GAME_W / 2 - 270,
+              GAME_H / 2 - 140,
+              "找出與上方題圖完全相同的那一張圖片。",
+              {
+                font: "20px Arial",
+                fill: "#333333",
+              }
+            )
+            .setDepth(102);
+
+          // 遊戲規則 - 調整位置
+          const rulesHeader = this.add
+            .text(GAME_W / 2 - 270, GAME_H / 2 - 100, "【遊戲規則】", {
+              font: "bold 24px Arial",
+              fill: "#4a90e2",
+            })
+            .setDepth(102);
+
+          // 簡化規則顯示，調整行距
+          const rules = [
+            "• 成功找到相同圖片會獲得10分，並增加時間",
+            "• 選錯會扣除5分",
+            "• 隨著你的表現，難度會自動調整",
+            "• 成功答對20題即可過關",
+          ];
+
+          const ruleTexts = [];
+          rules.forEach((rule, index) => {
+            const ruleText = this.add
+              .text(GAME_W / 2 - 270, GAME_H / 2 - 60 + index * 32, rule, {
+                font: "20px Arial",
+                fill: "#333333",
+              })
+              .setDepth(102);
+            ruleTexts.push(ruleText);
+          });
+
+          // 特別關卡 - 調整位置，確保與按鈕有足夠空間
+          const specialHeader = this.add
+            .text(GAME_W / 2 - 270, GAME_H / 2 + 80, "【特別關卡】", {
+              font: "bold 24px Arial",
+              fill: "#e6a23c",
+            })
+            .setDepth(102);
+
+          const specialText = this.add
+            .text(
+              GAME_W / 2 - 270,
+              GAME_H / 2 + 120,
+              "每隔幾關會出現特別挑戰關卡，其中干擾項都是\n正確答案的變體（如變色、模糊、鏡像等）",
+              {
+                font: "20px Arial",
+                fill: "#333333",
+                lineSpacing: 8, // 增加行間距，提高可讀性
+              }
+            )
+            .setDepth(102);
+
+          // 按鈕 - 移動到更下方位置以避免重疊
+          const btnBg = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2 + 210, 160, 60, 0xe56e5b)
+            .setDepth(102)
+            .setInteractive()
+            .setStrokeStyle(2, 0xffffff);
+
+          const btnText = this.add
+            .text(GAME_W / 2, GAME_H / 2 + 210, "知道了", {
+              font: "bold 24px Arial",
+              fill: "#ffffff",
+            })
+            .setOrigin(0.5)
+            .setDepth(103);
+
+          // 點擊事件
+          btnBg.on("pointerdown", () => {
+            const elements = [
+              dim,
+              panel,
+              titleBar,
+              title,
+              goalHeader,
+              goalText,
+              rulesHeader,
+              ...ruleTexts,
+              specialHeader,
+              specialText,
+              btnBg,
+              btnText,
+            ];
+
+            this.tweens.add({
+              targets: elements,
+              alpha: 0,
+              duration: 200,
+              onComplete: () => {
+                elements.forEach((el) => el.destroy());
+              },
+            });
+          });
+
+          // 確保所有元素都有初始可見狀態
+          const elements = [
+            panel,
+            titleBar,
+            title,
+            goalHeader,
+            goalText,
+            rulesHeader,
+            ...ruleTexts,
+            specialHeader,
+            specialText,
+            btnBg,
+            btnText,
+          ];
+
+          // 添加入場動畫
+          elements.forEach((el) => {
+            el.alpha = 0;
+            el.y += 20;
+          });
+
+          this.tweens.add({
+            targets: elements,
+            alpha: 1,
+            y: "-=20",
+            duration: 200,
+            ease: "Power1",
+            stagger: 30,
+          });
+        }
+      }
+
+      // ---------------- 遊戲場景 ----------------
+      class SceneGame extends Phaser.Scene {
+        constructor() {
+          super("game");
+        }
+        init() {
+          this.score = 0;
+          this.levelIndex = 0;
+          this.timeLeft = TIME_START;
+          this.correctCount = 0;
+          this.isGameOver = false;
+          this.startTime = 0;
+          this.hoverIndex = -1;
+          this.clickLocked = false;
+          this.lastClickAt = 0;
+          this.modalOpen = false;
+          this.ddm = new DifficultyManager(0.5);
+          this.answerIndex = -1;
+          this.tempKeys = [];
+          this.sessionId = `session_${Date.now()}`;
+          this.responseTimeTotal = 0;
+          this.roundStats = [];
+          this.timeWarningActive = false;
+
+          // 設定難度階段
+          this.stages = [
+            { name: "入門", minCorrect: 0, maxDifficulty: 0.3, timeBonus: 1.5 },
+            { name: "基礎", minCorrect: 5, maxDifficulty: 0.5, timeBonus: 1.0 },
+            {
+              name: "進階",
+              minCorrect: 10,
+              maxDifficulty: 0.7,
+              timeBonus: 0.8,
+            },
+            {
+              name: "挑戰",
+              minCorrect: 15,
+              maxDifficulty: 0.95,
+              timeBonus: 0.5,
+            },
+          ];
+
+          // 當前階段
+          this.currentStage = this.stages[0];
+        }
+        create() {
+          this.mapPointer = createPointerMapper(this.game);
+
+          const p = this.add.graphics();
+          p.fillStyle(PANEL_COLOR, 1).fillRoundedRect(0, 0, GAME_W, GAME_H, 6);
+          p.lineStyle(2, PANEL_BORDER, 1).strokeRoundedRect(
+            2,
+            2,
+            GAME_W - 4,
+            GAME_H - 4,
+            6
+          );
+
+          this.hudG = this.add.graphics().setDepth(50);
+          this.hudText = this.add
+            .text(SAFE_PAD + 8, SAFE_PAD - 2, "", {
+              font: "bold 18px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 4,
+            })
+            .setDepth(51);
+          this.drawHUD();
+
+          this.title = this.add.text(
+            SAFE_PAD + 8,
+            SAFE_PAD + 20,
+            "找出相同 第1回合",
+            {
+              font: "bold 32px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 6,
+            }
+          );
+          this.scoreText = this.add.text(
+            SAFE_PAD + 8,
+            SAFE_PAD + 56,
+            `${TEXTS.chance}: ${this.score}`,
+            {
+              font: "bold 28px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 6,
+            }
+          );
+
+          this.timerGfx = this.add.graphics();
+          this.timerText = this.add
+            .text(
+              GAME_W - SAFE_PAD - 140,
+              SAFE_PAD + 20,
+              `${TEXTS.time}: ${this.timeLeft}`,
+              {
+                font: "bold 28px Arial",
+                fill: "#fff",
+                stroke: "#000",
+                strokeThickness: 6,
+              }
+            )
+            .setOrigin(0, 0.5);
+          this.updateTimerBar();
+
+          this.backBtn = makeButton(
+            this,
+            GAME_W - SAFE_PAD - 90,
+            SAFE_PAD + 96,
+            "回主頁"
+          ).setDepth(20);
+          this.input.on("pointerdown", (raw) => {
+            if (this.modalOpen) return;
+            const p = this.mapPointer(raw.event);
+            if (
+              Phaser.Geom.Rectangle.Contains(this.backBtn.getBounds(), p.x, p.y)
+            )
+              this.askBackHome();
+          });
+
+          this.timeEvent = this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: () => {
+              if (this.isGameOver || this.modalOpen) return;
+              this.timeLeft = Math.max(0, this.timeLeft - 1);
+              this.updateTimerBar();
+              if (this.timeLeft <= 0) this.finish(false);
+            },
+          });
+
+          this.startTime = performance.now();
+          this.loadLevel(0);
+
+          this.input.on("pointermove", (raw) => {
+            if (this.modalOpen) return;
+            const p = this.mapPointer(raw.event);
+            this.updateHover(p);
+          });
+
+          this.input.on("pointerdown", (raw) => {
+            if (this.modalOpen) return;
+            const now = performance.now();
+            if (this.clickLocked) return;
+            if (now - this.lastClickAt < MIN_CLICK_GAP_MS) return;
+            this.lastClickAt = now;
+
+            const p = this.mapPointer(raw.event);
+            if (!this.opts || !this.opts.length || this.isGameOver) return;
+
+            let hitIndex = -1;
+            for (let i = 0; i < this.opts.length; i++) {
+              if (
+                Phaser.Geom.Rectangle.Contains(
+                  this.opts[i].getBounds(),
+                  p.x,
+                  p.y
+                )
+              ) {
+                hitIndex = i;
+                break;
+              }
+            }
+            if (hitIndex === -1) return;
+
+            this.clickLocked = true;
+            this._rtStart = this._rtStart || performance.now();
+            this.pick(hitIndex, p, performance.now() - this._rtStart);
+            this._rtStart = performance.now();
+          });
+        }
+
+        // 取得當前階段
+        getCurrentStage() {
+          for (let i = this.stages.length - 1; i >= 0; i--) {
+            if (this.correctCount >= this.stages[i].minCorrect) {
+              return this.stages[i];
+            }
+          }
+          return this.stages[0];
+        }
+
+        // 顯示階段提示
+        showStageBanner(stageName) {
+          const banner = this.add
+            .container(GAME_W / 2, GAME_H / 2 - 100)
+            .setDepth(900);
+
+          // 背景
+          const bg = this.add.graphics();
+          bg.fillStyle(0x3366cc, 0.9);
+          bg.fillRoundedRect(-200, -40, 400, 80, 16);
+          bg.lineStyle(4, 0xffffff, 1);
+          bg.strokeRoundedRect(-200, -40, 400, 80, 16);
+          banner.add(bg);
+
+          // 文字
+          const text = this.add
+            .text(0, -10, TEXTS.stage_intro + stageName + "階段", {
+              font: "bold 32px Arial",
+              fill: "#FFFFFF",
+            })
+            .setOrigin(0.5);
+          const subtext = this.add
+            .text(0, 20, TEXTS.stage_difficulty, {
+              font: "24px Arial",
+              fill: "#FFFFFF",
+            })
+            .setOrigin(0.5);
+          banner.add(text);
+          banner.add(subtext);
+
+          // 動畫
+          banner.setAlpha(0);
+          banner.setScale(0.5);
+          this.tweens.add({
+            targets: banner,
+            alpha: 1,
+            scale: 1,
+            duration: 300,
+            ease: "Back.easeOut",
+            onComplete: () => {
+              this.time.delayedCall(1500, () => {
+                this.tweens.add({
+                  targets: banner,
+                  alpha: 0,
+                  scale: 0.8,
+                  duration: 300,
+                  onComplete: () => banner.destroy(),
+                });
+              });
+            },
+          });
+        }
+
+        drawHUD() {
+          const d = this.ddm?.d ?? 0.5;
+          const x = SAFE_PAD + 6,
+            y = SAFE_PAD + 4,
+            w = 320,
+            h = 10;
+          this.hudText.setText(`${TEXTS.difficulty} d=${d.toFixed(2)}`);
+          this.hudG.clear();
+          this.hudG
+            .fillStyle(0x000000, 0.35)
+            .fillRoundedRect(x - 2, y - 2, w + 4, h + 4, 6);
+          this.hudG.lineStyle(2, 0xffffff, 1).strokeRoundedRect(x, y, w, h, 6);
+          const ratio = Phaser.Math.Clamp((d - 0.15) / (0.95 - 0.15), 0, 1);
+          this.hudG
+            .fillStyle(0xffd166, 1)
+            .fillRoundedRect(x + 1, y + 1, (w - 2) * ratio, h - 2, 5);
+        }
+
+        updateTimerBar() {
+          const x = GAME_W - SAFE_PAD - 380,
+            y = SAFE_PAD + 18,
+            w = 360,
+            h = 22;
+          const ratio = Phaser.Math.Clamp(this.timeLeft / TIME_START, 0, 1);
+          const color = this.timeLeft > 10 ? 0x3ac66e : 0xdc3545;
+          this.timerText.setText(`${TEXTS.time}: ${this.timeLeft}`);
+          this.timerGfx.clear();
+          this.timerGfx
+            .fillStyle(0x000000, 0.35)
+            .fillRoundedRect(x - 2, y - 2, w + 4, h + 4, 10);
+          this.timerGfx
+            .lineStyle(2, 0xffffff, 1)
+            .strokeRoundedRect(x, y, w, h, 10);
+          this.timerGfx
+            .fillStyle(color, 1)
+            .fillRoundedRect(x + 1, y + 1, (w - 2) * ratio, h - 2, 9);
+
+          // 時間少於10秒時閃爍提示
+          if (
+            this.timeLeft <= 10 &&
+            !this.timeWarningActive &&
+            this.timeLeft > 0
+          ) {
+            this.timeWarningActive = true;
+            this.cameras.main.flash(300, 255, 0, 0, 0.3);
+            const warningPulse = this.tweens.add({
+              targets: this.timerText,
+              scale: 1.1,
+              duration: 300,
+              yoyo: true,
+              repeat: -1,
+            });
+          } else if (this.timeLeft > 10 && this.timeWarningActive) {
+            this.timeWarningActive = false;
+            this.tweens.killTweensOf(this.timerText);
+            this.timerText.setScale(1);
+          }
+        }
+
+        updateHover(p) {
+          if (!this.opts || !this.opts.length) return;
+          let newIndex = -1;
+          for (let i = 0; i < this.opts.length; i++) {
+            if (
+              Phaser.Geom.Rectangle.Contains(this.opts[i].getBounds(), p.x, p.y)
+            ) {
+              newIndex = i;
+              break;
+            }
+          }
+          if (newIndex === this.hoverIndex) return;
+          this.hoverIndex = newIndex;
+          for (let i = 0; i < this.opts.length; i++) {
+            const inner = this.opts[i].__inner;
+            this.tweens.add({
+              targets: inner,
+              scale: i === newIndex ? 1.04 : 1.0,
+              duration: 90,
+              ease: "Quad.easeOut",
+            });
+          }
+        }
+
+        unloadTempTextures() {
+          const tm = this.textures;
+          this.tempKeys.forEach((k) => {
+            if (tm.exists(k)) tm.remove(k);
+          });
+          this.tempKeys.length = 0;
+        }
+
+        // 出題：普通關（隨機干擾）＋特別關（3個獨立變體）
+        async loadLevel(i) {
+          this.levelIndex = i;
+          this.unloadTempTextures();
+
+          if (this.qCard) this.qCard.destroy();
+          if (this.opts) this.opts.forEach((o) => o.destroy());
+
+          const correctKey = rp(ALL_IMAGES);
+          this.title.setText(`找出相同 第${i + 1}回合`);
+
+          this.qCard = makeCard(this, correctKey, true, null);
+          this.qCard.x =
+            SAFE_PAD + (GAME_W - SAFE_PAD * 2) / 2 - this.qCard.width / 2;
+          this.qCard.y = SAFE_PAD + 110;
+
+          const isBonus = i > 0 && (i + 1) % BONUS_ROUND_INTERVAL === 0;
+
+          if (this.tip && this.tip.active) this.tip.destroy();
+          this.tip = this.add
+            .text(
+              GAME_W / 2,
+              SAFE_PAD + 60,
+              isBonus ? TEXTS.tip_bonus : TEXTS.tip,
+              {
+                font: "28px Arial",
+                fill: isBonus ? "#FFD700" : "#fff",
+                stroke: "#000",
+                strokeThickness: 6,
+              }
+            )
+            .setOrigin(0.5);
+
+          let distractors = [];
+          if (isBonus) {
+            // 特別關：3個干擾都是獨立變體
+            const variantTypes = [
+              ["blur", "color"],
+              ["flipH", "blend"],
+              ["flipV", "crop"],
+            ];
+            shuffle(variantTypes);
+            let varKeys = await makeAnswerVariantsAsync(
+              this.textures,
+              correctKey,
+              variantTypes,
+              this.ddm.d
+            );
+            this.tempKeys.push(...varKeys);
+            distractors.push(...varKeys);
+            // 若變體不足，補隨機
+            while (distractors.length < 3) {
+              const k = rp(
+                ALL_IMAGES.filter(
+                  (k) => k !== correctKey && !distractors.includes(k)
+                )
+              );
+              distractors.push(k);
+            }
+          } else {
+            // 普通關：3個隨機干擾
+            const pool = ALL_IMAGES.filter((k) => k !== correctKey);
+            shuffle(pool);
+            distractors = pool.slice(0, 3);
+          }
+
+          const letters = ["A", "B", "C", "D"];
+          const totalW = 4 * 210 + 3 * 30;
+          const startX = SAFE_PAD + (GAME_W - SAFE_PAD * 2 - totalW) / 2;
+          const y = SAFE_PAD + 360;
+
+          let options = [correctKey, ...distractors];
+          shuffle(options);
+          this.answerIndex = options.indexOf(correctKey);
+
+          this.opts = [];
+          for (let idx = 0; idx < 4; idx++) {
+            const k = options[idx];
+            const usable = this.textures.exists(k) ? k : correctKey;
+            const card = makeCard(this, usable, false, letters[idx]);
+            card.x = startX + idx * (210 + 30);
+            card.y = y;
+            this.opts.push(card);
+          }
+
+          this.hoverIndex = -1;
+          this.time.delayedCall(50, () => (this.clickLocked = false));
+          this._rtStart = performance.now();
+          this.drawHUD();
+        }
+
+        pick(idx, pointerWorld, rtMs) {
+          const isCorrect = idx === this.answerIndex;
+
+          // 記錄這一輪的數據
+          const roundData = {
+            roundIndex: this.levelIndex,
+            difficulty: this.ddm.d,
+            responseTimeMs: rtMs,
+            isCorrect: isCorrect,
+            isBonus:
+              this.levelIndex > 0 &&
+              (this.levelIndex + 1) % BONUS_ROUND_INTERVAL === 0,
+            timestamp: new Date().getTime(),
+          };
+          this.roundStats.push(roundData);
+          this.responseTimeTotal += rtMs;
+
+          if (isCorrect) {
+            // 立即視覺反饋
+            fxCorrect(this, this.opts[idx]);
+            spawnPlusOne(this, pointerWorld.x, pointerWorld.y - 20);
+
+            // 獲取當前階段獎勵
+            const newStage = this.getCurrentStage();
+            const timeBonus = newStage.timeBonus || TIME_BONUS;
+
+            // 檢查階段變化
+            const prevStage = this.currentStage;
+            this.currentStage = newStage;
+
+            this.score += 10;
+            this.correctCount += 1;
+            this.timeLeft = Math.min(TIME_START, this.timeLeft + timeBonus);
+            this.updateTimerBar();
+
+            // 如果進入新階段，顯示提示
+            if (prevStage !== newStage) {
+              this.showStageBanner(newStage.name);
+            }
+
+            this.scoreText.setText(`${TEXTS.chance}: ${this.score}`);
+
+            this.ddm.record(true, rtMs || 1500);
+            // 限制最大難度
+            const maxDifficulty = newStage.maxDifficulty;
+            if (this.ddm.d > maxDifficulty) {
+              this.ddm.d = maxDifficulty;
+            }
+            this.drawHUD();
+
+            if (this.correctCount >= TARGET_CORRECT) {
+              this.finish(true);
+              return;
+            }
+
+            // 減少延遲時間，讓遊戲更流暢
+            this.time.delayedCall(250, () => {
+              this.loadLevel(this.levelIndex + 1);
+            });
+
+            // 縮短點擊鎖定時間
+            this.time.delayedCall(300, () => {
+              this.clickLocked = false;
+            });
+          } else {
+            this.score -= 5;
+            this.scoreText.setText(`${TEXTS.chance}: ${this.score}`);
+            fxWrong(this, this.opts[idx]);
+            this.ddm.record(false, Math.max(rtMs || 2200, 2200));
+            this.drawHUD();
+            this.time.delayedCall(200, () => (this.clickLocked = false));
+          }
+        }
+
+        async finish(isClear) {
+          if (this.isGameOver) return;
+          this.isGameOver = true;
+          this.clickLocked = true;
+
+          const usedMs = Math.max(
+            0,
+            performance.now() - (this.startTime || performance.now())
+          );
+          const usedSec = Math.round(usedMs / 1000);
+
+          const title = isClear ? "通關成功！" : "時間到！";
+          const detail = isClear
+            ? `完成 ${TARGET_CORRECT} 題，用時 ${usedSec} 秒`
+            : `共完成 ${this.correctCount} 題`;
+          const gi = isClear
+            ? gradeByPerformance(usedSec, this.correctCount, TARGET_CORRECT)
+            : { grade: "—", msg: "再試一次吧！" };
+
+          const dim = this.add.rectangle(
+            GAME_W / 2,
+            GAME_H / 2,
+            GAME_W,
+            GAME_H,
+            0x000000,
+            0.55
+          );
+          const pane = this.add.graphics({
+            x: GAME_W / 2 - 300,
+            y: GAME_H / 2 - 180,
+          });
+          pane.fillStyle(0xffffff, 1).fillRoundedRect(0, 0, 600, 320, 14);
+          pane.lineStyle(3, 0x333333, 1).strokeRoundedRect(0, 0, 600, 320, 14);
+
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 110, title, {
+              font: "bold 40px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 60, detail, {
+              font: "28px Arial",
+              fill: "#333",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 10, `Grade: ${gi.grade}`, {
+              font: "bold 36px Arial",
+              fill: "#0a6",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 + 30, gi.msg, {
+              font: "24px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5);
+
+          const replay = makeButton(
+            this,
+            GAME_W / 2 - 100,
+            GAME_H / 2 + 110,
+            "重玩"
+          );
+          const home = makeButton(
+            this,
+            GAME_W / 2 + 100,
+            GAME_H / 2 + 110,
+            "回主頁"
+          );
+
+          // 記錄遊戲數據
+          try {
+            await logGameData({
+              sessionId: this.sessionId,
+              totalRounds: this.levelIndex + 1,
+              correctCount: this.correctCount,
+              responseTimeTotal: this.responseTimeTotal,
+              difficulty: this.ddm.d,
+              difficultyHistory: this.ddm.diffHistory,
+              roundStats: this.roundStats,
+              finalGrade: gi.grade,
+              timeUsedSec: usedSec,
+              completionStatus: isClear ? "complete" : "timeout",
+            });
+          } catch (error) {
+            console.error("Error logging game data:", error);
+          }
+
+          const onDown = (raw) => {
+            const p = this.mapPointer(raw.event);
+            if (Phaser.Geom.Rectangle.Contains(replay.getBounds(), p.x, p.y)) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              this.scene.restart();
+            } else if (
+              Phaser.Geom.Rectangle.Contains(home.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              // 返回超市主題頁面而不是根目錄
+              window.location.href = SUPERMARKET_THEME_URL;
+            }
+          };
+          this.input.on("pointerdown", onDown);
+        }
+
+        askBackHome() {
+          if (this.modalOpen) return;
+          this.modalOpen = true;
+
+          const dim = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2, GAME_W, GAME_H, 0x000000, 0.55)
+            .setDepth(1900)
+            .setInteractive();
+          const pane = this.add
+            .graphics({ x: GAME_W / 2 - 260, y: GAME_H / 2 - 120 })
+            .setDepth(2000);
+          pane.fillStyle(0xffffff, 1).fillRoundedRect(0, 0, 520, 220, 14);
+          pane.lineStyle(3, 0x333333, 1).strokeRoundedRect(0, 0, 520, 220, 14);
+          const t = this.add
+            .text(GAME_W / 2, GAME_H / 2 - 40, TEXTS.confirmHome, {
+              font: "28px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5)
+            .setDepth(2000);
+          const yes = makeButton(
+            this,
+            GAME_W / 2 - 90,
+            GAME_H / 2 + 60,
+            TEXTS.yes
+          ).setDepth(2000);
+          const no = makeButton(
+            this,
+            GAME_W / 2 + 90,
+            GAME_H / 2 + 60,
+            TEXTS.no
+          ).setDepth(2000);
+
+          const close = () => {
+            [dim, pane, t, yes, no].forEach((o) => o && o.destroy());
+            this.modalOpen = false;
+            this.unloadTempTextures();
+          };
+
+          const onDown = (raw) => {
+            const p = this.mapPointer(raw.event);
+            if (Phaser.Geom.Rectangle.Contains(yes.getBounds(), p.x, p.y)) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              // 返回超市主題頁面而不是根目錄
+              window.location.href = SUPERMARKET_THEME_URL;
+            } else if (
+              Phaser.Geom.Rectangle.Contains(no.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              close();
+            }
+          };
+          this.input.on("pointerdown", onDown);
+          this.input.keyboard?.once("keydown-ESC", () => {
+            this.input.off("pointerdown", onDown);
+            close();
+          });
+        }
+      }
+
+      // --- 遊戲啟動主邏輯 ---
+      async function initGame() {
+        try {
+          // 1. 從後端 API 獲取圖片列表
+          const response = await fetch('/api/games/supermarket/images');
+          if (!response.ok) {
+            throw new Error(`API 請求失敗: ${response.statusText}`);
+          }
+          ALL_IMAGES = await response.json();
+
+          if (!ALL_IMAGES || ALL_IMAGES.length < 10) {
+             console.error("錯誤：可用的圖片資源不足。至少需要10張圖片。");
+             document.getElementById('game-container').innerHTML = `<div style="color:white; text-align:center; padding: 50px;">遊戲資源加載失敗：圖片數量不足。</div>`;
+             return;
+          }
+
+          // 2. 獲取到圖片列表後，才創建和啟動 Phaser 遊戲
+          const game = new Phaser.Game({
+            type: Phaser.WEBGL,
+            width: GAME_W,
+            height: GAME_H,
+            parent: "game-container",
+            backgroundColor: "#000000",
+            scene: [SceneMenu, SceneGame],
+            scale: {
+              mode: Phaser.Scale.FIT,
+              autoCenter: Phaser.Scale.CENTER_BOTH,
+              expandParent: true,
+            },
+            input: { activePointers: 1, windowEvents: true },
+            render: { antialias: true, premultipliedAlpha: true },
+            loader: { 
+              // 由於 API 返回的是完整 URL 路徑，baseURL 設為空
+              baseURL: '',
+              crossOrigin: "anonymous" 
+            },
+          });
+
+        } catch (error) {
+          console.error("無法初始化遊戲:", error);
+          document.getElementById('game-container').innerHTML = `<div style="color:white; text-align:center; padding-top: 50px;">遊戲加載失敗，請檢查後端服務是否正常或刷新頁面。</div>`;
+        }
+      }
+
+      // 執行主函數
+      initGame();
+
+    </script>
+  </body>
+</html>

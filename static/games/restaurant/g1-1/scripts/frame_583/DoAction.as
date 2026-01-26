@@ -1,0 +1,2 @@
+btnTimeOutFail.enabled = true;
+stop();

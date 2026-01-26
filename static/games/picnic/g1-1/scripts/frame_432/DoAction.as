@@ -1,0 +1,2 @@
+btnReplay.enabled = true;
+stop();
