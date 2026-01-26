@@ -1,3 +1,199 @@
-{% extends "games/base_hub.html" %}
-{% set theme_id = "restaurant" %}
-{% set theme_name_zh = "餐廳篇" %}
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <title>Restaurant 內部</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#000; }
+    #game-container { width:100%; height:100%; overflow:hidden; }
+    img, canvas { -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
+  </style>
+</head>
+<body>
+<div id="game-container"></div>
+
+<script>
+  const W = 1024, H = 768;
+
+  // 將遊戲欄往左移一點，避免右側被裁切；調整 BOARD_X
+  const BOARD_X = 690;  // 原 770，左移 30px
+  const BOARD = { x: BOARD_X, y: 120, w: 240, h: 520 };
+
+  // 遊戲清單（加入 G1-2）
+  const GAME_ENTRIES = [
+    { key:'g1-1', label:'找出相同', rect:{ x: 20, y: 48,  w: 200, h: 56 }, target:'/games/restaurant/g1-1' },
+    { key:'g1-2', label:'考考你記性', rect:{ x: 20, y: 120, w: 200, h: 56 }, target:'/games/restaurant/g1-2' }
+  ];
+
+  function createPointerMapper(game){
+    const state = { rect:null };
+    const upd = ()=> state.rect = game.canvas.getBoundingClientRect();
+    upd();
+    game.scale.on(Phaser.Scale.Events.RESIZE, upd);
+    window.addEventListener('resize', upd);
+    window.addEventListener('orientationchange', upd);
+
+    return function map(evt){
+      const rect = state.rect || game.canvas.getBoundingClientRect();
+      const cssW = rect.width, cssH = rect.height;
+      const gw = game.scale.gameSize.width, gh = game.scale.gameSize.height;
+      const s = Math.min(cssW/gw, cssH/gh);
+      const offX = (cssW - gw*s)/2, offY = (cssH - gh*s)/2;
+      const cx = evt.clientX - rect.left, cy = evt.clientY - rect.top;
+      let x = (cx - offX) / s, y = (cy - offY) / s;
+      x = Math.round(x*2)/2; y = Math.round(y*2)/2;
+      return { x: Phaser.Math.Clamp(x,0,gw), y: Phaser.Math.Clamp(y,0,gh) };
+    };
+  }
+
+  class SceneHub extends Phaser.Scene {
+    constructor(){ super('hub'); }
+    preload(){
+      this.load.image('bg',   '/static/games/theme/restaurant.jpg');
+      this.load.image('back', '/static/games/supermarket/hub/16.png');
+      this.load.image('board','/static/games/supermarket/hub/110.jpg');
+
+      // 對話框素材（只加載19.jpg，其他不再加載）
+      this.load.image('dlg19','/static/games/supermarket/hub/19.jpg');
+      
+      // 背景音樂 - 預留路徑
+      this.load.audio('bgm', '/static/games/supermarket/hub/bgm.mp3');
+    }
+    create(){
+      this.cameras.main.setBackgroundColor('#000');
+      this.add.image(0,0,'bg').setOrigin(0,0);
+      
+      // 播放背景音樂 (音量設為0.3，循環播放)
+      try {
+        this.bgm = this.sound.add('bgm', { volume: 0.3, loop: true });
+        this.bgm.play();
+      } catch(e) {
+        console.log('背景音樂加載失敗，請確認檔案路徑是否正確', e);
+      }
+
+      // 遊戲欄（右側看板）位置調整
+      this.add.image(BOARD.x, BOARD.y, 'board').setOrigin(0,0);
+
+      // 顯示清單文字（置於看板上）
+      this.entryRects = [];
+      this.entryLabels = [];
+      GAME_ENTRIES.forEach((e, idx)=>{
+        const rx = BOARD.x + e.rect.x, ry = BOARD.y + e.rect.y;
+        const rect = this.add.rectangle(rx + e.rect.w/2, ry + e.rect.h/2, e.rect.w, e.rect.h, 0x000000, 0)
+          .setOrigin(0.5).setDepth(6);
+        rect.__meta = e;
+        this.entryRects.push(rect);
+
+        // 文字：加描邊與陰影，提升可讀性
+        const txt = this.add.text(rx + 8, ry + e.rect.h/2, e.label, {
+          fontFamily:'Arial',
+          fontStyle:'bold',
+          fontSize:'28px',
+          color:'#ffffff'
+        }).setOrigin(0,0.5).setDepth(7);
+        txt.setStroke('#1a1a1a', 4);
+        txt.setShadow(2,2,'#000000',2,true,true); // 文字陰影改善對比
+        this.entryLabels.push(txt);
+      });
+
+      // 返回按鈕移到右下角（視覺右下的箱子處）
+      this.back = this.add.image(W - 170, H - 170, 'back')  // 位置可依圖實際尺寸微調
+        .setOrigin(0,0).setDepth(8);
+
+      // Hover 高亮條
+      this.hoverGfx = this.add.graphics().setDepth(7).setAlpha(0);
+
+      // 指標映射與事件
+      this.mapPointer = createPointerMapper(this.game);
+
+      this.input.on('pointermove', (raw)=>{
+        const p = this.mapPointer(raw.event);
+        this.updateHover(p);
+      });
+
+      this.input.on('pointerdown', (raw)=>{
+        const p = this.mapPointer(raw.event);
+        // 返回命中
+        if (this.pointInDisplay(this.back, p.x, p.y)) { window.location.href='/'; return; }
+        // 清單命中
+        const hit = this.hitEntry(p);
+        if (hit?.__meta?.target) window.location.href = hit.__meta.target;
+      });
+
+      // 進場對話動畫
+      this.playIntroDialog();
+    }
+
+    pointInDisplay(img, px, py){
+      const x = img.x, y = img.y, w = img.displayWidth, h = img.displayHeight;
+      return (px>=x && px<=x+w && py>=y && py<=y+h);
+    }
+
+    hitEntry(p){
+      for (const r of this.entryRects) {
+        const x = r.x - r.width/2, y = r.y - r.height/2;
+        if (p.x >= x && p.x <= x + r.width && p.y >= y && p.y <= y + r.height) return r;
+      }
+      return null;
+    }
+
+    updateHover(p){
+      const r = this.hitEntry(p);
+      this.hoverGfx.clear();
+      if (!r){ this.hoverGfx.setAlpha(0); return; }
+      const x = r.x - r.width/2, y = r.y - r.height/2;
+      this.hoverGfx.fillStyle(0xffeb99, 0.35).fillRoundedRect(x, y, r.width, r.height, 8);
+      this.hoverGfx.lineStyle(2, 0xe0b000, 0.9).strokeRoundedRect(x, y, r.width, r.height, 8);
+      this.hoverGfx.setAlpha(1);
+    }
+
+    playIntroDialog(){
+      // 固定使用 dlg19 作為對話框
+      const dlg = this.add.image(90, 110, 'dlg19').setOrigin(0,0).setDepth(20).setAlpha(0);
+
+      // 調整文字位置和尺寸，確保適合 dlg19 對話框
+      const fullText = '歡迎來到超級市場。\n右側選擇「找出相同」開始挑戰！';
+      const textObj = this.add.text(140, 150, '', {
+        font:'bold 24px Arial', 
+        fill:'#222', 
+        stroke:'#fff', 
+        strokeThickness:4, 
+        wordWrap:{width: 280} // 調整文字寬度以適應 dlg19
+      }).setDepth(21).setAlpha(0);
+
+      // 淡入對話框與文字
+      this.tweens.add({ targets: dlg, alpha: { from:0, to:1 }, duration: 220, ease:'Quad.out' });
+      this.tweens.add({ targets: textObj, alpha: { from:0, to:1 }, delay: 150, duration: 220, ease:'Quad.out' });
+
+      // 打字機效果
+      let i = 0;
+      this.time.addEvent({
+        delay: 28,
+        repeat: fullText.length - 1,
+        callback: ()=>{
+          i++; textObj.setText(fullText.slice(0, i));
+        }
+      });
+
+      // 4 秒後自動淡出
+      this.time.delayedCall(4000, ()=>{
+        this.tweens.add({ targets:[dlg,textObj], alpha:0, duration:220, onComplete:()=>{ dlg.destroy(); textObj.destroy(); } });
+      });
+    }
+  }
+
+  const game = new Phaser.Game({
+    type: Phaser.AUTO,
+    width: W,
+    height: H,
+    parent: 'game-container',
+    backgroundColor: '#000000',
+    scene: [SceneHub],
+    scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, expandParent: true },
+    input: { activePointers: 1, windowEvents: true }
+  });
+</script>
+</body>
+</html>

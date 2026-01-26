@@ -1,8 +1,1274 @@
-{% extends "games/base_g1-2.html" %}
-{% set theme_id = "school" %}
-{% set theme_name_en = "School" %}
-{% set theme_name_zh = "學校篇" %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<title>School G1-2 考考你記性</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+<!-- OpenCV WebAssembly (async) -->
+<script async src="https://docs.opencv.org/4.x/opencv.js" onload="onOpenCvReady()" onerror="window.__cvErr=true;"></script>
+<!-- 相似度 / 變體管線 -->
+<script src="/static/lib/similarity-pipeline.js"></script>
+<style>
+html,body{
+  margin:0;padding:0;height:100%;background:#000;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+#game-container{width:100%;height:100%;overflow:hidden;}
+img,canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+</style>
+</head>
+<body>
+<div id="game-container"></div>
+<script>
+/* ================= OpenCV 初始化 ================= */
+let cvReadyResolve;
+const cvReady = new Promise(res=>cvReadyResolve=res);
+function onOpenCvReady(){
+  if(typeof cv!=='undefined'){
+    cv['onRuntimeInitialized']=()=>{
+      console.log('[G1-2] OpenCV runtime ready');
+      cvReadyResolve(true);
+    };
+  }else{
+    cvReadyResolve(false);
+  }
+}
+const CV_FEATURE = {
+  enabled:false,
+  orb:null,
+  init: async ()=>{
+    try{
+      const ok = await cvReady;
+      if(!ok || typeof cv==='undefined'){ CV_FEATURE.enabled=false; return; }
+      try{
+        CV_FEATURE.orb = cv.ORB ? new cv.ORB() : (cv.ORB_create? cv.ORB_create(): null);
+      }catch(e){
+        try{ CV_FEATURE.orb = cv.ORB_create(); }catch(e2){ CV_FEATURE.orb=null; }
+      }
+      CV_FEATURE.enabled = !!CV_FEATURE.orb;
+      console.log('[G1-2] OpenCV ORB enabled=',CV_FEATURE.enabled);
+    }catch(e){
+      CV_FEATURE.enabled=false;
+    }
+  }
+};
+CV_FEATURE.init();
 
-{% block logic_content %}
-    {{ super() }}
-{% endblock %}
+/* ================= 基本參數 ================= */
+const GAME_W=960,GAME_H=640,SAFE=24;
+const PANEL_COLOR=0x8f90c8;
+const PANEL_BORDER=0xd6d6e8;
+const CARD_BG=0xa9aad6;
+const CARD_BORDER=0xffffff;
+
+const EXPOSURE_MIN=1.0,EXPOSURE_MAX=3.0;
+const BLANK_MIN=2.0, BLANK_MAX=3.0;
+const MIN_CLICK_GAP_MS=160;
+const START_LIVES=3;
+const TARGET_ROUNDS=24;
+const VARIANT_ENABLE=true;
+const SCHOOL_THEME_URL="/games/school";
+const HIGH_SIM_THRESHOLD=0.55;
+const HIGH_SIM_PORTION=0.7;
+const HIGH_SIM_POOL_LIMIT=48;
+
+/* ================= 文案 ================= */
+const TEXTS={
+  loading:"載入中",
+  title:"School篇\n考考你記性",
+  help_goal:"記住出現的圖片，之後在多個選項中選出原圖。",
+  help_rules:[
+    "• 答對 +10 分",
+    "• 答錯 -5 分 並扣一條生命",
+    "• 生命歸零或完成所有題目結束",
+    "• 難度依你的速度與準確率自動調整"
+  ],
+  difficulty:"難度",
+  score:"分數",
+  lives:"生命",
+  memorizing:"記住它！",
+  blank:"準備中…",
+  choose:"選出剛剛的圖片",
+  confirmHome:"你是否要回主頁？",
+  yes:"是",no:"否",
+  replay:"再玩一次",home:"回主頁",
+  stageClear:"完成",gameOver:"結束",
+  insufficientImages:"圖片不足：至少需要 8 張圖片資源。"
+};
+
+/* ================= 全域資源 ================= */
+let ALL_IMAGES=[], IMG_KEYS=[];
+const KEY_URL_MAP=new Map();
+const rp=a=>a[(Math.random()*a.length)|0];
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+function clamp(v,min,max){return v<min?min:v>max?max:v;}
+
+/* ================= 圖片相似度分層系統 ================= */
+class ImageSimilarityTier {
+  constructor() {
+    this.tiers = new Map();
+    this.similarityMatrix = new Map();
+    this.initialized = false;
+    this.initializing = false;
+    this.progress = 0;
+    this.imageKeys = [];
+    this.initPromise = null;
+  }
+  
+  async buildTiersAsync(scene, imageKeys) {
+    if (this.initialized) return true;
+    if (this.initializing) return this.initPromise;
+    
+    this.initializing = true;
+    this.imageKeys = [...imageKeys];
+    console.log('[G1-2] Starting image similarity tier building...');
+    
+    const runner = async () => {
+      this.similarityMatrix.clear();
+      this.tiers.clear();
+      for (let tier = 0; tier <= 4; tier++) {
+        this.tiers.set(tier, new Map());
+      }
+      
+      const totalComparisons = imageKeys.length * (imageKeys.length - 1);
+      let completedComparisons = 0;
+      const BATCH_SIZE = 5;
+      
+      for (let i = 0; i < imageKeys.length; i++) {
+        const row = new Map();
+        
+        for (let j = 0; j < imageKeys.length; j += BATCH_SIZE) {
+          if (i === j) continue;
+          const batchPromises = [];
+          
+          for (let k = j; k < Math.min(j + BATCH_SIZE, imageKeys.length); k++) {
+            if (i === k) continue;
+            batchPromises.push(
+              this.computeSimilarityAsync(scene, imageKeys[i], imageKeys[k])
+            );
+          }
+          
+          const batchResults = await Promise.all(batchPromises);
+          
+          for (const result of batchResults) {
+            if (result) {
+              const { candidateKey, score } = result;
+              row.set(candidateKey, score);
+              const tier = this.getTierForSimilarity(score);
+              if (!this.tiers.get(tier).has(imageKeys[i])) {
+                this.tiers.get(tier).set(imageKeys[i], []);
+              }
+              this.tiers.get(tier).get(imageKeys[i]).push({
+                key: candidateKey,
+                score
+              });
+            }
+            completedComparisons++;
+          }
+          
+          this.progress = totalComparisons ? completedComparisons / totalComparisons : 1;
+          await new Promise(resolve => setTimeout(resolve, 0));
+        }
+        
+        this.similarityMatrix.set(imageKeys[i], row);
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+      
+      for (let tier = 0; tier <= 4; tier++) {
+        for (const [answerKey, candidates] of this.tiers.get(tier)) {
+          candidates.sort((a, b) => a.score - b.score);
+        }
+      }
+      
+      this.initialized = true;
+      this.initializing = false;
+      this.progress = 1;
+      console.log('[G1-2] Image similarity tiers built successfully');
+      return true;
+    };
+    
+    this.initPromise = runner().catch(err=>{
+      this.initializing = false;
+      this.progress = 0;
+      console.error('[G1-2] Error building similarity tiers:', err);
+      throw err;
+    });
+    return this.initPromise;
+  }
+  
+  async computeSimilarityAsync(scene, key1, key2) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        try {
+          const meta = getSimilarityMeta(scene, key1, key2, 0.5);
+          if (meta) {
+            resolve({
+              candidateKey: key2,
+              score: meta.score
+            });
+          } else {
+            resolve(null);
+          }
+        } catch (error) {
+          console.warn(`[G1-2] Error computing similarity between ${key1} and ${key2}:`, error);
+          resolve(null);
+        }
+      }, 0);
+    });
+  }
+  
+  getTierForSimilarity(similarityScore) {
+    if (similarityScore < 0.2) return 0;
+    if (similarityScore < 0.4) return 1;
+    if (similarityScore < 0.6) return 2;
+    if (similarityScore < 0.8) return 3;
+    return 4;
+  }
+  
+  getTierForDifficulty(difficulty) {
+    if (difficulty < 0.3) return 1;
+    if (difficulty < 0.6) return 2;
+    if (difficulty < 0.8) return 3;
+    return 4;
+  }
+  
+  getSimilarImages(answerKey, difficulty, count) {
+    if (!this.initialized) return [];
+    
+    const seen = new Set([answerKey]);
+    const result = [];
+    const collectFromTier = (tier)=>{
+      if (result.length >= count) return;
+      const tierMap = this.tiers.get(tier);
+      if (!tierMap) return;
+      const candidates = tierMap.get(answerKey);
+      if (!candidates || !candidates.length) return;
+      const shuffled = [...candidates];
+      shuffle(shuffled);
+      for (const candidate of shuffled) {
+        if (!candidate?.key || seen.has(candidate.key)) continue;
+        result.push(candidate.key);
+        seen.add(candidate.key);
+        if (result.length >= count) break;
+      }
+    };
+    
+    const targetTier = this.getTierForDifficulty(difficulty);
+    collectFromTier(targetTier);
+    
+    if (result.length < count) {
+      const offsets = [-1, 1, -2, 2];
+      for (const offset of offsets) {
+        const tier = targetTier + offset;
+        if (tier < 0 || tier > 4) continue;
+        collectFromTier(tier);
+        if (result.length >= count) break;
+      }
+    }
+    
+    if (result.length < count && this.imageKeys.length) {
+      const fallback = this.imageKeys.filter(k=>!seen.has(k));
+      shuffle(fallback);
+      for (const key of fallback) {
+        result.push(key);
+        if (result.length >= count) break;
+      }
+    }
+    
+    return result.slice(0, count);
+  }
+  
+  getImagesByTargetSimilarity(answerKey, targetSimilarity, count, tolerance = 0.15) {
+    if (!this.similarityMatrix.has(answerKey)) return [];
+    
+    const candidates = [];
+    for (const [candidateKey, similarity] of this.similarityMatrix.get(answerKey)) {
+      if (Math.abs(similarity - targetSimilarity) <= tolerance) {
+        candidates.push({
+          key: candidateKey,
+          score: similarity,
+          distance: Math.abs(similarity - targetSimilarity)
+        });
+      }
+    }
+    
+    candidates.sort((a, b) => a.distance - b.distance);
+    return candidates.slice(0, count).map(c => c.key);
+  }
+  
+  getSimilarImagesLightweight(scene, answerKey, pool, needCount, difficulty) {
+    if (!window.SimilarityPipeline) return pool.slice(0, needCount);
+    
+    const workingPool = pool.slice(0, Math.min(12, pool.length));
+    const scored = [];
+    const targetSimilarity = 0.3 + (difficulty * 0.5);
+    
+    for (const k of workingPool) {
+      const meta = getSimilarityMeta(scene, answerKey, k, difficulty);
+      if (meta) {
+        const distanceFromTarget = Math.abs(meta.score - targetSimilarity);
+        const score = -distanceFromTarget;
+        
+        scored.push({
+          key: k, 
+          score,
+          rawScore: meta.score
+        });
+      }
+    }
+    
+    scored.sort((a, b) => b.score - a.score);
+    const result = scored.slice(0, needCount).map(s => s.key);
+    
+    if (result.length < needCount) {
+      const remain = pool.filter(k => !result.includes(k));
+      shuffle(remain);
+      result.push(...remain.slice(0, needCount - result.length));
+    }
+    
+    return result;
+  }
+}
+
+const similarityTierSystem = new ImageSimilarityTier();
+
+/* ================= 視覺差異類型系統 ================= */
+const VISUAL_DIFFERENCE_TYPES = {
+  COLOR: 'color',
+  SHAPE: 'shape',
+  TEXTURE: 'texture',
+  COMPOSITION: 'composition'
+};
+
+function analyzeDifferenceType(origMeta, candidateMeta) {
+  if (!origMeta || !candidateMeta) return VISUAL_DIFFERENCE_TYPES.TEXTURE;
+  
+  const colorDiff = Math.abs(origMeta.hdiff - candidateMeta.hdiff);
+  const shapeDiff = origMeta.orbGood > 0 ? Math.abs(origMeta.orbGood - candidateMeta.orbGood) / origMeta.orbGood : 0;
+  
+  if (colorDiff < 0.1 && shapeDiff > 0.3) return VISUAL_DIFFERENCE_TYPES.SHAPE;
+  if (colorDiff > 0.2 && shapeDiff < 0.2) return VISUAL_DIFFERENCE_TYPES.COLOR;
+  if (origMeta.ssim > 0.7 && candidateMeta.ssim > 0.7) return VISUAL_DIFFERENCE_TYPES.COMPOSITION;
+  return VISUAL_DIFFERENCE_TYPES.TEXTURE;
+}
+
+/* ================= 指標映射 ================= */
+function createPointerMapper(game){
+  const state={rect:null};
+  function upd(){state.rect=game.canvas.getBoundingClientRect();}
+  upd();
+  game.scale.on(Phaser.Scale.Events.RESIZE,upd);
+  window.addEventListener('resize',upd);
+  window.addEventListener('orientationchange',upd);
+  return evt=>{
+    const rect=state.rect||game.canvas.getBoundingClientRect();
+    const cssW=rect.width, cssH=rect.height;
+    const gw=game.scale.gameSize.width, gh=game.scale.gameSize.height;
+    const s=Math.min(cssW/gw, cssH/gh);
+    const offX=(cssW-gw*s)/2, offY=(cssH-gh*s)/2;
+    const cx=evt.clientX-rect.left, cy=evt.clientY-rect.top;
+    let x=(cx-offX)/s, y=(cy-offY)/s;
+    x=Math.round(x*2)/2; y=Math.round(y*2)/2;
+    return {x:Phaser.Math.Clamp(x,0,gw), y:Phaser.Math.Clamp(y,0,gh)};
+  };
+}
+
+/* ================= 增強版難度管理 ================= */
+class EnhancedDifficultyManager {
+  constructor(init=0.5){
+    this.d=init;
+    this.similarityLevel=0.3;
+    this.accBuf=[]; this.rtBuf=[]; this.history=[];
+    this.differenceTypesUsed = new Set();
+  }
+  
+  immediate(ok, rtMs){
+    const fast=rtMs<=1200;
+    const delta= ok ? (fast?0.06:0.04) : -0.07;
+    this.d=clamp(this.d+delta,0.1,0.95);
+    this.history.push({t:Date.now(),type:"immediate",d:this.d});
+  }
+  
+  record(ok,rtMs, differenceType){
+    const N=14;
+    this.accBuf.push(ok?1:0); if(this.accBuf.length>N) this.accBuf.shift();
+    this.rtBuf.push(rtMs); if(this.rtBuf.length>N) this.rtBuf.shift();
+    
+    if (differenceType) {
+      this.differenceTypesUsed.add(differenceType);
+    }
+    
+    const acc=this.accBuf.reduce((a,b)=>a+b,0)/this.accBuf.length;
+    const sorted=[...this.rtBuf].sort((a,b)=>a-b);
+    const med=(sorted[Math.floor(sorted.length/2)]||1600)/1000;
+    
+    let nd=this.d;
+    if(acc>=0.88 && med<=1.1) nd=Math.min(0.95,this.d+0.08);
+    else if(acc<=0.6 || med>=2.2) nd=Math.max(0.1,this.d-0.08);
+    this.d=0.5*this.d+0.5*nd;
+    
+    this.updateSimilarityLevel(acc, med);
+    
+    this.history.push({t:Date.now(),type:"aggregate",d:this.d,acc,rt:med});
+  }
+  
+  updateSimilarityLevel(accuracy, reactionTime) {
+    if (accuracy > 0.8 && reactionTime < 1.5) {
+      this.similarityLevel = Math.min(0.85, this.similarityLevel + 0.04);
+    } else if (accuracy < 0.6 || reactionTime > 2.5) {
+      this.similarityLevel = Math.max(0.15, this.similarityLevel - 0.02);
+    }
+    
+    this.similarityLevel = Math.max(this.similarityLevel, this.d * 0.7);
+  }
+  
+  getTargetSimilarityRange() {
+    const d = this.d;
+    if (d < 0.3) return { min: 0.15, max: 0.35 };
+    if (d < 0.6) return { min: 0.3, max: 0.55 };
+    if (d < 0.8) return { min: 0.45, max: 0.7 };
+    return { min: 0.6, max: 0.85 };
+  }
+  
+  getCurrentSimilarityTarget() {
+    const range = this.getTargetSimilarityRange();
+    return clamp(this.similarityLevel, range.min, range.max);
+  }
+  
+  getDynamicThreshold() {
+    const baseThreshold = 0.55;
+    const similarityFactor = this.similarityLevel > 0.6 ? -0.15 : 0;
+    return baseThreshold + similarityFactor;
+  }
+  
+  shouldIntroduceNewDifferenceType() {
+    return this.history.length % 3 === 0 && 
+           this.differenceTypesUsed.size < Object.keys(VISUAL_DIFFERENCE_TYPES).length;
+  }
+}
+
+/* ================= SimilarityPipeline 集成 ================= */
+function initSimilarityPipeline(){
+  if(window.SimilarityPipeline){
+    try{
+      SimilarityPipeline.init();
+      console.log('[G1-2] SimilarityPipeline initialized');
+    }catch(e){console.warn('[G1-2] SimilarityPipeline init failed',e);}
+  }else{
+    console.warn('[G1-2] SimilarityPipeline not found');
+  }
+}
+
+/* =============== 改進版高相似度圖片挑選 =============== */
+const SIM_SCORE_CACHE=new Map();
+
+function computeCandidateCanvas(scene,key){
+  const tex=scene.textures.get(key);
+  if(!tex) return null;
+  const img=tex.getSourceImage();
+  const c=document.createElement('canvas');
+  c.width=img.naturalWidth||img.width;
+  c.height=img.naturalHeight||img.height;
+  c.getContext('2d').drawImage(img,0,0);
+  return c;
+}
+
+function getSimilarityMeta(scene, answerKey, candidateKey, difficulty){
+  if(!window.SimilarityPipeline) return null;
+  const cacheKey=`${answerKey}|${candidateKey}`;
+  const cached=SIM_SCORE_CACHE.get(cacheKey);
+  if(cached && Math.abs(cached.diffUsed - difficulty) < 0.15){
+    return cached;
+  }
+  const orig=SimilarityPipeline.extractOrig(scene, answerKey);
+  if(!orig) return null;
+  const canvas=computeCandidateCanvas(scene, candidateKey);
+  if(!canvas) return null;
+  
+  const ev=SimilarityPipeline.evaluateVariantAdvanced(orig, canvas, [], difficulty);
+  if(!ev || !ev.meta) return null;
+  
+  const origMeta = SimilarityPipeline.evaluateVariantAdvanced(orig, orig.canvas, [], difficulty)?.meta;
+  const differenceType = analyzeDifferenceType(origMeta, ev.meta);
+  
+  const metaOut={
+    score:ev.meta.simScore, 
+    ham:ev.meta.aHashHam, 
+    diffUsed:difficulty, 
+    ts:Date.now(),
+    differenceType,
+    hdiff: ev.meta.hdiff,
+    orbGood: ev.meta.orbGood,
+    ssim: ev.meta.ssim
+  };
+  SIM_SCORE_CACHE.set(cacheKey, metaOut);
+  return metaOut;
+}
+
+function selectOptimalSimilarity(scene, answerKey, pool, needCount, difficulty, differenceTypes = Object.values(VISUAL_DIFFERENCE_TYPES)) {
+  if(!window.SimilarityPipeline) return pool.slice(0, needCount);
+  
+  const workingPool = pool.slice(0, HIGH_SIM_POOL_LIMIT);
+  const scored = [];
+  const targetSimilarity = 0.3 + (difficulty * 0.5);
+  
+  for(const k of workingPool) {
+    const meta = getSimilarityMeta(scene, answerKey, k, difficulty);
+    if(meta && differenceTypes.includes(meta.differenceType)) {
+      const distanceFromTarget = Math.abs(meta.score - targetSimilarity);
+      const score = -distanceFromTarget;
+      
+      scored.push({
+        key: k, 
+        score,
+        distance: distanceFromTarget,
+        rawScore: meta.score,
+        differenceType: meta.differenceType
+      });
+    }
+  }
+  
+  scored.sort((a, b) => b.score - a.score);
+  
+  const result = [];
+  const typeCounts = {};
+  differenceTypes.forEach(type => typeCounts[type] = 0);
+  
+  for(const candidate of scored) {
+    if(result.length >= needCount) break;
+    
+    const type = candidate.differenceType;
+    const maxPerType = Math.ceil(needCount / differenceTypes.length);
+    
+    if(typeCounts[type] < maxPerType) {
+      result.push(candidate.key);
+      typeCounts[type]++;
+    }
+  }
+  
+  if(result.length < needCount){
+    const remain = pool.filter(k => !result.includes(k));
+    shuffle(remain);
+    result.push(...remain.slice(0, needCount - result.length));
+  }
+  
+  return result;
+}
+
+/* ================= 資料紀錄 ================= */
+function logSession(payload){
+  try{
+    const key="memoryGameLogsV3";
+    const arr=JSON.parse(localStorage.getItem(key)||"[]");
+    arr.push(payload);
+    localStorage.setItem(key,JSON.stringify(arr));
+  }catch(e){console.warn("log fail",e);}
+}
+
+/* ================= 共用 UI 工具 ================= */
+function makeText(scene,x,y,text,style){return scene.add.text(x,y,text,style);}
+function makePanelBackground(scene){
+  const g=scene.add.graphics();
+  g.fillStyle(PANEL_COLOR,1).fillRoundedRect(0,0,GAME_W,GAME_H,6);
+  g.lineStyle(2,PANEL_BORDER,1).strokeRoundedRect(2,2,GAME_W-4,GAME_H-4,6);
+  return g;
+}
+function makeButton(scene,cx,cy,label,w=180,h=70){
+  const g=scene.add.graphics();
+  g.fillStyle(0x000000,0.15).fillRoundedRect(4,6,w,h,18);
+  g.fillStyle(0xe56e5b,1).fillRoundedRect(0,0,w,h,18);
+  g.lineStyle(3,0xffffff,1).strokeRoundedRect(0,0,w,h,18);
+  const t=scene.add.text(w/2,h/2,label,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6}).setOrigin(0.5);
+  const inner=scene.add.container(0,0,[g,t]);
+  const cont=scene.add.container(cx-w/2,cy-h/2,[inner]);
+  cont.setSize(w,h);
+  cont.setInteractive(new Phaser.Geom.Rectangle(0,0,w,h),Phaser.Geom.Rectangle.Contains);
+  cont.input.useHandCursor=true;
+  cont.__inner=inner;
+  cont.__w=w; cont.__h=h;
+  return cont;
+}
+function makeCard(scene,key,isAnswer,label){
+  const w=isAnswer?340:210, h=isAnswer?240:170;
+  const pad=12, boxW=w-2*pad, boxH=h-2*pad;
+  const g=scene.add.graphics();
+  g.fillStyle(0x000000,0.24).fillRoundedRect(4,6,w,h,10);
+  g.fillStyle(CARD_BG,1).fillRoundedRect(0,0,w,h,10);
+  g.lineStyle(2,CARD_BORDER,0.95).strokeRoundedRect(2,2,w-4,h-4,8);
+  const img=scene.add.image(0,0,key).setOrigin(0.5);
+  const tex=scene.textures.get(key)?.getSourceImage();
+  const iW=(tex?.width)||boxW, iH=(tex?.height)||boxH;
+  const sx=boxW/iW, sy=boxH/iH;
+  const s=Math.min(sx,sy);
+  img.setScale(s);
+  img.x=pad+boxW/2;
+  img.y=pad+boxH/2;
+  const inner=[g,img];
+  if(!isAnswer && label){
+    const lt=scene.add.text(10,h-10,label+".",{font:"bold 22px Arial",fill:"#fff",stroke:"#000",strokeThickness:5}).setOrigin(0,1);
+    inner.push(lt);
+  }
+  const cont=scene.add.container(0,0,inner);
+  cont.setSize(w,h);
+  cont.setInteractive(new Phaser.Geom.Rectangle(0,0,w,h),Phaser.Geom.Rectangle.Contains);
+  cont.input.useHandCursor=true;
+  cont.__inner=cont;
+  cont.__w=w; cont.__h=h;
+  return cont;
+}
+
+/* ================= 視覺效果 ================= */
+function fxCorrect(scene, card){
+  const b=card.getBounds();
+  const cx=b.centerX, cy=b.centerY;
+  const flash=scene.add.rectangle(cx,cy,b.width+20,b.height+20,0xffff00,0.7).setDepth(50);
+  for(let i=0;i<3;i++){
+    const ring=scene.add.circle(cx,cy,10+i*15,0x00ff88,0.7-i*0.2).setDepth(51);
+    scene.tweens.add({targets:ring,radius:80+i*20,alpha:0,duration:360+i*110,ease:'Sine.easeOut',onComplete:()=>ring.destroy()});
+  }
+  scene.tweens.add({targets:flash,alpha:0,scaleX:1.3,scaleY:1.3,duration:260,onComplete:()=>flash.destroy()});
+  scene.tweens.add({targets:card.__inner,scaleX:1.15,scaleY:1.15,duration:120,yoyo:true,ease:'Back.easeOut'});
+  if(scene.textures.exists('pt')){
+    const emitter=scene.add.particles('pt').createEmitter({
+      x:cx,y:cy,
+      speed:{min:-220,max:220},
+      angle:{min:0,max:360},
+      gravityY:450,
+      lifespan:600,
+      scale:{start:1.1,end:0},
+      quantity:18,
+      tint:[0xffff66,0x00ff99,0xffffff]
+    });
+    scene.time.delayedCall(620,()=>emitter.stop());
+  }
+}
+function fxWrong(scene,card){
+  const b=card.getBounds();
+  const cx=b.centerX, cy=b.centerY;
+  scene.cameras.main.shake(160,0.006);
+  const overlay=scene.add.rectangle(cx,cy,b.width+6,b.height+6,0xff0000,0.5).setDepth(60);
+  const cross=(dx,dy)=>{
+    const g=scene.add.graphics().setDepth(61);
+    g.lineStyle(7,0xff0000,0.85);
+    g.beginPath(); g.moveTo(cx-dx,cy-dy); g.lineTo(cx+dx,cy+dy); g.strokePath();
+    return g;
+  };
+  const c1=cross(b.width*0.28,b.height*0.28);
+  const c2=cross(b.width*0.28,-b.height*0.28);
+  scene.tweens.add({
+    targets:[overlay,c1,c2],
+    alpha:0,
+    delay:260,
+    duration:160,
+    onComplete:()=>{overlay.destroy();c1.destroy();c2.destroy();}
+  });
+  scene.tweens.add({
+    targets:card,
+    x:card.x+5,
+    duration:60,yoyo:true,repeat:2,ease:'Sine.easeInOut'
+  });
+}
+
+/* ================= Boot 場景 ================= */
+class SceneBoot extends Phaser.Scene{
+  constructor(){super('boot');}
+  create(){
+    this.cameras.main.setBackgroundColor('#000');
+    this.statusText=this.add.text(GAME_W/2,GAME_H/2,TEXTS.loading,{
+      font:"bold 32px Arial",fill:"#ffffff",stroke:"#000000",strokeThickness:6
+    }).setOrigin(0.5);
+    this.prepareGame();
+  }
+  async prepareGame(){
+    try{
+      initSimilarityPipeline();
+      this.statusText.setText("準備資源中...");
+      const res=await fetch('/api/games/school/images');
+      if(!res.ok) throw new Error(`圖片列表取得失敗 (${res.status})`);
+      let list=await res.json();
+      list=[...new Set(list)];
+      if(!list || list.length<8){
+        throw new Error(TEXTS.insufficientImages);
+      }
+      ALL_IMAGES=list;
+      IMG_KEYS=ALL_IMAGES.map((_,i)=>`im_${i}`);
+      KEY_URL_MAP.clear();
+      IMG_KEYS.forEach((key,idx)=>KEY_URL_MAP.set(key,ALL_IMAGES[idx]));
+      await this.preloadImages();
+      this.statusText.setText("遊戲加載中...");
+      const progressTimer=this.time.addEvent({
+        delay:120,
+        loop:true,
+        callback:()=>{
+          const pct=Math.floor((similarityTierSystem.progress||0)*100);
+          this.statusText.setText(`遊戲加載中... ${pct}%`);
+        }
+      });
+      await similarityTierSystem.buildTiersAsync(this, IMG_KEYS);
+      progressTimer.remove(false);
+      this.statusText.setText("分析完成");
+      this.scene.start('menu');
+      this.scene.stop();
+    }catch(err){
+      console.error('[G1-2] Boot failed',err);
+      this.statusText.setText(err.message);
+      this.add.text(GAME_W/2,GAME_H/2+40,"請刷新頁面或稍後再試。",{
+        font:"20px Arial",fill:"#ffffff",stroke:"#000000",strokeThickness:4
+      }).setOrigin(0.5);
+    }
+  }
+  preloadImages(){
+    return new Promise((resolve,reject)=>{
+      let queued=0;
+      KEY_URL_MAP.forEach((url,key)=>{
+        if(!this.textures.exists(key)){
+          this.load.image(key,url);
+          queued++;
+        }
+      });
+      if(queued===0){
+        resolve();
+        return;
+      }
+      const onProgress=value=>{
+        const pct=Math.floor(value*100);
+        this.statusText.setText(`資源載入中... ${pct}%`);
+      };
+      const cleanup=()=>{
+        this.load.off(Phaser.Loader.Events.PROGRESS,onProgress);
+      };
+      const onComplete=()=>{
+        cleanup();
+        resolve();
+      };
+      const onError=file=>{
+        cleanup();
+        reject(new Error(`資源載入失敗：${file.key}`));
+      };
+      this.load.on(Phaser.Loader.Events.PROGRESS,onProgress);
+      this.load.once(Phaser.Loader.Events.COMPLETE,onComplete);
+      this.load.once(Phaser.Loader.Events.FILE_LOAD_ERROR,onError);
+      this.load.start();
+    });
+  }
+}
+
+/* ================= 選單場景 ================= */
+class SceneMenu extends Phaser.Scene{
+  constructor(){super('menu');}
+  preload(){
+    IMG_KEYS.forEach(key=>{
+      if(!this.textures.exists(key)){
+        const url=KEY_URL_MAP.get(key);
+        if(url){ this.load.image(key,url); }
+      }
+    });
+    const g=this.make.graphics({x:0,y:0,add:false});
+    g.fillStyle(0xffffff,1).fillCircle(4,4,4);
+    g.generateTexture('pt',8,8); g.destroy();
+  }
+  create(){
+    this.cameras.main.setBackgroundColor('#000');
+    makePanelBackground(this);
+    makeText(this,84,64,TEXTS.title,{
+      font:"bold 48px Arial",fill:"#fff",stroke:"#000",strokeThickness:8,lineSpacing:-8
+    });
+    const play=makeButton(this,GAME_W/2-120,GAME_H/2+40,"開始");
+    const help=makeButton(this,GAME_W/2+120,GAME_H/2+40,"玩法");
+
+    this.input.on('pointerdown',(raw)=>{
+      const map=this.mapPointer||createPointerMapper(this.game);
+      const p=map(raw.event);
+      const hit=btn=>Phaser.Geom.Rectangle.Contains(btn.getBounds(),p.x,p.y);
+      if(hit(play)) this.scene.start('game');
+      else if(hit(help)) this.showHelp();
+    });
+    this.mapPointer=createPointerMapper(this.game);
+  }
+  showHelp(){
+    const dim=this.add.rectangle(GAME_W/2,GAME_H/2,GAME_W,GAME_H,0x000000,0.7).setDepth(900).setInteractive();
+    const panel=this.add.rectangle(GAME_W/2,GAME_H/2,600,520,0xffffff,1).setDepth(901).setStrokeStyle(4,0x4a90e2);
+    const titleBar=this.add.rectangle(GAME_W/2,GAME_H/2-240,600,60,0x4a90e2,1).setDepth(901);
+    const title=makeText(this,GAME_W/2,GAME_H/2-240,"遊戲玩法",{font:"bold 32px Arial",fill:"#fff"}).setOrigin(0.5).setDepth(902);
+    const goalHdr=makeText(this,GAME_W/2-270,GAME_H/2-190,"【遊戲目標】",{font:"bold 24px Arial",fill:"#4a90e2"}).setDepth(902);
+    const goalTxt=makeText(this,GAME_W/2-270,GAME_H/2-150,TEXTS.help_goal,{font:"20px Arial",fill:"#333"}).setDepth(902);
+    const ruleHdr=makeText(this,GAME_W/2-270,GAME_H/2-110,"【遊戲規則】",{font:"bold 24px Arial",fill:"#4a90e2"}).setDepth(902);
+    const ruleTexts=[];
+    TEXTS.help_rules.forEach((r,i)=>{
+      ruleTexts.push(makeText(this,GAME_W/2-270,GAME_H/2-70+i*32,r,{font:"20px Arial",fill:"#333"}).setDepth(902));
+    });
+    const varHdr=makeText(this,GAME_W/2-270,GAME_H/2+70,"【提示】",{font:"bold 24px Arial",fill:"#e6a23c"}).setDepth(902);
+    const varTxt=makeText(this,GAME_W/2-270,GAME_H/2+110,"後期選項會越來越相似，請專注細節！",{
+      font:"18px Arial",fill:"#333",wordWrap:{width:560}
+    }).setDepth(902);
+    const okBtn=this.add.rectangle(GAME_W/2,GAME_H/2+224,160,60,0xe56e5b,1).setDepth(902).setInteractive().setStrokeStyle(2,0xffffff);
+    const okTxt=makeText(this,GAME_W/2,GAME_H/2+224,"知道了",{font:"bold 24px Arial",fill:"#fff"}).setOrigin(0.5).setDepth(903);
+    const all=[dim,panel,titleBar,title,goalHdr,goalTxt,ruleHdr,...ruleTexts,varHdr,varTxt,okBtn,okTxt];
+    all.forEach(el=>{el.alpha=0; el.y+=20;});
+    this.tweens.add({targets:all,alpha:1,y:"-=20",duration:240,stagger:25,ease:'Quad.out'});
+    okBtn.on('pointerdown',()=>{this.tweens.add({targets:all,alpha:0,duration:180,onComplete:()=>all.forEach(o=>o.destroy())});});
+  }
+}
+
+/* ================= 遊戲場景 ================= */
+class SceneGame extends Phaser.Scene{
+  constructor(){super('game');}
+  init(){
+    this.ddm=new EnhancedDifficultyManager(0.5);
+    this.round=0;
+    this.score=0;
+    this.lives=START_LIVES;
+    this.state='idle';
+    this.answerKey=null;
+    this.answerIndex=-1;
+    this.options=[];
+    this.lastClickAt=0;
+    this.sessionId=`mem_${Date.now()}`;
+    this.history=[];
+    this.tempKeys=[];
+    this.hoverIndex=-1;
+    this.currentDifferenceType = null;
+  }
+  preload(){
+    IMG_KEYS.forEach(key=>{
+      if(!this.textures.exists(key)){
+        const url=KEY_URL_MAP.get(key);
+        if(url){ this.load.image(key,url); }
+      }
+    });
+    if(!this.textures.exists('pt')){
+      const g=this.make.graphics({x:0,y:0,add:false});
+      g.fillStyle(0xffffff,1).fillCircle(4,4,4);
+      g.generateTexture('pt',8,8); g.destroy();
+    }
+  }
+  
+  create(){
+    this.cameras.main.setBackgroundColor('#000');
+    makePanelBackground(this);
+    this.mapPointer=createPointerMapper(this.game);
+    this.hudG=this.add.graphics().setDepth(20);
+    this.hudText=this.add.text(SAFE+8,SAFE-2,"",{font:"bold 18px Arial",fill:"#fff",stroke:"#000",strokeThickness:4}).setDepth(21);
+    this.titleText=this.add.text(SAFE+8,SAFE+20,"記憶挑戰 第1題",{font:"bold 32px Arial",fill:"#fff",stroke:"#000",strokeThickness:6});
+    this.scoreText=this.add.text(SAFE+8,SAFE+56,`${TEXTS.score}: 0`,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6});
+    this.lifeText=this.add.text(SAFE+240,SAFE+56,`${TEXTS.lives}: ${this.lives}`,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6});
+    this.phaseText=this.add.text(GAME_W/2,SAFE+58,"",{font:"bold 28px Arial",fill:"#ffd166",stroke:"#000",strokeThickness:6}).setOrigin(0.5).setDepth(25);
+    this.backBtn=makeButton(this,GAME_W-SAFE-90,SAFE+96,"回主頁").setDepth(30);
+
+    this.input.on('pointerdown',(raw)=>{
+      if(this.state==='feedback' || this.state==='end') return;
+      const now=performance.now();
+      if(now-this.lastClickAt<MIN_CLICK_GAP_MS) return;
+      this.lastClickAt=now;
+      const p=this.mapPointer(raw.event);
+      if(Phaser.Geom.Rectangle.Contains(this.backBtn.getBounds(),p.x,p.y)){
+        this.askBackHome(); return;
+      }
+      if(this.state!=='choose') return;
+      let hit=-1;
+      for(let i=0;i<this.options.length;i++){
+        if(Phaser.Geom.Rectangle.Contains(this.options[i].getBounds(),p.x,p.y)){ hit=i; break; }
+      }
+      if(hit>=0) this.pick(hit);
+    });
+
+    this.input.on('pointermove',(raw)=>{
+      if(this.state!=='choose') return;
+      const p=this.mapPointer(raw.event);
+      let idx=-1;
+      for(let i=0;i<this.options.length;i++){
+        if(Phaser.Geom.Rectangle.Contains(this.options[i].getBounds(),p.x,p.y)){idx=i;break;}
+      }
+      if(idx===this.hoverIndex) return;
+      this.hoverIndex=idx;
+      for(let i=0;i<this.options.length;i++){
+        const c=this.options[i];
+        this.tweens.add({
+          targets:c.__inner,
+          scaleX: i===idx?1.06:1.0,
+          scaleY: i===idx?1.06:1.0,
+          duration:100,
+          ease:'Quad.easeOut'
+        });
+      }
+    });
+
+    this.drawHUD();
+    this.startRound();
+  }
+
+  drawHUD(){
+    const d=this.ddm.d;
+    const similarity = this.ddm.getCurrentSimilarityTarget();
+    const tierStatus = similarityTierSystem.initialized ? "Tier✓" : 
+                      similarityTierSystem.initializing ? "Tier⏳" : "Tier✗";
+    
+    const x=SAFE+6,y=SAFE+4,w=320,h=12;
+    this.hudText.setText(`${TEXTS.difficulty} d=${d.toFixed(2)} s=${similarity.toFixed(2)} ${tierStatus}`);
+    this.hudG.clear();
+    this.hudG.fillStyle(0x000000,0.35).fillRoundedRect(x-2,y-2,w+4,h+4,6);
+    this.hudG.lineStyle(2,0xffffff,1).strokeRoundedRect(x,y,w,h,6);
+    const ratio=Phaser.Math.Clamp((d-0.1)/(0.95-0.1),0,1);
+    this.hudG.fillStyle(0xffd166,1).fillRoundedRect(x+1,y+1,(w-2)*ratio,h-2,5);
+  }
+
+  exposureTime(){return Phaser.Math.Linear(EXPOSURE_MAX,EXPOSURE_MIN,this.ddm.d);}
+  blankTime(){return Phaser.Math.Linear(BLANK_MAX,BLANK_MIN,this.ddm.d);}
+  optionCount(){
+    if(this.round<6) return 4;
+    if(this.round<12) return this.ddm.d>0.45?6:4;
+    if(this.round<18) return 6;
+    return this.ddm.d>0.75?8:6;
+  }
+
+  startRound(){
+    if(this.lives<=0 || this.round>=TARGET_ROUNDS){ this.finish(); return; }
+    this.round++;
+    this.answerKey=rp(IMG_KEYS);
+    this.titleText.setText(`記憶挑戰 第${this.round}題`);
+    this.phaseText.setText(TEXTS.memorizing).setFill("#ffd166");
+    this.drawHUD();
+    if(this.answerSprite) this.answerSprite.destroy();
+    this.answerSprite=this.add.image(GAME_W/2,GAME_H/2-20,this.answerKey).setDepth(10);
+    const tex=this.textures.get(this.answerKey).getSourceImage();
+    const maxW=360,maxH=300;
+    const ratio=Math.min(maxW/(tex.width||maxW), maxH/(tex.height||maxH));
+    this.answerSprite.setScale(ratio);
+    const ring=this.add.graphics().setDepth(9);
+    ring.lineStyle(4,0xffffff,0.85).strokeRoundedRect(
+      this.answerSprite.x-this.answerSprite.displayWidth/2-12,
+      this.answerSprite.y-this.answerSprite.displayHeight/2-12,
+      this.answerSprite.displayWidth+24,
+      this.answerSprite.displayHeight+24,16
+    );
+    this.tweens.add({targets:ring,alpha:0.2,yoyo:true,repeat:-1,duration:900});
+    this.state='show';
+    const exp=this.exposureTime();
+    this.time.delayedCall(exp*1000,()=>{
+      ring.destroy();
+      this.answerSprite.setVisible(false);
+      this.enterBlank();
+    });
+  }
+
+  enterBlank(){
+    this.state='blank';
+    this.phaseText.setText(TEXTS.blank).setFill("#ffffff");
+    const dur=this.blankTime();
+    const start=performance.now();
+    const txt=this.add.text(GAME_W/2,GAME_H/2-10,"",{font:"bold 80px Arial",fill:"#fff",stroke:"#000",strokeThickness:10}).setOrigin(0.5).setDepth(20);
+    const hint=this.add.text(GAME_W/2,GAME_H/2+80,"即將出現選項",{font:"bold 24px Arial",fill:"#fff",stroke:"#000",strokeThickness:6}).setOrigin(0.5).setDepth(20);
+    const barG=this.add.graphics().setDepth(20);
+    const timerEvent=this.time.addEvent({
+      delay:80, loop:true, callback:()=>{
+        const t=(performance.now()-start)/1000;
+        const left=Math.max(0,dur-t);
+        txt.setText(Math.ceil(left).toString());
+        const prog=Phaser.Math.Clamp(t/dur,0,1);
+        barG.clear();
+        const w=440,h=24,x=GAME_W/2-w/2,y=GAME_H/2+140;
+        barG.fillStyle(0x000000,0.35).fillRoundedRect(x-2,y-2,w+4,h+4,10);
+        barG.lineStyle(2,0xffffff,1).strokeRoundedRect(x,y,w,h,10);
+        barG.fillStyle(0x3ac66e,1).fillRoundedRect(x+1,y+1,(w-2)*(1-prog),h-2,8);
+      }
+    });
+    this.time.delayedCall(dur*1000,()=>{
+      timerEvent.remove(false);
+      txt.destroy(); hint.destroy(); barG.destroy();
+      this.showOptions();
+    });
+  }
+
+  calcLayout(count){
+    const cols=(count<=4)?4:(count===6?3:4);
+    const rows=Math.ceil(count/cols);
+    const base=(count<=4)?{w:210,h:170,g:30}:(count===6?{w:200,h:160,g:26}:{w:190,h:150,g:24});
+    const top=SAFE+150;
+    const bottom=GAME_H-SAFE-40;
+    const availH=Math.max(160,bottom-top);
+    const availW=GAME_W-SAFE*2;
+    let {w,h,g}=base;
+    let gridW=cols*w+(cols-1)*g;
+    let gridH=rows*h+(rows-1)*g;
+    if(gridH>availH){
+      const s=Math.min(1,(availH-6)/gridH);
+      w=Math.floor(w*s); h=Math.floor(h*s); g=Math.floor(g*s);
+      gridW=cols*w+(cols-1)*g; gridH=rows*h+(rows-1)*g;
+    }
+    if(gridW>availW){
+      const s=Math.min(1,(availW-6)/gridW);
+      w=Math.floor(w*s); h=Math.floor(h*s); g=Math.floor(g*s);
+      gridW=cols*w+(cols-1)*g; gridH=rows*h+(rows-1)*g;
+    }
+    const originX=(GAME_W-gridW)/2;
+    const originY=top+(availH-gridH)/2;
+    return {cols,rows,cellW:w,cellH:h,gap:g,originX,originY};
+  }
+
+  async showOptions(){
+    this.state='choose';
+    const count=this.optionCount();
+    let phase=TEXTS.choose;
+    if(count===6) phase+=" (進階)";
+    else if(count>=8) phase+=" (挑戰)";
+    this.phaseText.setText(phase).setFill("#00ffb3");
+
+    let pool=IMG_KEYS.filter(k=>k!==this.answerKey);
+    shuffle(pool);
+
+    let differenceTypes = Object.values(VISUAL_DIFFERENCE_TYPES);
+    if (this.ddm.shouldIntroduceNewDifferenceType()) {
+      const unusedTypes = Object.values(VISUAL_DIFFERENCE_TYPES).filter(
+        type => !this.ddm.differenceTypesUsed.has(type)
+      );
+      if (unusedTypes.length > 0) {
+        differenceTypes = [unusedTypes[0], ...differenceTypes.slice(0, 2)];
+        this.currentDifferenceType = unusedTypes[0];
+      }
+    }
+
+    const distractorCount=count-1;
+    let distractors;
+    
+    const dynamicThreshold = this.ddm.getDynamicThreshold();
+    if(this.ddm.d >= dynamicThreshold && window.SimilarityPipeline){
+      
+      if (similarityTierSystem.initialized) {
+        distractors = similarityTierSystem.getSimilarImages(
+          this.answerKey, 
+          this.ddm.d, 
+          distractorCount
+        );
+        if (distractors.length < distractorCount) {
+          const fallbackPool = pool.filter(k=>!distractors.includes(k));
+          shuffle(fallbackPool);
+          distractors.push(...fallbackPool.slice(0, distractorCount - distractors.length));
+        }
+      } else if (similarityTierSystem.initializing) {
+        distractors = similarityTierSystem.getSimilarImagesLightweight(
+          this, this.answerKey, pool, distractorCount, this.ddm.d
+        );
+      } else {
+        distractors = selectOptimalSimilarity(
+          this, this.answerKey, pool, distractorCount, this.ddm.d, differenceTypes
+        );
+      }
+      
+    } else {
+      distractors = pool.slice(0, distractorCount);
+    }
+
+    let opts=[this.answerKey, ...distractors];
+
+    if(
+      VARIANT_ENABLE &&
+      this.ddm.d>0.35 &&
+      window.SimilarityPipeline &&
+      typeof SimilarityPipeline.generateVariants==='function'
+    ){
+      const maxVariantSlots=Math.min(Math.floor(this.ddm.d*count*0.45), distractorCount);
+      const replaceStart=1;
+      const replaceIndices=[];
+      for(let i=0;i<maxVariantSlots;i++){
+        const idx=replaceStart + i;
+        if(idx < opts.length) replaceIndices.push(idx);
+      }
+      
+      if(CV_FEATURE.enabled){
+        this.generateVariantsAsync(replaceIndices, opts);
+      }
+    }
+
+    shuffle(opts);
+    this.answerIndex=opts.indexOf(this.answerKey);
+    const layout=this.calcLayout(count);
+    const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+
+    this.options.forEach(o=>o.destroy());
+    this.options=[];
+
+    for(let i=0;i<count;i++){
+      const r=(i/layout.cols)|0, c=i%layout.cols;
+      const x=layout.originX + c*(layout.cellW+layout.gap);
+      const y=layout.originY + r*(layout.cellH+layout.gap);
+      const key=opts[i];
+      const card=makeCard(this,key,false,letters[i]);
+      card.x=x; card.y=y; card.setDepth(10);
+      card.setScale(0.9);
+      card.alpha=0;
+      this.tweens.add({
+        targets:card,
+        alpha:{from:0,to:1},
+        scaleX:{from:0.9,to:1},
+        scaleY:{from:0.9,to:1},
+        duration:260,
+        delay: i*40,
+        ease:'Back.out'
+      });
+      this.options.push(card);
+    }
+
+    this.chooseStart=performance.now();
+  }
+
+  async generateVariantsAsync(replaceIndices, opts) {
+    for(const idx of replaceIndices){
+      try{
+        const variants=await SimilarityPipeline.generateVariants(this,this.answerKey,1,this.ddm.d);
+        if(variants && variants[0]){
+          this.tempKeys.push(variants[0]);
+        }
+      }catch(e){ }
+    }
+  }
+
+  pick(idx){
+    if(this.state!=='choose') return;
+    this.state='feedback';
+    const rt=performance.now()-this.chooseStart;
+    const correct=(idx===this.answerIndex);
+    
+    let differenceType = null;
+    if (correct && this.currentDifferenceType) {
+      differenceType = this.currentDifferenceType;
+    }
+    
+    this.ddm.immediate(correct,rt);
+    if(correct){
+      fxCorrect(this,this.options[idx]);
+      this.score+=10;
+      this.history.push({round:this.round,correct:true,rt,differenceType});
+      this.ddm.record(true,rt, differenceType);
+    }else{
+      fxWrong(this,this.options[idx]);
+      this.score-=5;
+      this.lives--;
+      this.history.push({round:this.round,correct:false,rt,differenceType});
+      this.ddm.record(false,rt, differenceType);
+      if(this.lives<=0){
+        this.time.delayedCall(520,()=>this.finish());
+      }
+    }
+    this.scoreText.setText(`${TEXTS.score}: ${this.score}`);
+    this.lifeText.setText(`${TEXTS.lives}: ${this.lives}`);
+    this.drawHUD();
+    this.time.delayedCall(380,()=>{
+      if(this.state==='end') return;
+      if(this.lives>0 && this.round < TARGET_ROUNDS){
+        this.options.forEach(o=>o.destroy());
+        this.options.length=0;
+        if(this.answerSprite){this.answerSprite.destroy();this.answerSprite=null;}
+        this.startRound();
+      }else{
+        this.finish();
+      }
+    });
+  }
+
+  medianRt(){
+    const rts=this.history.map(h=>h.rt).sort((a,b)=>a-b);
+    return rts[Math.floor(rts.length/2)]||0;
+  }
+
+  finish(){
+    if(this.state==='end') return;
+    this.state='end';
+    this.options.forEach(o=>o.destroy());
+    this.options.length=0;
+    if(this.answerSprite) this.answerSprite.destroy();
+
+    const acc=this.history.filter(h=>h.correct).length/Math.max(1,this.history.length);
+    const med=this.medianRt();
+    let grade="D", color="#dc3545";
+    const metric=0.55*acc + 0.45*(med<1700?1:(med<2300?0.8:0.6));
+    if(metric>=0.9){grade="A";color="#22c55e";}
+    else if(metric>=0.75){grade="B";color="#3b82f6";}
+    else if(metric>=0.6){grade="C";color="#f59e0b";}
+
+    const dim=this.add.rectangle(GAME_W/2,GAME_H/2,GAME_W,GAME_H,0x000000,0.55).setDepth(900);
+    const pane=this.add.graphics({x:GAME_W/2-300,y:GAME_H/2-180}).setDepth(901);
+    pane.fillStyle(0xffffff,1).fillRoundedRect(0,0,600,360,14);
+    pane.lineStyle(3,0x333333,1).strokeRoundedRect(0,0,600,360,14);
+
+    const titleTxt=(this.lives>0? "通關完成!" : "遊戲結束");
+    this.add.text(GAME_W/2,GAME_H/2-130,titleTxt,{font:"bold 42px Arial",fill:"#222"}).setOrigin(0.5).setDepth(902);
+    this.add.text(GAME_W/2,GAME_H/2-80,`題數 ${this.round} / ${TARGET_ROUNDS} | 分數 ${this.score} | 生命 ${this.lives}`,{font:"24px Arial",fill:"#333"}).setOrigin(0.5).setDepth(902);
+    this.add.text(GAME_W/2,GAME_H/2-25,`Grade: ${grade}`,{font:"bold 40px Arial",fill:color}).setOrigin(0.5).setDepth(902);
+    this.add.text(GAME_W/2,GAME_H/2+25,`正確率 ${(acc*100).toFixed(1)}% | 中位反應 ${(med/1000).toFixed(2)}s`,{font:"20px Arial",fill:"#444"}).setOrigin(0.5).setDepth(902);
+
+    const replay=makeButton(this,GAME_W/2-110,GAME_H/2+120,"重玩",180,70).setDepth(903);
+    const home=makeButton(this,GAME_W/2+110,GAME_H/2+120,"回主頁",180,70).setDepth(903);
+
+    const onDown=(raw)=>{
+      const p=this.mapPointer(raw.event);
+      if(Phaser.Geom.Rectangle.Contains(replay.getBounds(),p.x,p.y)){
+        this.input.off('pointerdown',onDown);
+        this.scene.restart();
+      }else if(Phaser.Geom.Rectangle.Contains(home.getBounds(),p.x,p.y)){
+        this.input.off('pointerdown',onDown);
+        window.location.href=SCHOOL_THEME_URL;
+      }
+    };
+    this.input.on('pointerdown',onDown);
+
+    logSession({
+      sessionId:this.sessionId,
+      timestamp:new Date().toISOString(),
+      rounds:this.round,
+      score:this.score,
+      lives:this.lives,
+      difficultyFinal:this.ddm.d,
+      similarityLevel: this.ddm.getCurrentSimilarityTarget(),
+      accuracy:acc,
+      medianRt:med,
+      history:this.history,
+      difficultyHistory:this.ddm.history,
+      differenceTypesUsed: Array.from(this.ddm.differenceTypesUsed),
+      cvEnabled:CV_FEATURE.enabled,
+      similarityTierEnabled: similarityTierSystem.initialized
+    });
+  }
+
+  askBackHome(){
+    if(this.state==='end') return;
+    const dim=this.add.rectangle(GAME_W/2,GAME_H/2,GAME_W,GAME_H,0x000000,0.55).setDepth(950).setInteractive();
+    const pane=this.add.graphics({x:GAME_W/2-260,y:GAME_H/2-120}).setDepth(960);
+    pane.fillStyle(0xffffff,1).fillRoundedRect(0,0,520,220,14);
+    pane.lineStyle(3,0x333333,1).strokeRoundedRect(0,0,520,220,14);
+    const t=this.add.text(GAME_W/2,GAME_H/2-40,TEXTS.confirmHome,{font:"28px Arial",fill:"#222"}).setOrigin(0.5).setDepth(961);
+    const yes=makeButton(this,GAME_W/2-90,GAME_H/2+60,TEXTS.yes).setDepth(961);
+    const no=makeButton(this,GAME_W/2+90,GAME_H/2+60,TEXTS.no).setDepth(961);
+    const close=()=>[dim,pane,t,yes,no].forEach(o=>o&&o.destroy());
+    const onDown=(raw)=>{
+      const p=this.mapPointer(raw.event);
+      if(Phaser.Geom.Rectangle.Contains(yes.getBounds(),p.x,p.y)){
+        this.input.off('pointerdown',onDown);
+        window.location.href=SCHOOL_THEME_URL;
+      }else if(Phaser.Geom.Rectangle.Contains(no.getBounds(),p.x,p.y)){
+        this.input.off('pointerdown',onDown);
+        close();
+      }
+    };
+    this.input.on('pointerdown',onDown);
+  }
+}
+
+/* ================= 啟動 ================= */
+function initGame(){
+  new Phaser.Game({
+    type:Phaser.WEBGL,
+    width:GAME_W,height:GAME_H,
+    parent:'game-container',
+    backgroundColor:'#000000',
+    scene:[SceneBoot,SceneMenu,SceneGame],
+    scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH,expandParent:true},
+    input:{activePointers:1,windowEvents:true},
+    render:{antialias:true,premultipliedAlpha:true},
+    loader:{baseURL:'',crossOrigin:'anonymous'}
+  });
+}
+initGame();
+</script>
+</body>
+</html>
