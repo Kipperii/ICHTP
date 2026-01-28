@@ -8,6 +8,10 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <!-- TFJS & MobileNet for SimilarityPipeline -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+    <script src="/static/lib/similarity-pipeline.js"></script>
     <style>
       html,
       body {
@@ -48,7 +52,7 @@
       const BONUS_ROUND_INTERVAL = 4; // 每幾關出現一次特別關
 
       // 返回超市主題頁的路徑
-      const PICNIC_THEME_URL = "/games/picnic";
+      const THEME_URL = "/games/picnic";
 
       const TEXTS = {
         loading: "載入中",
@@ -163,278 +167,6 @@
             timestamp: new Date().getTime(),
           });
         }
-      }
-
-      // ---------------- 變體生成（獨立效果） ----------------
-      function rgbToHsv(r, g, b) {
-        r /= 255;
-        g /= 255;
-        b /= 255;
-        const max = Math.max(r, g, b),
-          min = Math.min(r, g, b);
-        let h = 0,
-          s,
-          v = max,
-          d = max - min;
-        s = max === 0 ? 0 : d / max;
-        if (d !== 0) {
-          switch (max) {
-            case r:
-              h = (g - b) / d + (g < b ? 6 : 0);
-              break;
-            case g:
-              h = (b - r) / d + 2;
-              break;
-            case b:
-              h = (r - g) / d + 4;
-              break;
-          }
-          h /= 6;
-        }
-        return [h, s, v];
-      }
-
-      function avgColorOfImage(img) {
-        const s = 32,
-          c = document.createElement("canvas");
-        c.width = s;
-        c.height = s;
-        const ctx = c.getContext("2d");
-        ctx.drawImage(img, 0, 0, s, s);
-        const d = ctx.getImageData(0, 0, s, s).data;
-        let r = 0,
-          g = 0,
-          b = 0,
-          n = 0;
-        for (let i = 0; i < d.length; i += 4) {
-          r += d[i];
-          g += d[i + 1];
-          b += d[i + 2];
-          n++;
-        }
-        return `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(
-          b / n
-        )})`;
-      }
-
-      function genVariantCanvas(img, opts) {
-        const w = img.naturalWidth || img.width;
-        const h = img.naturalHeight || img.height;
-        const pad = Math.max(0, opts.cropPad | 0);
-
-        const c = document.createElement("canvas");
-        c.width = w;
-        c.height = h;
-        const ctx = c.getContext("2d", { willReadFrequently: true });
-        ctx.fillStyle = avgColorOfImage(img);
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.save();
-        const flipH = !!opts.flipH,
-          flipV = !!opts.flipV;
-        ctx.translate(flipH ? w : 0, flipV ? h : 0);
-        ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
-        ctx.drawImage(img, 0, 0);
-        ctx.restore();
-
-        if (opts.blendMode) {
-          const off = opts.overlapOffset || { x: 0, y: 0 };
-          ctx.globalCompositeOperation = opts.blendMode;
-          ctx.globalAlpha = Phaser.Math.Clamp(opts.blendAlpha ?? 0.5, 0.2, 0.9);
-          ctx.save();
-          const flipH2 = !flipH && Math.random() < 0.5;
-          const flipV2 = !flipV && Math.random() < 0.3;
-          ctx.translate(flipH2 ? w : 0, flipV2 ? h : 0);
-          ctx.scale(flipH2 ? -1 : 1, flipV2 ? -1 : 1);
-          ctx.drawImage(img, off.x, off.y);
-          ctx.restore();
-          ctx.globalCompositeOperation = "source-over";
-          ctx.globalAlpha = 1;
-        }
-
-        if (opts.hShift || opts.sMul) {
-          const id = ctx.getImageData(0, 0, w, h);
-          const data = id.data;
-          const hShift = (opts.hShift || 0) / 360;
-          const sMul = Phaser.Math.Clamp(opts.sMul ?? 1, 0.85, 1.15);
-          for (let i = 0; i < data.length; i += 4) {
-            if (data[i + 3] < 8) continue;
-            let [hh, ss, vv] = rgbToHsv(data[i], data[i + 1], data[i + 2]);
-            hh = (hh + hShift + 1) % 1;
-            ss = Math.max(0, Math.min(1, ss * sMul));
-            const h6 = hh * 6;
-            const hi = Math.floor(h6);
-            const f = h6 - hi;
-            const p = vv * (1 - ss);
-            const q = vv * (1 - ss * f);
-            const t = vv * (1 - ss * (1 - f));
-            let R, G, B;
-            switch (hi % 6) {
-              case 0:
-                R = vv;
-                G = t;
-                B = p;
-                break;
-              case 1:
-                R = q;
-                G = vv;
-                B = p;
-                break;
-              case 2:
-                R = p;
-                G = vv;
-                B = t;
-                break;
-              case 3:
-                R = p;
-                G = q;
-                B = vv;
-                break;
-              case 4:
-                R = t;
-                G = p;
-                B = vv;
-                break;
-              case 5:
-                R = vv;
-                G = p;
-                B = q;
-                break;
-            }
-            data[i] = Math.round(R * 255);
-            data[i + 1] = Math.round(G * 255);
-            data[i + 2] = Math.round(B * 255);
-          }
-          ctx.putImageData(id, 0, 0);
-        }
-
-        if (opts.blurPx && opts.blurPx > 0) {
-          const tmp = document.createElement("canvas");
-          tmp.width = w;
-          tmp.height = h;
-          const tctx = tmp.getContext("2d");
-          tctx.filter = `blur(${Phaser.Math.Clamp(opts.blurPx, 0, 4.5)}px)`; // 模糊上限提高
-          tctx.drawImage(c, 0, 0);
-          ctx.clearRect(0, 0, w, h);
-          ctx.drawImage(tmp, 0, 0);
-        }
-
-        if (pad > 0) {
-          const c2 = document.createElement("canvas");
-          c2.width = w;
-          c2.height = h;
-          const ctx2 = c2.getContext("2d");
-          ctx2.drawImage(c, pad, pad, w - 2 * pad, h - 2 * pad, 0, 0, w, h);
-          return c2;
-        }
-        return c;
-      }
-
-      function imageMSE(aCanvas, bImg) {
-        const w = 64,
-          h = 64;
-        const c = document.createElement("canvas");
-        c.width = w;
-        c.height = h;
-        const ctx = c.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(aCanvas, 0, 0, w, h);
-        const a = ctx.getImageData(0, 0, w, h).data;
-        ctx.clearRect(0, 0, w, h);
-        ctx.drawImage(bImg, 0, 0, w, h);
-        const b = ctx.getImageData(0, 0, w, h).data;
-        let mse = 0,
-          n = 0;
-        for (let i = 0; i < a.length; i += 4) {
-          const da = a[i] - b[i],
-            db = a[i + 1] - b[i + 1],
-            dc = a[i + 2] - b[i + 2];
-          mse += da * da + db * db + dc * dc;
-          n++;
-        }
-        return mse / Math.max(1, n);
-      }
-
-      async function makeAnswerVariantsAsync(
-        textures,
-        correctKey,
-        variantTypes,
-        d
-      ) {
-        const srcTex = textures.get(correctKey);
-        const srcImg = srcTex.getSourceImage();
-        const tasks = [];
-        const blendSet = [
-          "multiply",
-          "screen",
-          "overlay",
-          "difference",
-          "exclusion",
-        ];
-        const blurMax = Phaser.Math.Linear(4.0, 1.8, d); // 模糊上限提高
-
-        for (const type of variantTypes) {
-          tasks.push(
-            new Promise((resolve) => {
-              const opts = {
-                flipH: type.includes("flipH"),
-                flipV: type.includes("flipV"),
-                blurPx: type.includes("blur") ? Math.random() * blurMax : 0,
-                cropPad: type.includes("crop")
-                  ? Math.round(Math.random() * Phaser.Math.Linear(15, 5, d))
-                  : 0,
-                blendMode: type.includes("blend") ? rp(blendSet) : null,
-                blendAlpha: type.includes("blend")
-                  ? Phaser.Math.Clamp(
-                      Phaser.Math.Linear(0.8, 0.4, d) + Math.random() * 0.2,
-                      0.2,
-                      0.95
-                    )
-                  : 0,
-                overlapOffset: type.includes("blend")
-                  ? {
-                      x: (Math.random() * 2 - 1) * Phaser.Math.Linear(10, 3, d),
-                      y: (Math.random() * 2 - 1) * Phaser.Math.Linear(10, 3, d),
-                    }
-                  : { x: 0, y: 0 },
-                hShift: type.includes("color")
-                  ? (Math.random() * 2 - 1) * Phaser.Math.Linear(45, 15, d)
-                  : 0,
-                sMul: type.includes("color")
-                  ? 1 +
-                    (Math.random() * 2 - 1) * Phaser.Math.Linear(0.2, 0.08, d)
-                  : 1,
-              };
-              const c = genVariantCanvas(srcImg, opts);
-              const mse = imageMSE(c, srcImg);
-              if (mse < 40 || mse > 5000) {
-                resolve(null);
-                return;
-              }
-              const key =
-                "var:" +
-                Date.now() +
-                "-" +
-                Math.random().toString(36).slice(2, 7);
-              const url = c.toDataURL("image/png");
-              const im = new Image();
-              im.crossOrigin = "anonymous";
-              im.onload = () => {
-                try {
-                  if (!textures.exists(key)) textures.addImage(key, im);
-                  resolve(key);
-                } catch (e) {
-                  resolve(null);
-                }
-              };
-              im.onerror = () => resolve(null);
-              im.src = url;
-            })
-          );
-        }
-        const settled = await Promise.allSettled(tasks);
-        return settled
-          .map((x) => (x.status === "fulfilled" ? x.value : null))
-          .filter(Boolean);
       }
 
       // ---------------- UI ----------------
@@ -779,23 +511,37 @@
 
         return sessionData;
       }
-
+      
       // ---------------- 選單 ----------------
       class SceneMenu extends Phaser.Scene {
         constructor() {
           super("menu");
         }
         preload() {
-          this.add
-            .text(GAME_W / 2, GAME_H / 2, TEXTS.loading, {
+          this.loadingText = this.add
+            .text(GAME_W / 2, GAME_H / 2, TEXTS.loading + " 0%", {
               font: "28px Arial",
               fill: "#fff",
             })
             .setOrigin(0.5);
+
+          this.load.on('progress', (p) => {
+              const percent = Math.floor(p * 100);
+              if(this.loadingText) this.loadingText.setText(`${TEXTS.loading} ${percent}%`);
+          });
           // 使用動態獲取的圖片列表進行預加載
           ALL_IMAGES.forEach((src) => this.load.image(src, src));
         }
         async create() {
+          // Initialize AI Model
+          if (typeof SimilarityPipeline !== "undefined") {
+            try {
+              await SimilarityPipeline.loadAIModel();
+            } catch (e) {
+              console.warn("AI Model load failed", e);
+            }
+          }
+
           this.cameras.main.setBackgroundColor("#000");
           this.mapPointer = createPointerMapper(this.game);
 
@@ -1008,7 +754,7 @@
         }
       }
 
-      // ---------------- 遊戲場景 ----------------
+// ---------------- 遊戲場景 ----------------
       class SceneGame extends Phaser.Scene {
         constructor() {
           super("game");
@@ -1372,19 +1118,20 @@
 
           let distractors = [];
           if (isBonus) {
-            // 特別關：3個干擾都是獨立變體
-            const variantTypes = [
-              ["blur", "color"],
-              ["flipH", "blend"],
-              ["flipV", "crop"],
-            ];
-            shuffle(variantTypes);
-            let varKeys = await makeAnswerVariantsAsync(
-              this.textures,
-              correctKey,
-              variantTypes,
-              this.ddm.d
-            );
+            // 特別關：使用 AI 生成相似度變體
+            let varKeys = [];
+            if (typeof SimilarityPipeline !== "undefined") {
+              try {
+                 varKeys = await SimilarityPipeline.generateVariants(
+                    this,
+                    correctKey,
+                    3,
+                    this.ddm.d
+                 );
+              } catch(e) {
+                console.error("SimilarityPipeline error", e);
+              }
+            }
             this.tempKeys.push(...varKeys);
             distractors.push(...varKeys);
             // 若變體不足，補隨機
@@ -1604,7 +1351,7 @@
               this.input.off("pointerdown", onDown);
               this.unloadTempTextures();
               // 返回超市主題頁面而不是根目錄
-              window.location.href = PICNIC_THEME_URL;
+              window.location.href = THEME_URL;
             }
           };
           this.input.on("pointerdown", onDown);
@@ -1655,7 +1402,7 @@
               this.input.off("pointerdown", onDown);
               this.unloadTempTextures();
               // 返回超市主題頁面而不是根目錄
-              window.location.href = PICNIC_THEME_URL;
+              window.location.href = THEME_URL;
             } else if (
               Phaser.Geom.Rectangle.Contains(no.getBounds(), p.x, p.y)
             ) {

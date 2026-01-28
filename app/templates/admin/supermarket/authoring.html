@@ -259,11 +259,32 @@ select { padding:.55rem .6rem; border:1px solid var(--c-border); border-radius:8
 <!-- 導入 similarity-pipeline 供重複檢查 -->
 <script src="/static/lib/similarity-pipeline.js"></script>
 <script>
-const SCENES=[{value:'supermarket',label:'超級市場篇',implemented:true}];
-const GAMES={supermarket:[
+const SCENES=[
+  {value:'supermarket',label:'超級市場篇',implemented:true},
+  {value:'school',label:'學校篇',implemented:true},
+  {value:'home',label:'家中篇',implemented:true},
+  {value:'occupation',label:'職業篇',implemented:true},
+  {value:'sportcentre',label:'運動中心篇',implemented:true},
+  {value:'picnic',label:'野餐篇',implemented:true},
+  {value:'playground',label:'遊樂場篇',implemented:true},
+  {value:'restaurant',label:'餐廳篇',implemented:true}
+];
+
+const STD_GAMES = [
   {value:'find_same',label:'找出相同 (Find The Same)',implemented:true},
   {value:'memory',label:'考考你記性 (Test Your Memory)',implemented:true}
-]};
+];
+
+const GAMES={
+  supermarket: STD_GAMES,
+  school: STD_GAMES,
+  home: STD_GAMES,
+  occupation: STD_GAMES,
+  sportcentre: STD_GAMES,
+  picnic: STD_GAMES,
+  playground: STD_GAMES,
+  restaurant: STD_GAMES
+};
 const TARGET_W=218,TARGET_H=192,MAX_FILE_SIZE=2*1024*1024;
 const ACCEPT_TYPES=['image/png','image/jpeg'];
 const AUTO_RETRY_LIMIT=1;
@@ -409,9 +430,21 @@ function checkDuplicateProcessed(processed){
   return checkDuplicateCanvas(processed.canvas);
 }
 function buildEndpoints(s,g){
-  if(s==='supermarket'&&g==='find_same')
-    return {list:'/api/games/supermarket/images',upload:'/api/games/supermarket/upload',delete:'/api/games/supermarket/delete'};
-  return {list:`/api/games/${s}/${g}/images`,upload:`/api/games/${s}/${g}/upload`,delete:`/api/games/${s}/${g}/delete`};
+  // Unified endpoint logic:
+  // 'find_same' games typically use the theme root endpoints (e.g. /api/games/school/images)
+  // Other games (like 'memory') use specific sub-paths (e.g. /api/games/school/memory/images)
+  if(g==='find_same') {
+    return {
+      list:`/api/games/${s}/images`,
+      upload:`/api/games/${s}/upload`,
+      delete:`/api/games/${s}/delete`
+    };
+  }
+  return {
+    list:`/api/games/${s}/${g}/images`,
+    upload:`/api/games/${s}/${g}/upload`,
+    delete:`/api/games/${s}/${g}/delete`
+  };
 }
 function updateEndpoints(){
   const ep=buildEndpoints(CURRENT_SCENE,CURRENT_GAME);
@@ -423,20 +456,76 @@ function updateEndpoints(){
   $('impl-hint').textContent= (sm?.implemented&&gm?.implemented)?'已實作端點':'尚未實作後端端點 (上傳 / 刪除可能失敗)';
 }
 const sceneSelect=$('scene-select'),gameSelect=$('game-select');
+
+// 監聽 Apply 按鈕：這是切換場景的唯一起點
 $('btn-apply').addEventListener('click',()=>{
-  CURRENT_SCENE=sceneSelect.value;CURRENT_GAME=gameSelect.value;
-  updateEndpoints();libraryImages=[];galleryEl.innerHTML='<div class="empty">重新載入中...</div>';fetchLibrary();
+  CURRENT_SCENE = sceneSelect.value;
+  CURRENT_GAME = gameSelect.value;
+  
+  // 1. 更新後端 API 路徑
+  updateEndpoints();
+  
+  // 2. 清空現有列表並顯示載入中
+  libraryImages = [];
+  galleryEl.innerHTML = '<div class="empty">資料載入中...</div>';
+  
+  // 3. 抓取新資料
+  fetchLibrary();
+  
+  // 4. 視覺反饋
+  const btn = $('btn-apply');
+  const originText = btn.textContent;
+  btn.textContent = '已更新!';
+  setTimeout(() => btn.textContent = originText, 1000);
 });
-sceneSelect.addEventListener('change',()=>populateGames());
-function populateScenes(){
-  sceneSelect.innerHTML='';SCENES.forEach(s=>{const o=document.createElement('option');o.value=s.value;o.textContent=s.label+(s.implemented?'':' (待)');sceneSelect.appendChild(o);});
-  sceneSelect.value=CURRENT_SCENE;
+
+// 當改變場景下拉選單時，連動更新遊戲選單
+sceneSelect.addEventListener('change', () => populateScenesAndGames());
+
+function populateScenesAndGames(){
+  // 如果是第一次執行 (populateScenes 還沒跑過)，先填入場景
+  if(sceneSelect.options.length === 0) {
+      sceneSelect.innerHTML='';
+      SCENES.forEach(s=>{
+        const o=document.createElement('option');
+        o.value=s.value;
+        o.textContent=s.label+(s.implemented?'':' (待)');
+        sceneSelect.appendChild(o);
+      });
+      sceneSelect.value = CURRENT_SCENE;
+  }
+  
+  populateGames();
 }
+
 function populateGames(){
-  gameSelect.innerHTML='';(GAMES[sceneSelect.value]||[]).forEach(g=>{const o=document.createElement('option');o.value=g.value;o.textContent=g.label+(g.implemented?'':' (待)');gameSelect.appendChild(o);});
-  if(!(GAMES[sceneSelect.value]||[]).some(g=>g.value===CURRENT_GAME)){CURRENT_GAME=(GAMES[sceneSelect.value]||[])[0]?.value||'';}
-  gameSelect.value=CURRENT_GAME;
+  const sVal = sceneSelect.value;
+  const list = GAMES[sVal] || [];
+  
+  // 保存當前選中的遊戲(如果有的話)
+  const prevGame = gameSelect.value;
+  
+  gameSelect.innerHTML='';
+  list.forEach(g=>{
+    const o=document.createElement('option');
+    o.value=g.value;
+    o.textContent=g.label+(g.implemented?'':' (待)');
+    gameSelect.appendChild(o);
+  });
+  
+  // 嘗試恢復選取，若無效則選第一個
+  if(list.some(g => g.value === prevGame)){
+      gameSelect.value = prevGame;
+  } else if (list.length > 0) {
+      gameSelect.value = list[0].value;
+  }
 }
+
+// 初始化
+populateScenesAndGames();
+updateEndpoints();
+fetchLibrary();
+
 function fmtSize(b){if(b<1024)return b+'B';if(b<1024*1024)return (b/1024).toFixed(1)+'KB';return (b/1024/1024).toFixed(2)+'MB';}
 function nowTs(){return Date.now();}
 function uid(){return 'f_'+Math.random().toString(36).slice(2,9);}
