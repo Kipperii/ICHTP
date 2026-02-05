@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ICHTP Performance Benchmark Console</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@latest"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; }
+        .benchmark-section { margin-bottom: 30px; padding: 20px; background: #e8f0fe; border-radius: 8px; border: 1px solid #d2e3fc; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-right: 10px; transition: background 0.3s; }
+        .btn-primary { background: #1a73e8; color: white; }
+        .btn-primary:hover { background: #1557b0; }
+        .btn-danger { background: #dc3545; color: white; }
+        .log-box { background: #2d2d2d; color: #00ff00; padding: 15px; border-radius: 5px; font-family: 'Consolas', monospace; height: 300px; overflow-y: auto; margin-top: 20px; white-space: pre-wrap; }
+        .stat-card { display: inline-block; width: 200px; padding: 15px; margin: 10px; background: white; border: 1px solid #ddd; border-radius: 5px; text-align: center; }
+        .stat-val { font-size: 24px; font-weight: bold; color: #333; }
+        .stat-label { font-size: 12px; color: #666; text-transform: uppercase; }
+        .highlight { color: #ffff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ICHTP Performance Benchmark Console</h1>
+        <p>For Testing</p>
+
+        <div class="benchmark-section">
+            <h3>🚀 Performance Testing Suite</h3>
+            <p><strong>Step 1:</strong> Prepare a test image (Standard 512x512 recommended).</p>
+            <input type="file" id="testImage" accept="image/*">
+            <br><br>
+            
+            <button class="btn btn-danger" onclick="runWithoutAI()">1. Test Baseline (No AI)</button>
+            <button class="btn btn-primary" onclick="runColdStart()">2. Test AI Cold Start (Unoptimized)</button>
+            <button class="btn btn-primary" onclick="runWarmStart()">3. Test AI Warm Start (Optimized)</button>
+            
+            <div id="stats-display" style="margin-top: 20px;">
+                </div>
+        </div>
+
+        <h3>System Logs</h3>
+        <div class="log-box" id="consoleLog">System Ready... Waiting for image input.</div>
+
+        <canvas id="hiddenCanvas" style="display:none;"></canvas>
+    </div>
+
+    <script>
+        // --- Logger Utility ---
+        const logBox = document.getElementById('consoleLog');
+        function log(msg, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'red' : type === 'highlight' ? 'yellow' : '#00ff00';
+            logBox.innerHTML += `<span style="color:#888">[${time}]</span> <span style="color:${color}">${msg}</span>\n`;
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        // --- Shared State ---
+        let testCanvas = null;
+        let aiModel = null;
+
+        // --- Image Loader ---
+        document.getElementById('testImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const img = new Image();
+                img.onload = function() {
+                    const c = document.getElementById('hiddenCanvas');
+                    c.width = img.width;
+                    c.height = img.height;
+                    const ctx = c.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    testCanvas = c;
+                    log(`Image Loaded: ${file.name} (${img.width}x${img.height}px)`, 'highlight');
+                    log('Ready to run benchmarks.');
+                };
+                img.src = URL.createObjectURL(file);
+            }
+        });
+
+        // --- TEST 1: Baseline (Before Optimization / No AI) ---
+        // Simulates the pipeline speed before adding MobileNet
+        async function runWithoutAI() {
+            if (!testCanvas) return alert("Please upload an image first.");
+            
+            log("\n--- STARTING BASELINE TEST (NO AI) ---");
+            const start = performance.now();
+
+            // Simulate Traditional Pipeline (SSIM + Histogram + Hash)
+            // We use dummy calculations to simulate the CPU load of the old pipeline
+            for(let i=0; i<10; i++) {
+                dummyOldPipeline(testCanvas);
+            }
+
+            const end = performance.now();
+            const avgTime = (end - start) / 10;
+            
+            log(`Baseline Pipeline Average Time: ${avgTime.toFixed(2)} ms`);
+            updateStat('baseline', avgTime.toFixed(2) + ' ms', 'Baseline Latency');
+        }
+
+        // --- TEST 2: Cold Start (The Problem) ---
+        // Simulates entering the page and loading the model for the first time
+        async function runColdStart() {
+            if (!testCanvas) return alert("Please upload an image first.");
+            
+            // Force reset model to simulate "Page Refresh" or "First Visit"
+            if (aiModel) {
+                log("⚠️ Clearing cached model to simulate Cold Start...", 'error');
+                aiModel = null; 
+                // Note: tf.dispose() helps, but JS variable reset is enough to trigger reload logic here
+            }
+
+            log("\n--- STARTING COLD START TEST (UNOPTIMIZED) ---");
+            log("Simulating: User enters game page -> Script loads Model...");
+            
+            const startLoad = performance.now();
+            
+            // 1. Measure Loading Time (The Network/Parsing Bottleneck)
+            log("⏳ Loading MobileNet (Simulating Network/Parsing)...");
+            aiModel = await mobilenet.load({version: 2, alpha: 1.0});
+            
+            const endLoad = performance.now();
+            const loadTime = endLoad - startLoad;
+            
+            log(`❌ MODEL LOAD TIME: ${loadTime.toFixed(2)} ms`, 'error');
+            
+            // 2. Measure First Inference (Tensor Warmup)
+            const startInfer = performance.now();
+            const embedding = aiModel.infer(testCanvas, true);
+            embedding.dispose(); // Cleanup
+            const endInfer = performance.now();
+            const inferTime = endInfer - startInfer;
+
+            log(`❌ FIRST INFERENCE (Warmup): ${inferTime.toFixed(2)} ms`, 'error');
+            log(`TOTAL BLOCKING TIME: ${(loadTime + inferTime).toFixed(2)} ms`);
+
+            updateStat('cold_load', loadTime.toFixed(0) + ' ms', 'Model Load (Blocking)');
+            updateStat('cold_infer', inferTime.toFixed(0) + ' ms', 'First Inference');
+        }
+
+        // --- TEST 3: Warm Start (The Optimization) ---
+        // Simulates the "Singleton" pattern where model is already loaded
+        async function runWarmStart() {
+            if (!testCanvas) return alert("Please upload an image first.");
+            if (!aiModel) return alert("Please run Cold Start first to load the model.");
+
+            log("\n--- STARTING WARM START TEST (OPTIMIZED/SINGLETON) ---");
+            log("Simulating: Model cached in memory -> Using existing instance...");
+
+            const start = performance.now();
+            
+            // 1. Check if model exists (Instant)
+            if (aiModel) {
+                // 2. Run Inference (Should be fast now due to WebGL backend being ready)
+                const embedding = aiModel.infer(testCanvas, true);
+                embedding.dispose(); 
+            }
+
+            const end = performance.now();
+            const time = end - start;
+
+            log(`✅ OPTIMIZED LATENCY: ${time.toFixed(2)} ms`, 'highlight');
+            updateStat('warm_infer', time.toFixed(2) + ' ms', 'Optimized Inference');
+            
+            // Calculate Improvement
+            const coldLoadVal = parseFloat(document.getElementById('stat-val-cold_load')?.innerText || 0);
+            if(coldLoadVal > 0) {
+                 log(`🚀 Optimization Impact: User saves ~${coldLoadVal.toFixed(0)}ms of wait time.`);
+            }
+        }
+
+        // --- Dummy Functions & UI Utils ---
+        function dummyOldPipeline(canvas) {
+            // Simulate pixel manipulation cost
+            const ctx = canvas.getContext('2d');
+            const data = ctx.getImageData(0,0,64,64).data;
+            let sum = 0;
+            for(let i=0; i<data.length; i+=4) sum += data[i];
+            return sum;
+        }
+
+        function updateStat(id, value, label) {
+            let el = document.getElementById(`stat-card-${id}`);
+            if (!el) {
+                const container = document.getElementById('stats-display');
+                el = document.createElement('div');
+                el.className = 'stat-card';
+                el.id = `stat-card-${id}`;
+                el.innerHTML = `<div class="stat-val" id="stat-val-${id}"></div><div class="stat-label">${label}</div>`;
+                container.appendChild(el);
+            }
+            document.getElementById(`stat-val-${id}`).textContent = value;
+        }
+    </script>
+</body>
+</html>

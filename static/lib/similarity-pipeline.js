@@ -99,7 +99,15 @@
     isModelLoading = true;
     try{
       SP.aiModel = await mobilenet.load({version: 2, alpha: 1.0});
-      console.log('MobileNet loaded');
+      
+      // --- Performance Optimization: Warm Up ---
+      // Execute a dummy inference to compile WebGL shaders immediately.
+      // This prevents the "lag" (freeze) during the first gameplay interaction.
+      tf.tidy(() => {
+        const output = SP.aiModel.infer(tf.zeros([1, 224, 224, 3]), true);
+      });
+      console.log('MobileNet loaded & Warmed up (Performance Optimization Applied)');
+      
       return SP.aiModel;
     }catch(e){
       console.error('AI Model load failed', e);

@@ -536,7 +536,10 @@
           // Initialize AI Model
           if (typeof SimilarityPipeline !== "undefined") {
             try {
+              if(this.loadingText) this.loadingText.setText("正在啟動 AI 智能運算...");
+              // 這裡會觸發 Warm Start 優化 (Shader 編譯)，可能會稍微卡頓 1-2 秒
               await SimilarityPipeline.loadAIModel();
+              if(this.loadingText) this.loadingText.destroy();
             } catch (e) {
               console.warn("AI Model load failed", e);
             }
