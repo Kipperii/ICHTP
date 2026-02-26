@@ -269,6 +269,180 @@
         return a + (b - a) * Math.max(0, Math.min(1, t));
       }
 
+      // ============================================================
+      //  圖片相似度系統
+      //  在遊戲載入後，為所有圖片計算顏色特徵向量，
+      //  用於難度自適應的干擾項選擇。
+      // ============================================================
+      const SIM_CACHE = {
+        signatures: new Map(),   // imageKey → Float32Array (color histogram)
+        simMatrix: new Map(),    // "keyA|keyB" → similarity (0~1)
+        ranked: new Map(),       // imageKey → [{key, sim}] sorted desc
+        ready: false
+      };
+
+      // 從 Phaser texture 提取顏色直方圖特徵（不使用 getImageData，透過 RenderTexture）
+      function extractColorSignature(scene, imageKey) {
+        if (SIM_CACHE.signatures.has(imageKey)) return SIM_CACHE.signatures.get(imageKey);
+
+        // 使用 8x8 的 RenderTexture 取得平均顏色塊
+        const SIZE = 8;
+        const rt = scene.make.renderTexture({ width: SIZE, height: SIZE, add: false });
+        const img = scene.make.image({ key: imageKey, x: 0, y: 0, add: false }).setOrigin(0);
+        const srcW = img.width, srcH = img.height;
+        img.setDisplaySize(SIZE, SIZE);
+        rt.draw(img, 0, 0);
+
+        // 使用 snapshotPixel 取樣每個像素 — 但這是異步的
+        // 改用 canvas fallback: 直接從 Phaser 的 source image 繪製到小 canvas
+        const srcImg = scene.textures.get(imageKey).getSourceImage();
+        const c = document.createElement('canvas');
+        c.width = SIZE; c.height = SIZE;
+        const ctx = c.getContext('2d', { willReadFrequently: true });
+        const BINS = 8;
+        try {
+          ctx.drawImage(srcImg, 0, 0, SIZE, SIZE);
+          const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+
+          // 計算 RGB 直方圖 (每通道 8 bins = 24 維向量)
+          const hist = new Float32Array(BINS * 3);
+          const pixCount = SIZE * SIZE;
+          for (let i = 0; i < data.length; i += 4) {
+            const rBin = Math.min(BINS - 1, (data[i] / 256 * BINS) | 0);
+            const gBin = Math.min(BINS - 1, (data[i + 1] / 256 * BINS) | 0);
+            const bBin = Math.min(BINS - 1, (data[i + 2] / 256 * BINS) | 0);
+            hist[rBin]++;
+            hist[BINS + gBin]++;
+            hist[BINS * 2 + bBin]++;
+          }
+          // 歸一化
+          for (let i = 0; i < hist.length; i++) hist[i] /= pixCount;
+
+          // 加入平均顏色和亮度作為額外特徵 (共 28 維)
+          let avgR = 0, avgG = 0, avgB = 0, avgL = 0;
+          for (let i = 0; i < data.length; i += 4) {
+            avgR += data[i]; avgG += data[i + 1]; avgB += data[i + 2];
+            avgL += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+          }
+          const sig = new Float32Array(BINS * 3 + 4);
+          sig.set(hist);
+          sig[BINS * 3] = avgR / pixCount / 255;
+          sig[BINS * 3 + 1] = avgG / pixCount / 255;
+          sig[BINS * 3 + 2] = avgB / pixCount / 255;
+          sig[BINS * 3 + 3] = avgL / pixCount / 255;
+
+          SIM_CACHE.signatures.set(imageKey, sig);
+          rt.destroy();
+          img.destroy();
+          return sig;
+        } catch (e) {
+          // cross-origin fallback: 用隨機特徵（不影響遊戲，只是干擾項選擇退化為隨機）
+          const sig = new Float32Array(BINS * 3 + 4);
+          for (let i = 0; i < sig.length; i++) sig[i] = Math.random();
+          SIM_CACHE.signatures.set(imageKey, sig);
+          rt.destroy();
+          img.destroy();
+          return sig;
+        }
+      }
+
+      // 計算兩個特徵向量的餘弦相似度
+      function cosineSim(a, b) {
+        let dot = 0, normA = 0, normB = 0;
+        for (let i = 0; i < a.length; i++) {
+          dot += a[i] * b[i];
+          normA += a[i] * a[i];
+          normB += b[i] * b[i];
+        }
+        return dot / (Math.sqrt(normA) * Math.sqrt(normB) + 1e-8);
+      }
+
+      // 建立所有圖片的相似度排名
+      function buildSimilarityMatrix(scene) {
+        if (SIM_CACHE.ready) return;
+        console.time('buildSimilarityMatrix');
+
+        // 1. 提取所有特徵
+        for (const key of ALL_IMAGES) {
+          extractColorSignature(scene, key);
+        }
+
+        // 2. 為每張圖片計算與其他圖片的相似度並排序
+        for (const keyA of ALL_IMAGES) {
+          const sigA = SIM_CACHE.signatures.get(keyA);
+          const others = [];
+          for (const keyB of ALL_IMAGES) {
+            if (keyA === keyB) continue;
+            const pairKey = keyA < keyB ? `${keyA}|${keyB}` : `${keyB}|${keyA}`;
+            let sim;
+            if (SIM_CACHE.simMatrix.has(pairKey)) {
+              sim = SIM_CACHE.simMatrix.get(pairKey);
+            } else {
+              const sigB = SIM_CACHE.signatures.get(keyB);
+              sim = cosineSim(sigA, sigB);
+              SIM_CACHE.simMatrix.set(pairKey, sim);
+            }
+            others.push({ key: keyB, sim });
+          }
+          // 按相似度從高到低排序
+          others.sort((a, b) => b.sim - a.sim);
+          SIM_CACHE.ranked.set(keyA, others);
+        }
+
+        SIM_CACHE.ready = true;
+        console.timeEnd('buildSimilarityMatrix');
+        console.log(`Similarity matrix built for ${ALL_IMAGES.length} images`);
+      }
+
+      // 根據難度選擇干擾項
+      // d 低 → 隨機選（簡單）  d 高 → 選最相似的（困難）
+      function pickDistractors(correctKey, difficulty, count = 3) {
+        if (!SIM_CACHE.ready || !SIM_CACHE.ranked.has(correctKey)) {
+          // fallback: 隨機
+          const pool = ALL_IMAGES.filter(k => k !== correctKey);
+          shuffle(pool);
+          return pool.slice(0, count);
+        }
+
+        const ranked = SIM_CACHE.ranked.get(correctKey);
+        const d = Math.max(0, Math.min(1, difficulty));
+
+        // d=0: 從排名後 50% 中隨機挑 (不相似)
+        // d=0.5: 從排名前 60% 中隨機挑
+        // d=0.9+: 從排名前 20% 中挑最相似的（但排除完全相同的）
+        const topFraction = lerp(0.9, 0.15, d);
+        const poolSize = Math.max(count + 1, Math.ceil(ranked.length * topFraction));
+
+        // 排除相似度 > 0.999 的（幾乎完全相同的圖片）
+        const candidates = ranked.filter(r => r.sim < 0.999).slice(0, poolSize);
+
+        if (candidates.length <= count) {
+          return candidates.map(c => c.key);
+        }
+
+        // 從候選池中隨機選，但高難度時偏好更相似的
+        // 使用加權隨機：位置越前（越相似）權重越高
+        const selected = [];
+        const available = [...candidates];
+        for (let i = 0; i < count && available.length > 0; i++) {
+          // 難度越高，偏好指數越大
+          const bias = lerp(0.2, 2.0, d);
+          const weights = available.map((_, idx) =>
+            Math.pow(1 - idx / available.length, bias)
+          );
+          const totalW = weights.reduce((a, b) => a + b, 0);
+          let r = Math.random() * totalW;
+          let pick = 0;
+          for (let j = 0; j < weights.length; j++) {
+            r -= weights[j];
+            if (r <= 0) { pick = j; break; }
+          }
+          selected.push(available[pick].key);
+          available.splice(pick, 1);
+        }
+        return selected;
+      }
+
       // ---------------- UI ----------------
       function makeButton(scene, centerX, centerY, text) {
         const w = 180,
@@ -632,6 +806,9 @@
         }
         create() {
           if (this.loadingText) this.loadingText.destroy();
+
+          // 建立圖片相似度矩陣（用於難度自適應干擾項選擇）
+          buildSimilarityMatrix(this);
 
           this.cameras.main.setBackgroundColor("#000");
           this.mapPointer = createPointerMapper(this.game);
@@ -1144,10 +1321,8 @@
             this.qCard.__coverImg = coverImg;
           }
 
-          // 3 個隨機干擾圖（保證不重複）
-          const pool = ALL_IMAGES.filter((k) => k !== correctKey);
-          shuffle(pool);
-          const distractors = pool.slice(0, 3);
+          // 根據難度選擇干擾項：難度越高 → 干擾圖越相似
+          const distractors = pickDistractors(correctKey, this.ddm.d, 3);
 
           const letters = ["A", "B", "C", "D"];
           const totalW = 4 * 210 + 3 * 30;
