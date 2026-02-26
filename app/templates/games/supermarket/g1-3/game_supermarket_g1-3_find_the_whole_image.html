@@ -240,20 +240,6 @@
         }
         ctx.globalCompositeOperation = "source-over";
 
-        // --- 步驟 5：窗口邊框（白色描邊提示可見區域） ---
-        for (const win of windows) {
-          const r = Math.min(win.w, win.h) * 0.2;
-          ctx.save();
-          ctx.strokeStyle = "rgba(255,255,255,0.7)";
-          ctx.lineWidth = 2;
-          ctx.shadowColor = "rgba(0,0,0,0.3)";
-          ctx.shadowBlur = 4;
-          ctx.beginPath();
-          roundedRect(ctx, win.x, win.y, win.w, win.h, r);
-          ctx.stroke();
-          ctx.restore();
-        }
-
         // --- 建立 Phaser Texture（使用 addCanvas，同步且不涉及 toDataURL）---
         const key =
           "cover_" +
