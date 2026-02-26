@@ -165,26 +165,30 @@
       }
 
       // ============================================================
-      //  遮蓋圖片生成
-      //  將原圖大部份區域用色塊遮住，只露出若干「窗口」
-      //  difficulty 越高 → 可見窗口越少、越小
+      //  遮蓋層生成（cover-only，不含原圖）
+      //  只繪製色塊 + 網格 + 問號，窗口區域設為透明。
+      //  因為 Canvas 上不繪製任何外部圖片，所以不會觸發
+      //  cross-origin tainted canvas 問題。
+      //  使用 addCanvas 直接將 Canvas 元素註冊為 Phaser 貼圖，
+      //  避免 toDataURL + new Image 的非同步載入問題。
       //
-      //  注意：不使用 getImageData (會因 cross-origin tainted canvas 而失敗)
-      //  改為：覆蓋後直接用 clip + drawImage(srcImg) 挖洞
+      //  遊戲中：原圖由 Phaser Image 顯示在底層，
+      //          遮蓋層疊在上方，透明窗口可以看到原圖。
       // ============================================================
-      function generateMaskedTexture(scene, imageKey, difficulty) {
+      function generateCoverTexture(scene, imageKey, difficulty) {
         const tex = scene.textures.get(imageKey);
         if (!tex) return null;
-        const srcImg = tex.getSourceImage();
-        const w = srcImg.naturalWidth || srcImg.width || 200;
-        const h = srcImg.naturalHeight || srcImg.height || 200;
+        const frame = tex.get();
+        const w = frame.width;
+        const h = frame.height;
+        if (w <= 0 || h <= 0) return null;
 
         // 計算可見窗口數量與大小
         const d = Math.max(0.1, Math.min(0.95, difficulty));
         const numWindows = Math.max(2, Math.round(lerp(6, 2, d)));
         const windowSizeFactor = lerp(0.35, 0.14, d);
 
-        // 生成窗口位置（嘗試避免過度重疊）
+        // 生成窗口位置
         const windows = [];
         for (let i = 0; i < numWindows; i++) {
           const ww = Math.round(w * windowSizeFactor * (0.7 + Math.random() * 0.6));
@@ -198,36 +202,12 @@
         canvas.width = w;
         canvas.height = h;
         const ctx = canvas.getContext("2d");
-        const coverColor = "#6b6db0";
 
-        // --- 步驟 1：先畫原圖作為底層 ---
-        ctx.drawImage(srcImg, 0, 0, w, h);
+        // --- 步驟 1：填滿遮蓋色 ---
+        ctx.fillStyle = "#6b6db0";
+        ctx.fillRect(0, 0, w, h);
 
-        // --- 步驟 2：覆蓋整張圖，但 clip 出窗口不覆蓋 ---
-        // 使用 evenodd 填充規則：外框是整張圖，內部挖出窗口
-        ctx.save();
-        ctx.beginPath();
-        // 外框（順時針）= 整張圖
-        ctx.rect(0, 0, w, h);
-        // 窗口（逆時針）= 挖洞
-        for (const win of windows) {
-          const r = Math.min(win.w, win.h) * 0.2;
-          roundedRectCCW(ctx, win.x, win.y, win.w, win.h, r);
-        }
-        ctx.fillStyle = coverColor;
-        ctx.fill("evenodd");
-        ctx.restore();
-
-        // --- 步驟 3：在覆蓋區域上加紋理效果 ---
-        // 網格線（只畫在覆蓋區域上）
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(0, 0, w, h);
-        for (const win of windows) {
-          const r = Math.min(win.w, win.h) * 0.2;
-          roundedRectCCW(ctx, win.x, win.y, win.w, win.h, r);
-        }
-        ctx.clip("evenodd");
+        // --- 步驟 2：網格裝飾 ---
         ctx.strokeStyle = "rgba(255,255,255,0.1)";
         ctx.lineWidth = 1;
         for (let gx = 0; gx < w; gx += 20) {
@@ -242,15 +222,25 @@
           ctx.lineTo(w, gy);
           ctx.stroke();
         }
-        // 問號提示
+
+        // --- 步驟 3：問號提示 ---
         ctx.fillStyle = "rgba(255,255,255,0.08)";
         ctx.font = `bold ${Math.min(w, h) * 0.5}px Arial`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("?", w / 2, h / 2);
-        ctx.restore();
 
-        // --- 步驟 4：窗口邊框（白色描邊提示可見區域） ---
+        // --- 步驟 4：用 destination-out 挖出透明窗口 ---
+        ctx.globalCompositeOperation = "destination-out";
+        for (const win of windows) {
+          const r = Math.min(win.w, win.h) * 0.2;
+          ctx.beginPath();
+          roundedRect(ctx, win.x, win.y, win.w, win.h, r);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = "source-over";
+
+        // --- 步驟 5：窗口邊框（白色描邊提示可見區域） ---
         for (const win of windows) {
           const r = Math.min(win.w, win.h) * 0.2;
           ctx.save();
@@ -264,19 +254,17 @@
           ctx.restore();
         }
 
-        // --- 建立 Phaser Texture ---
+        // --- 建立 Phaser Texture（使用 addCanvas，同步且不涉及 toDataURL）---
         const key =
-          "masked_" +
+          "cover_" +
           Date.now() +
           "_" +
           Math.random().toString(36).slice(2, 7);
-        const img = new Image();
-        img.src = canvas.toDataURL("image/png");
-        scene.textures.addImage(key, img);
+        scene.textures.addCanvas(key, canvas);
         return key;
       }
 
-      // 順時針圓角矩形（用於 stroke / clip）
+      // 圓角矩形路徑
       function roundedRect(ctx, x, y, w, h, r) {
         r = Math.min(r, w / 2, h / 2);
         ctx.moveTo(x + r, y);
@@ -288,20 +276,6 @@
         ctx.quadraticCurveTo(x, y + h, x, y + h - r);
         ctx.lineTo(x, y + r);
         ctx.quadraticCurveTo(x, y, x + r, y);
-        ctx.closePath();
-      }
-
-      // 逆時針圓角矩形（用於 evenodd 挖洞）
-      function roundedRectCCW(ctx, x, y, w, h, r) {
-        r = Math.min(r, w / 2, h / 2);
-        ctx.moveTo(x + r, y);
-        ctx.quadraticCurveTo(x, y, x, y + r);
-        ctx.lineTo(x, y + h - r);
-        ctx.quadraticCurveTo(x, y + h, x + r, y + h);
-        ctx.lineTo(x + w - r, y + h);
-        ctx.quadraticCurveTo(x + w, y + h, x + w, y + h - r);
-        ctx.lineTo(x + w, y + r);
-        ctx.quadraticCurveTo(x + w, y, x + w - r, y);
         ctx.closePath();
       }
 
@@ -584,37 +558,15 @@
       }
 
       // 答對時：揭開遮蓋，顯示完整圖片
-      function fxReveal(scene, qCard, correctKey) {
+      // 遮蓋層淡出，露出底層的原圖
+      function fxReveal(scene, qCard) {
         if (!qCard || !qCard.active) return;
-        const s = qCard.__size;
-        if (!s) return;
-
-        // 替換問題卡中的圖片為完整原圖
-        const newImg = scene.add.image(0, 0, correctKey).setOrigin(0.5);
-        const sx = s.boxW / (newImg.width || s.boxW);
-        const sy = s.boxH / (newImg.height || s.boxH);
-        const scale = Math.max(sx, sy);
-        newImg.setScale(scale);
-        newImg.x = s.pad + s.boxW / 2;
-        newImg.y = s.pad + s.boxH / 2;
-        newImg.setAlpha(0);
-
-        qCard.__inner.add(newImg);
-
-        // 淡入完整圖片
-        scene.tweens.add({
-          targets: newImg,
-          alpha: 1,
-          duration: 300,
-          ease: "Quad.easeIn",
-        });
-
-        // 舊圖片淡出
-        if (qCard.__img) {
+        if (qCard.__coverImg) {
           scene.tweens.add({
-            targets: qCard.__img,
+            targets: qCard.__coverImg,
             alpha: 0,
-            duration: 300,
+            duration: 350,
+            ease: "Quad.easeIn",
           });
         }
       }
@@ -1185,18 +1137,26 @@
             })
             .setOrigin(0.5);
 
-          // 生成遮蓋版題目圖
-          const maskedKey = generateMaskedTexture(this, correctKey, this.ddm.d);
-          if (maskedKey) {
-            this.tempKeys.push(maskedKey);
-            this.qCard = makeCard(this, maskedKey, true, null);
-          } else {
-            // fallback: 直接使用原圖（不應發生）
-            this.qCard = makeCard(this, correctKey, true, null);
-          }
+          // 題目卡：原圖 + 遮蓋層疊加
+          this.qCard = makeCard(this, correctKey, true, null);
           this.qCard.x =
             SAFE_PAD + (GAME_W - SAFE_PAD * 2) / 2 - this.qCard.width / 2;
           this.qCard.y = SAFE_PAD + 110;
+
+          // 生成遮蓋層（只有色塊，不含外部圖片）
+          const coverKey = generateCoverTexture(this, correctKey, this.ddm.d);
+          if (coverKey) {
+            this.tempKeys.push(coverKey);
+            const s = this.qCard.__size;
+            const coverImg = this.add.image(0, 0, coverKey).setOrigin(0.5);
+            const csx = s.boxW / (coverImg.width || s.boxW);
+            const csy = s.boxH / (coverImg.height || s.boxH);
+            coverImg.setScale(Math.max(csx, csy));
+            coverImg.x = s.pad + s.boxW / 2;
+            coverImg.y = s.pad + s.boxH / 2;
+            this.qCard.__inner.add(coverImg);
+            this.qCard.__coverImg = coverImg;
+          }
 
           // 3 個隨機干擾圖（保證不重複）
           const pool = ALL_IMAGES.filter((k) => k !== correctKey);
@@ -1250,7 +1210,7 @@
             spawnPlusOne(this, pointerWorld.x, pointerWorld.y - 20);
 
             // 揭開遮蓋顯示完整圖片
-            fxReveal(this, this.qCard, this.currentCorrectKey);
+            fxReveal(this, this.qCard);
 
             const newStage = this.getCurrentStage();
             const timeBonus = newStage.timeBonus || TIME_BONUS;
