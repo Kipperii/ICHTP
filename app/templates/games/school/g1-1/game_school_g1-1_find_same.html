@@ -51,7 +51,7 @@
       const MIN_CLICK_GAP_MS = 180;
       const BONUS_ROUND_INTERVAL = 4; // 每幾關出現一次特別關
 
-      // 返回超市主題頁的路徑
+      // 返回學校主題頁的路徑
       const THEME_URL = "/games/school";
 
       const TEXTS = {
@@ -536,7 +536,10 @@
           // Initialize AI Model
           if (typeof SimilarityPipeline !== "undefined") {
             try {
+              if(this.loadingText) this.loadingText.setText("正在啟動 AI 智能運算...");
+              // 這裡會觸發 Warm Start 優化 (Shader 編譯)，可能會稍微卡頓 1-2 秒
               await SimilarityPipeline.loadAIModel();
+              if(this.loadingText) this.loadingText.destroy();
             } catch (e) {
               console.warn("AI Model load failed", e);
             }
@@ -899,8 +902,10 @@
 
           this.input.on("pointerdown", (raw) => {
             if (this.modalOpen) return;
-            const now = performance.now();
+            // [Fix] Check clickLocked immediately to prevent race conditions or multi-touch issues
             if (this.clickLocked) return;
+            
+            const now = performance.now();
             if (now - this.lastClickAt < MIN_CLICK_GAP_MS) return;
             this.lastClickAt = now;
 
@@ -922,6 +927,7 @@
             }
             if (hitIndex === -1) return;
 
+            // [Fix] Lock immediately after validating hit
             this.clickLocked = true;
             this._rtStart = this._rtStart || performance.now();
             this.pick(hitIndex, p, performance.now() - this._rtStart);
@@ -1102,8 +1108,7 @@
           const isBonus = i > 0 && (i + 1) % BONUS_ROUND_INTERVAL === 0;
 
           if (this.tip && this.tip.active) this.tip.destroy();
-          this.tip = this.add
-            .text(
+          this.tip = this.add.text(
               GAME_W / 2,
               SAFE_PAD + 60,
               isBonus ? TEXTS.tip_bonus : TEXTS.tip,
@@ -1170,7 +1175,18 @@
           }
 
           this.hoverIndex = -1;
-          this.time.delayedCall(50, () => (this.clickLocked = false));
+          
+          // [Fix] Remove auto-unlock here if called from pick logic, let pick manage unlock timing.
+          // Or ensure we only unlock if it's the very first load or explicit restart.
+          if(i === 0) {
+              this.time.delayedCall(50, () => (this.clickLocked = false));
+          } else {
+             // For subsequent levels, ensure we DO unlock eventually if pick's timer fired too early
+             // (e.g. if async generation took very long). 
+             // But usually pick's generic timer is safer. 
+             // Just in case, set a failsafe unlock to prevent potential soft-lock if pick's timer got cleared or confused.
+             this.time.delayedCall(1500, () => (this.clickLocked = false));
+          }
           this._rtStart = performance.now();
           this.drawHUD();
         }
@@ -1235,8 +1251,9 @@
               this.loadLevel(this.levelIndex + 1);
             });
 
-            // 縮短點擊鎖定時間
-            this.time.delayedCall(300, () => {
+            // 縮短點擊鎖定時間, 但確保不會過早解鎖導致連續點擊
+            // [Fix] Increase lock time slightly to prevent accidental double taps
+            this.time.delayedCall(600, () => {
               this.clickLocked = false;
             });
           } else {
@@ -1245,7 +1262,8 @@
             fxWrong(this, this.opts[idx]);
             this.ddm.record(false, Math.max(rtMs || 2200, 2200));
             this.drawHUD();
-            this.time.delayedCall(200, () => (this.clickLocked = false));
+            // [Fix] Increase penalty lock time slightly
+            this.time.delayedCall(500, () => (this.clickLocked = false));
           }
         }
 
