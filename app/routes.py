@@ -46,6 +46,13 @@ def supermarket_g1_2():
     """
     return render_template("games/supermarket/g1-2/game_supermarket_g1-2_memory.html")
 
+@bp.route("/games/supermarket/g1-3")
+def supermarket_g1_3():
+    """
+    找出全相遊戲 Supermarket G1-3
+    """
+    return render_template("games/supermarket/g1-3/game_supermarket_g1-3_find_the_whole_image.html")
+
 
 
 # --- Generated Routes for Themes ---
