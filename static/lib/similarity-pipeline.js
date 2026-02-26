@@ -383,6 +383,14 @@
     if(SP.aiModel && origFeat.aiEmbedding){
       const vEmb = getAIEmbedding(SP.aiModel, variantCanvas);
       aiScore = cosineSimilarity(origFeat.aiEmbedding, vEmb);
+      
+      // [Fix] AI-based Hard Reject
+      // If MobileNet thinks they are nearly identical (e.g. > 0.995), reject it.
+      if(aiScore > 0.995) {
+         if(vEmb) vEmb.dispose();
+         return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, aiScore, note:"AI says too similar"}};
+      }
+
       if(vEmb) vEmb.dispose();
     }
     aiScore = clamp(aiScore, 0, 1);
