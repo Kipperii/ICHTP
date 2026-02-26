@@ -168,6 +168,9 @@
       //  遮蓋圖片生成
       //  將原圖大部份區域用色塊遮住，只露出若干「窗口」
       //  difficulty 越高 → 可見窗口越少、越小
+      //
+      //  注意：不使用 getImageData (會因 cross-origin tainted canvas 而失敗)
+      //  改為：覆蓋後直接用 clip + drawImage(srcImg) 挖洞
       // ============================================================
       function generateMaskedTexture(scene, imageKey, difficulty) {
         const tex = scene.textures.get(imageKey);
@@ -176,37 +179,56 @@
         const w = srcImg.naturalWidth || srcImg.width || 200;
         const h = srcImg.naturalHeight || srcImg.height || 200;
 
+        // 計算可見窗口數量與大小
+        const d = Math.max(0.1, Math.min(0.95, difficulty));
+        const numWindows = Math.max(2, Math.round(lerp(6, 2, d)));
+        const windowSizeFactor = lerp(0.35, 0.14, d);
+
+        // 生成窗口位置（嘗試避免過度重疊）
+        const windows = [];
+        for (let i = 0; i < numWindows; i++) {
+          const ww = Math.round(w * windowSizeFactor * (0.7 + Math.random() * 0.6));
+          const wh = Math.round(h * windowSizeFactor * (0.7 + Math.random() * 0.6));
+          const wx = Math.round(Math.random() * Math.max(1, w - ww));
+          const wy = Math.round(Math.random() * Math.max(1, h - wh));
+          windows.push({ x: wx, y: wy, w: ww, h: wh });
+        }
+
         const canvas = document.createElement("canvas");
         canvas.width = w;
         canvas.height = h;
         const ctx = canvas.getContext("2d");
+        const coverColor = "#6b6db0";
 
-        // 1. 先畫原圖
+        // --- 步驟 1：先畫原圖作為底層 ---
         ctx.drawImage(srcImg, 0, 0, w, h);
 
-        // 2. 用純色遮蓋整張圖
-        const coverColor = "#6b6db0"; // 與卡片背景相近的紫色
+        // --- 步驟 2：覆蓋整張圖，但 clip 出窗口不覆蓋 ---
+        // 使用 evenodd 填充規則：外框是整張圖，內部挖出窗口
+        ctx.save();
+        ctx.beginPath();
+        // 外框（順時針）= 整張圖
+        ctx.rect(0, 0, w, h);
+        // 窗口（逆時針）= 挖洞
+        for (const win of windows) {
+          const r = Math.min(win.w, win.h) * 0.2;
+          roundedRectCCW(ctx, win.x, win.y, win.w, win.h, r);
+        }
         ctx.fillStyle = coverColor;
-        ctx.fillRect(0, 0, w, h);
+        ctx.fill("evenodd");
+        ctx.restore();
 
-        // 3. 用 destination-out 在遮蓋層上「挖洞」，露出底下的原圖
-        //    使用 globalCompositeOperation 技巧：
-        //    先畫原圖 → 覆蓋色塊 → 再用 clip 挖洞重繪原圖
-
-        // 重新開始：先清空
-        ctx.clearRect(0, 0, w, h);
-        // 畫原圖
-        ctx.drawImage(srcImg, 0, 0, w, h);
-
-        // 儲存原圖資料
-        const origData = ctx.getImageData(0, 0, w, h);
-
-        // 覆蓋整張
-        ctx.fillStyle = coverColor;
-        ctx.fillRect(0, 0, w, h);
-
-        // 加上網格線紋理效果
-        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+        // --- 步驟 3：在覆蓋區域上加紋理效果 ---
+        // 網格線（只畫在覆蓋區域上）
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, w, h);
+        for (const win of windows) {
+          const r = Math.min(win.w, win.h) * 0.2;
+          roundedRectCCW(ctx, win.x, win.y, win.w, win.h, r);
+        }
+        ctx.clip("evenodd");
+        ctx.strokeStyle = "rgba(255,255,255,0.1)";
         ctx.lineWidth = 1;
         for (let gx = 0; gx < w; gx += 20) {
           ctx.beginPath();
@@ -220,78 +242,41 @@
           ctx.lineTo(w, gy);
           ctx.stroke();
         }
-
-        // 畫問號在覆蓋層上 (提示這是被遮住的)
-        ctx.fillStyle = "rgba(255,255,255,0.06)";
-        ctx.font = `bold ${Math.min(w, h) * 0.4}px Arial`;
+        // 問號提示
+        ctx.fillStyle = "rgba(255,255,255,0.08)";
+        ctx.font = `bold ${Math.min(w, h) * 0.5}px Arial`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("?", w / 2, h / 2);
+        ctx.restore();
 
-        // 計算可見窗口數量與大小
-        // difficulty 0.1 → 多且大的窗口 (容易)
-        // difficulty 0.9 → 少且小的窗口 (困難)
-        const d = Math.max(0.1, Math.min(0.95, difficulty));
-        const numWindows = Math.max(2, Math.round(lerp(6, 2, d)));
-        const windowSizeFactor = lerp(0.35, 0.12, d); // 窗口佔圖片的比例
-
-        // 在覆蓋層上挖洞 — clip + 重繪原圖
-        const tempCanvas = document.createElement("canvas");
-        tempCanvas.width = w;
-        tempCanvas.height = h;
-        const tempCtx = tempCanvas.getContext("2d");
-        tempCtx.putImageData(origData, 0, 0);
-
-        // 生成不重疊的窗口位置
-        const windows = [];
-        const maxTries = 80;
-        for (let i = 0; i < numWindows; i++) {
-          let tries = 0;
-          let best = null;
-          while (tries < maxTries) {
-            tries++;
-            const ww = Math.round(w * windowSizeFactor * (0.7 + Math.random() * 0.6));
-            const wh = Math.round(h * windowSizeFactor * (0.7 + Math.random() * 0.6));
-            const wx = Math.round(Math.random() * (w - ww));
-            const wy = Math.round(Math.random() * (h - wh));
-            best = { x: wx, y: wy, w: ww, h: wh };
-            break;
-          }
-          if (best) windows.push(best);
-        }
-
-        // 為每個窗口繪製「挖洞」效果
+        // --- 步驟 4：窗口邊框（白色描邊提示可見區域） ---
         for (const win of windows) {
-          // 使用圓角矩形作為窗口形狀
-          const radius = Math.min(win.w, win.h) * 0.2;
-
-          // 從原圖上複製該區域
+          const r = Math.min(win.w, win.h) * 0.2;
           ctx.save();
-          ctx.beginPath();
-          roundedRect(ctx, win.x, win.y, win.w, win.h, radius);
-          ctx.clip();
-          ctx.drawImage(tempCanvas, 0, 0);
-          ctx.restore();
-
-          // 窗口邊框
-          ctx.save();
-          ctx.strokeStyle = "rgba(255,255,255,0.6)";
+          ctx.strokeStyle = "rgba(255,255,255,0.7)";
           ctx.lineWidth = 2;
+          ctx.shadowColor = "rgba(0,0,0,0.3)";
+          ctx.shadowBlur = 4;
           ctx.beginPath();
-          roundedRect(ctx, win.x, win.y, win.w, win.h, radius);
+          roundedRect(ctx, win.x, win.y, win.w, win.h, r);
           ctx.stroke();
           ctx.restore();
         }
 
-        // 建立 Phaser Texture
-        const key = "masked_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+        // --- 建立 Phaser Texture ---
+        const key =
+          "masked_" +
+          Date.now() +
+          "_" +
+          Math.random().toString(36).slice(2, 7);
         const img = new Image();
         img.src = canvas.toDataURL("image/png");
-        // 同步加入 (data URL 可以同步使用)
         scene.textures.addImage(key, img);
         return key;
       }
 
+      // 順時針圓角矩形（用於 stroke / clip）
       function roundedRect(ctx, x, y, w, h, r) {
         r = Math.min(r, w / 2, h / 2);
         ctx.moveTo(x + r, y);
@@ -303,6 +288,20 @@
         ctx.quadraticCurveTo(x, y + h, x, y + h - r);
         ctx.lineTo(x, y + r);
         ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+      }
+
+      // 逆時針圓角矩形（用於 evenodd 挖洞）
+      function roundedRectCCW(ctx, x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.moveTo(x + r, y);
+        ctx.quadraticCurveTo(x, y, x, y + r);
+        ctx.lineTo(x, y + h - r);
+        ctx.quadraticCurveTo(x, y + h, x + r, y + h);
+        ctx.lineTo(x + w - r, y + h);
+        ctx.quadraticCurveTo(x + w, y + h, x + w, y + h - r);
+        ctx.lineTo(x + w, y + r);
+        ctx.quadraticCurveTo(x + w, y, x + w - r, y);
         ctx.closePath();
       }
 
