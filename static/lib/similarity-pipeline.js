@@ -372,6 +372,13 @@
     const mse = computeMSE(origFeat.sample, variantCanvas);
     const ssim = computeSSIM(origFeat.canvas, variantCanvas);
 
+    // [Fix] Prevent identical or too-similar variants from being accepted as distractors.
+    // If the variant is visually almost identical to the target, it becomes a valid answer, confusing the player.
+    // We enforce a minimum difference: aHash distance >= 1 OR MSE > some_threshold OR SSIM < 0.99
+    if(hamToOrig === 0 || (mse < 80 && ssim > 0.98) || (hdiff < 0.03 && mse < 100)) {
+        return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, note:"Too similar to original"}};
+    }
+
     let aiScore = 0;
     if(SP.aiModel && origFeat.aiEmbedding){
       const vEmb = getAIEmbedding(SP.aiModel, variantCanvas);
