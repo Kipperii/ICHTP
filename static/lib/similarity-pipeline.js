@@ -372,11 +372,10 @@
     const mse = computeMSE(origFeat.sample, variantCanvas);
     const ssim = computeSSIM(origFeat.canvas, variantCanvas);
 
-    // [Fix] Prevent identical or too-similar variants from being accepted as distractors.
-    // If the variant is visually almost identical to the target, it becomes a valid answer, confusing the player.
-    // We enforce a minimum difference: aHash distance >= 1 OR MSE > some_threshold OR SSIM < 0.99
-    if(hamToOrig === 0 || (mse < 80 && ssim > 0.98) || (hdiff < 0.03 && mse < 100)) {
-        return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, note:"Too similar to original"}};
+    // [Fix] Strict pixel-level hard-reject to prevent near-identical distractors.
+    // Thresholds raised to ensure every distractor has a clearly visible difference.
+    if(hamToOrig <= 2 || (mse < 200 && ssim > 0.94) || (hdiff < 0.06 && mse < 200)) {
+        return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, simScore:1.0, note:"Too similar to original"}};
     }
 
     let aiScore = 0;
@@ -384,11 +383,11 @@
       const vEmb = getAIEmbedding(SP.aiModel, variantCanvas);
       aiScore = cosineSimilarity(origFeat.aiEmbedding, vEmb);
       
-      // [Fix] AI-based Hard Reject
-      // If MobileNet thinks they are nearly identical (e.g. > 0.995), reject it.
-      if(aiScore > 0.995) {
+      // [Fix] AI-based Hard Reject — MobileNet cosine similarity threshold
+      // Lowered from 0.995 to 0.97 to reliably catch visually near-identical variants.
+      if(aiScore > 0.97) {
          if(vEmb) vEmb.dispose();
-         return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, aiScore, note:"AI says too similar"}};
+         return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, aiScore, simScore:1.0, note:"AI says too similar"}};
       }
 
       if(vEmb) vEmb.dispose();
@@ -449,7 +448,9 @@
     const orig = SP.extractOrig(scene, answerKey);
     const accepted = [];
     const acceptedHashes = [];
-    const triesLimit = Math.max(count*6, count*8);
+    const acceptedCanvases = [];     // for pixel-level inter-variant check
+    const acceptedEmbeddings = [];   // for AI inter-variant check
+    const triesLimit = Math.max(count*15, 35);  // raised for stricter filtering
     let tries=0;
 
     while(accepted.length < count && tries < triesLimit){
@@ -458,9 +459,41 @@
       const signature = answerKey + '|' + canvas.width + 'x' + canvas.height + '|' + canvas._sig;
       if(seenVariantSignature.has(signature)) continue;
       const ev = SP.evaluateVariant(orig, canvas, acceptedHashes, difficulty);
-      if(ev.reject){
-        continue;
+      if(ev.reject) continue;
+
+      // --- Inter-variant deduplication ---
+      let tooSimilarToAccepted = false;
+
+      if(SP.aiModel){
+        // AI-based: compare MobileNet embeddings with all accepted variants
+        const vEmb = getAIEmbedding(SP.aiModel, canvas);
+        if(vEmb){
+          for(const accEmb of acceptedEmbeddings){
+            if(cosineSimilarity(accEmb, vEmb) > 0.97){
+              tooSimilarToAccepted = true;
+              break;
+            }
+          }
+          if(tooSimilarToAccepted){
+            vEmb.dispose();
+          } else {
+            acceptedEmbeddings.push(vEmb);
+          }
+        }
+      } else {
+        // Fallback: pixel-level MSE check between variants
+        const candSample = sampleCanvasRGB(canvas);
+        for(const accCanvas of acceptedCanvases){
+          if(computeMSE(candSample, accCanvas) < 180){
+            tooSimilarToAccepted = true;
+            break;
+          }
+        }
       }
+
+      if(tooSimilarToAccepted) continue;
+
+      acceptedCanvases.push(canvas);
       variantMetaCache.set(signature, ev.meta);
       seenVariantSignature.add(signature);
       const key = 'var:' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
@@ -481,6 +514,10 @@
       }catch(e){
       }
     }
+
+    // Clean up inter-variant AI embeddings
+    acceptedEmbeddings.forEach(e=>{ if(e && e.dispose) e.dispose(); });
+
     return accepted;
   };
 
@@ -519,7 +556,10 @@
     if(Math.random()<lerp(0.35,0.85,d)){
       const id = ctx.getImageData(0,0,w,h);
       const data = id.data;
-      const hShift = (Math.random()*2-1)*lerp(45,15,d);
+      let hShift = (Math.random()*2-1)*lerp(45,15,d);
+      // Guarantee minimum visible hue shift to avoid near-identical variants
+      const minShift = lerp(18, 8, d);
+      if(Math.abs(hShift) < minShift) hShift = hShift >= 0 ? minShift : -minShift;
       const sMul = 1 + (Math.random()*2-1)*lerp(0.18,0.08,d);
       for(let i=0;i<data.length;i+=4){
         if(data[i+3]<16) continue;
