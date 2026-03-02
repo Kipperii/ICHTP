@@ -150,10 +150,24 @@ select { padding:.55rem .6rem; border:1px solid var(--c-border); border-radius:8
     <h2>上傳新題目圖片</h2>
     <div class="muted" id="scope-hint" style="margin:-4px 0 10px;"></div>
     <div class="muted" style="margin:0 0 6px;">
-      導入圖片自動轉為 218x192 (contain + 白底)。PNG 超過 2MB 將嘗試 JPEG。
+      導入圖片自動轉為 218x192 (contain)。PNG 超過 2MB 將嘗試 JPEG。
     </div>
     <div class="hint-inline">
       常見錯誤: 404(請確認已載入 api_games.py 並註冊 blueprint) / 413 / 415 / 500
+    </div>
+    <div style="margin:6px 0 10px; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; background:#f7f9fb; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--c-border);">
+      <label style="font-size:.8rem; display:flex; align-items:center; gap:6px; font-weight:600; white-space:nowrap;">
+        <input type="checkbox" id="auto-bg-remove" checked> 自動替換背景
+      </label>
+      <label style="font-size:.75rem; color:var(--c-muted); display:flex; align-items:center; gap:4px; white-space:nowrap;">
+        目標色
+        <input type="color" id="bg-target-color" value="#8287d9" style="width:36px; height:26px; border:1px solid var(--c-border); border-radius:4px; padding:0; cursor:pointer;">
+      </label>
+      <label style="font-size:.75rem; color:var(--c-muted); display:flex; align-items:center; gap:4px; white-space:nowrap;">
+        容差 <span id="bg-tolerance-value">80</span>
+        <input type="range" id="bg-tolerance" min="10" max="250" value="80" style="width:100px;">
+      </label>
+      <span class="hint-inline" style="margin:0;">自動偵測邊緣背景色，flood-fill 替換為目標色。容差越大去除範圍越廣。</span>
     </div>
     <div id="upload-zone" class="upload-zone">
       <input type="file" id="file-input" accept="image/png, image/jpeg" multiple>
@@ -535,14 +549,110 @@ function nowTs(){return Date.now();}
 function uid(){return 'f_'+Math.random().toString(36).slice(2,9);}
 function sanitizeName(n){return n.toLowerCase().replace(/[^\w.\-]+/g,'_').replace(/__+/g,'_').replace(/^_+|_+$/g,'');}
 
+/* ========= 自動去背景 (flood-fill from edges) ========= */
+function removeBgFromImage(img, tolerance){
+  const w = img.naturalWidth || img.width;
+  const h = img.naturalHeight || img.height;
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d', {willReadFrequently:true});
+  ctx.drawImage(img, 0, 0);
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const data = imgData.data;
+  const total = w * h;
+
+  // 1. 從四角取樣推斷背景色
+  const margin = Math.max(2, Math.min(6, Math.floor(Math.min(w,h)*0.03)));
+  let bgR=0, bgG=0, bgB=0, cnt=0;
+  for(let dy=0; dy<margin; dy++){
+    for(let dx=0; dx<margin; dx++){
+      const pts = [
+        dy*w + dx,
+        dy*w + (w-1-dx),
+        (h-1-dy)*w + dx,
+        (h-1-dy)*w + (w-1-dx)
+      ];
+      for(const pi of pts){
+        const di = pi*4;
+        if(di>=0 && di<data.length-3){
+          bgR += data[di]; bgG += data[di+1]; bgB += data[di+2]; cnt++;
+        }
+      }
+    }
+  }
+  bgR = Math.round(bgR/cnt);
+  bgG = Math.round(bgG/cnt);
+  bgB = Math.round(bgB/cnt);
+
+  // 2. 從所有邊緣像素 flood-fill（8-connectivity）
+  const mask = new Uint8Array(total); // 0=unvisited, 1=background
+  const stack = [];
+  for(let x=0; x<w; x++){ stack.push(x); stack.push((h-1)*w+x); }
+  for(let y=1; y<h-1; y++){ stack.push(y*w); stack.push(y*w+w-1); }
+
+  while(stack.length > 0){
+    const pi = stack.pop();
+    if(pi<0 || pi>=total || mask[pi]) continue;
+    const di = pi*4;
+    const diff = Math.abs(data[di]-bgR) + Math.abs(data[di+1]-bgG) + Math.abs(data[di+2]-bgB);
+    if(diff > tolerance) continue;
+    mask[pi] = 1;
+    const x = pi % w, y = (pi/w)|0;
+    if(x>0)   stack.push(pi-1);
+    if(x<w-1) stack.push(pi+1);
+    if(y>0)   stack.push(pi-w);
+    if(y<h-1) stack.push(pi+w);
+    if(x>0   && y>0)   stack.push(pi-w-1);
+    if(x<w-1 && y>0)   stack.push(pi-w+1);
+    if(x>0   && y<h-1) stack.push(pi+w-1);
+    if(x<w-1 && y<h-1) stack.push(pi+w+1);
+  }
+
+  // 3. 邊緣羽化：前景像素若鄰近背景，依比例降低 alpha 令邊緣柔順
+  const alphaMap = new Uint8Array(total).fill(255);
+  for(let i=0; i<total; i++){
+    if(mask[i]===1){ alphaMap[i]=0; continue; }
+    const x = i % w, y = (i/w)|0;
+    let bgN=0, allN=0;
+    for(let dy=-1; dy<=1; dy++){
+      for(let dx=-1; dx<=1; dx++){
+        if(!dx && !dy) continue;
+        const nx=x+dx, ny=y+dy;
+        if(nx>=0 && nx<w && ny>=0 && ny<h){
+          allN++;
+          if(mask[ny*w+nx]===1) bgN++;
+        }
+      }
+    }
+    if(bgN>0) alphaMap[i] = Math.round(255 * (1 - bgN/allN * 0.6));
+  }
+
+  // 4. 套用 alpha
+  for(let i=0; i<total; i++){
+    data[i*4+3] = alphaMap[i];
+  }
+  ctx.putImageData(imgData, 0, 0);
+  return c;
+}
+
 async function processToFixedCanvas(file){
   const dataURL=await readFileAsDataURL(file);const img=await loadImage(dataURL);
+  const autoBg = $('auto-bg-remove').checked;
+  const bgColor = $('bg-target-color').value;
+  const bgTol = parseInt($('bg-tolerance').value) || 80;
+
+  let src = img;
+  if(autoBg) src = removeBgFromImage(img, bgTol);
+
   const c=document.createElement('canvas');c.width=TARGET_W;c.height=TARGET_H;const ctx=c.getContext('2d');
-  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,TARGET_W,TARGET_H);
-  const scale=Math.min(TARGET_W/img.naturalWidth,TARGET_H/img.naturalHeight);
-  const dw=Math.round(img.naturalWidth*scale),dh=Math.round(img.naturalHeight*scale);
+  ctx.fillStyle = autoBg ? bgColor : '#ffffff';
+  ctx.fillRect(0,0,TARGET_W,TARGET_H);
+  const srcW = src.naturalWidth || src.width;
+  const srcH = src.naturalHeight || src.height;
+  const scale=Math.min(TARGET_W/srcW,TARGET_H/srcH);
+  const dw=Math.round(srcW*scale),dh=Math.round(srcH*scale);
   const dx=Math.round((TARGET_W-dw)/2),dy=Math.round((TARGET_H-dh)/2);
-  ctx.imageSmoothingQuality='high';ctx.drawImage(img,dx,dy,dw,dh);
+  ctx.imageSmoothingQuality='high';ctx.drawImage(src,dx,dy,dw,dh);
   let blob=await canvasToBlobType(c,'image/png');let ext='.png';
   if(blob.size>MAX_FILE_SIZE){
     for(const q of [0.92,0.85,0.78,0.7,0.6,0.5]){
@@ -562,6 +672,7 @@ fileInput.addEventListener('change',e=>handleFiles(e.target.files));
 ['dragenter','dragover'].forEach(ev=>uploadZone.addEventListener(ev,e=>{e.preventDefault();uploadZone.classList.add('dragover');}));
 ['dragleave','drop'].forEach(ev=>uploadZone.addEventListener(ev,e=>{e.preventDefault();if(ev==='drop')handleFiles(e.dataTransfer.files);uploadZone.classList.remove('dragover');}));
 uploadZone.addEventListener('click',()=>fileInput.click());
+$('bg-tolerance').addEventListener('input',e=>{ $('bg-tolerance-value').textContent = e.target.value; });
 
 async function handleFiles(list){
   const arr=Array.from(list);let added=0;
