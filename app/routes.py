@@ -78,6 +78,10 @@ def home_hub():
 def home_g1_2():
     return render_template("games/home/g1-2/game_home_g1-2_memory.html")
 
+@bp.route("/games/home/g1-3")
+def home_g1_3():
+    return render_template("games/home/g1-3/game_home_g1-3_find_the_whole_image.html")
+
 @bp.route("/games/occupation/g1-1")
 def occupation_g1_1():
     return render_template("games/occupation/g1-1/game_occupation_g1-1_find_same.html")
@@ -98,6 +102,10 @@ def occupation_hub():
 @bp.route("/games/occupation/g1-2")
 def occupation_g1_2():
     return render_template("games/occupation/g1-2/game_occupation_g1-2_memory.html")
+
+@bp.route("/games/occupation/g1-3")
+def occupation_g1_3():
+    return render_template("games/occupation/g1-3/game_occupation_g1-3_find_the_whole_image.html")
 
 @bp.route("/games/picnic/g1-1")
 def picnic_g1_1():
@@ -120,6 +128,10 @@ def picnic_hub():
 def picnic_g1_2():
     return render_template("games/picnic/g1-2/game_picnic_g1-2_memory.html")
 
+@bp.route("/games/picnic/g1-3")
+def picnic_g1_3():
+    return render_template("games/picnic/g1-3/game_picnic_g1-3_find_the_whole_image.html")
+
 @bp.route("/games/playground/g1-1")
 def playground_g1_1():
     return render_template("games/playground/g1-1/game_playground_g1-1_find_same.html")
@@ -140,6 +152,10 @@ def playground_hub():
 @bp.route("/games/playground/g1-2")
 def playground_g1_2():
     return render_template("games/playground/g1-2/game_playground_g1-2_memory.html")
+
+@bp.route("/games/playground/g1-3")
+def playground_g1_3():
+    return render_template("games/playground/g1-3/game_playground_g1-3_find_the_whole_image.html")
 
 @bp.route("/games/restaurant/g1-1")
 def restaurant_g1_1():
@@ -162,6 +178,10 @@ def restaurant_hub():
 def restaurant_g1_2():
     return render_template("games/restaurant/g1-2/game_restaurant_g1-2_memory.html")
 
+@bp.route("/games/restaurant/g1-3")
+def restaurant_g1_3():
+    return render_template("games/restaurant/g1-3/game_restaurant_g1-3_find_the_whole_image.html")
+
 @bp.route("/games/school/g1-1")
 def school_g1_1():
     return render_template("games/school/g1-1/game_school_g1-1_find_same.html")
@@ -183,6 +203,10 @@ def school_hub():
 def school_g1_2():
     return render_template("games/school/g1-2/game_school_g1-2_memory.html")
 
+@bp.route("/games/school/g1-3")
+def school_g1_3():
+    return render_template("games/school/g1-3/game_school_g1-3_find_the_whole_image.html")
+
 @bp.route("/games/sportcentre/g1-1")
 def sportcentre_g1_1():
     return render_template("games/sportcentre/g1-1/game_sportcentre_g1-1_find_same.html")
@@ -203,3 +227,7 @@ def sportcentre_hub():
 @bp.route("/games/sportcentre/g1-2")
 def sportcentre_g1_2():
     return render_template("games/sportcentre/g1-2/game_sportcentre_g1-2_memory.html")
+
+@bp.route("/games/sportcentre/g1-3")
+def sportcentre_g1_3():
+    return render_template("games/sportcentre/g1-3/game_sportcentre_g1-3_find_the_whole_image.html")

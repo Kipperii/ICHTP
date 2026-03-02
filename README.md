@@ -15,6 +15,32 @@
 
 ---
 
+## Quick Start Guide
+
+### Prerequisites
+*   Python 3.8 or higher
+*   pip (Python package installer)
+
+### Installation
+1.  Open a terminal/command prompt in the project root directory.
+2.  Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Running the Server
+1.  Run the management script to start the Flask server:
+    ```bash
+    python manage.py run
+    ```
+2.  The server will start at `http://127.0.0.1:5000`.
+
+### Accessing the Application
+*   **Home/Map**: Open your web browser and navigate to `http://127.0.0.1:5000/`.
+*   **Authoring Tool**: Access the therapist interface at `http://127.0.0.1:5000/admin/supermarket/authoring`.
+
+---
+
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
 2. [Project Team Organisation](#2-project-team-organisation)

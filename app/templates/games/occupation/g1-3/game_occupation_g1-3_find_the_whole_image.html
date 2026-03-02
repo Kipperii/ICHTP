@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <title>職業篇 G1-3 找出全相</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        height: 100%;
+      }
+      #game-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      img,
+      canvas {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <script>
+      // ============================================================
+      //  職業篇 G1-3 — 找出全相
+      //  玩法：題目圖片被大面積遮蓋，只露出部份區域，
+      //        玩家需要從 4 張完整圖片中選出正確的那一張。
+      //        難度越高，遮蓋面積越大、可見區域越小。
+      // ============================================================
+
+      // ---------------- 基本參數 ----------------
+      const GAME_W = 960,
+        GAME_H = 640,
+        SAFE_PAD = 24;
+      const PANEL_COLOR = 0x8f90c8,
+        PANEL_BORDER = 0xd6d6e8,
+        CARD_BG = 0xa9aad6,
+        CARD_BORDER = 0xffffff;
+
+      const TARGET_CORRECT = 20;
+      const TIME_START = 45;
+      const TIME_BONUS = 1;
+      const MIN_CLICK_GAP_MS = 180;
+
+      // 返回超市主題頁的路徑
+      const THEME_URL = "/games/occupation";
+
+      const TEXTS = {
+        loading: "載入中",
+        title: "職業篇\n找出全相",
+        tip: "圖片被遮蓋了！找出正確的完整圖片。",
+        timeup: "沒時間了！",
+        chance: "分數",
+        confirmHome: "你是否要回主頁？",
+        yes: "是",
+        no: "否",
+        difficulty: "難度",
+        time: "時間",
+        stage_intro: "進入",
+        stage_difficulty: "難度提升!",
+      };
+
+      // 素材清單 (此陣列將由 API 動態填充)
+      let ALL_IMAGES = [];
+
+      const rp = (a) => a[(Math.random() * a.length) | 0];
+      const shuffle = (a) => {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = (Math.random() * (i + 1)) | 0;
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
+
+      // ---------------- 指標映射 ----------------
+      function createPointerMapper(game) {
+        const state = { rect: null };
+        function updateRect() {
+          state.rect = game.canvas.getBoundingClientRect();
+        }
+        updateRect();
+        game.scale.on(Phaser.Scale.Events.RESIZE, updateRect);
+        window.addEventListener("resize", updateRect);
+        window.addEventListener("orientationchange", updateRect);
+        return function map(evt) {
+          const rect = state.rect || game.canvas.getBoundingClientRect();
+          const cssW = rect.width,
+            cssH = rect.height;
+          const gw = game.scale.gameSize.width,
+            gh = game.scale.gameSize.height;
+          const s = Math.min(cssW / gw, cssH / gh);
+          const offX = (cssW - gw * s) / 2;
+          const offY = (cssH - gh * s) / 2;
+          const cx = evt.clientX - rect.left;
+          const cy = evt.clientY - rect.top;
+          let x = (cx - offX) / s;
+          let y = (cy - offY) / s;
+          x = Math.round(x * 2) / 2;
+          y = Math.round(y * 2) / 2;
+          return {
+            x: Phaser.Math.Clamp(x, 0, gw),
+            y: Phaser.Math.Clamp(y, 0, gh),
+          };
+        };
+      }
+
+      // ---------------- 評價系統 ----------------
+      function gradeByPerformance(seconds, correctCount, totalTarget) {
+        const acc = Math.max(
+          0,
+          Math.min(1, correctCount / Math.max(1, totalTarget))
+        );
+        const timeScore =
+          seconds <= 50 ? 1 : seconds <= 80 ? 0.85 : seconds <= 120 ? 0.7 : 0.5;
+        const final = 0.6 * timeScore + 0.4 * acc;
+        if (final >= 0.9) return { grade: "A", msg: "觀察力超強！" };
+        if (final >= 0.75)
+          return { grade: "B", msg: "很厲害，繼續保持！" };
+        if (final >= 0.6) return { grade: "C", msg: "表現不錯，再接再厲！" };
+        return { grade: "D", msg: "別急，多觀察就能進步！" };
+      }
+
+      // ---------------- 自適應難度 ----------------
+      class DifficultyManager {
+        constructor(initD = 0.3) {
+          this.d = initD;
+          this.accBuf = [];
+          this.rtBuf = [];
+          this.diffHistory = [];
+        }
+        record(ok, rtMs) {
+          const N = 12;
+          this.accBuf.push(ok ? 1 : 0);
+          if (this.accBuf.length > N) this.accBuf.shift();
+          this.rtBuf.push(rtMs);
+          if (this.rtBuf.length > N) this.rtBuf.shift();
+          const acc =
+            this.accBuf.reduce((a, b) => a + b, 0) / this.accBuf.length;
+          const sorted = [...this.rtBuf].sort((a, b) => a - b);
+          const rtMed = (sorted[Math.floor(sorted.length / 2)] || 1500) / 1000;
+          let nd = this.d;
+          if (acc >= 0.85 && rtMed <= 1.5) nd = Math.min(0.95, this.d + 0.08);
+          else if (acc <= 0.5 || rtMed >= 2.5)
+            nd = Math.max(0.1, this.d - 0.08);
+          this.d = 0.5 * this.d + 0.5 * nd;
+
+          this.diffHistory.push({
+            difficulty: this.d,
+            accuracy: acc,
+            responseTime: rtMed,
+            timestamp: new Date().getTime(),
+          });
+        }
+      }
+
+      // ============================================================
+      //  遮蓋層生成（cover-only，不含原圖）
+      //  只繪製色塊 + 網格 + 問號，窗口區域設為透明。
+      //  因為 Canvas 上不繪製任何外部圖片，所以不會觸發
+      //  cross-origin tainted canvas 問題。
+      //  使用 addCanvas 直接將 Canvas 元素註冊為 Phaser 貼圖，
+      //  避免 toDataURL + new Image 的非同步載入問題。
+      //
+      //  遊戲中：原圖由 Phaser Image 顯示在底層，
+      //          遮蓋層疊在上方，透明窗口可以看到原圖。
+      // ============================================================
+      function generateCoverTexture(scene, imageKey, difficulty) {
+        const tex = scene.textures.get(imageKey);
+        if (!tex) return null;
+        const frame = tex.get();
+        const w = frame.width;
+        const h = frame.height;
+        if (w <= 0 || h <= 0) return null;
+
+        // 計算可見窗口數量與大小
+        const d = Math.max(0.1, Math.min(0.95, difficulty));
+        const numWindows = Math.max(2, Math.round(lerp(6, 2, d)));
+        const windowSizeFactor = lerp(0.35, 0.14, d);
+
+        // 生成窗口位置
+        const windows = [];
+        for (let i = 0; i < numWindows; i++) {
+          const ww = Math.round(w * windowSizeFactor * (0.7 + Math.random() * 0.6));
+          const wh = Math.round(h * windowSizeFactor * (0.7 + Math.random() * 0.6));
+          const wx = Math.round(Math.random() * Math.max(1, w - ww));
+          const wy = Math.round(Math.random() * Math.max(1, h - wh));
+          windows.push({ x: wx, y: wy, w: ww, h: wh });
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+
+        // --- 步驟 1：填滿遮蓋色 ---
+        ctx.fillStyle = "#6b6db0";
+        ctx.fillRect(0, 0, w, h);
+
+        // --- 步驟 2：網格裝飾 ---
+        ctx.strokeStyle = "rgba(255,255,255,0.1)";
+        ctx.lineWidth = 1;
+        for (let gx = 0; gx < w; gx += 20) {
+          ctx.beginPath();
+          ctx.moveTo(gx, 0);
+          ctx.lineTo(gx, h);
+          ctx.stroke();
+        }
+        for (let gy = 0; gy < h; gy += 20) {
+          ctx.beginPath();
+          ctx.moveTo(0, gy);
+          ctx.lineTo(w, gy);
+          ctx.stroke();
+        }
+
+        // --- 步驟 3：問號提示 ---
+        ctx.fillStyle = "rgba(255,255,255,0.08)";
+        ctx.font = `bold ${Math.min(w, h) * 0.5}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("?", w / 2, h / 2);
+
+        // --- 步驟 4：用 destination-out 挖出透明窗口 ---
+        ctx.globalCompositeOperation = "destination-out";
+        for (const win of windows) {
+          const r = Math.min(win.w, win.h) * 0.2;
+          ctx.beginPath();
+          roundedRect(ctx, win.x, win.y, win.w, win.h, r);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = "source-over";
+
+        // --- 建立 Phaser Texture（使用 addCanvas，同步且不涉及 toDataURL）---
+        const key =
+          "cover_" +
+          Date.now() +
+          "_" +
+          Math.random().toString(36).slice(2, 7);
+        scene.textures.addCanvas(key, canvas);
+        return key;
+      }
+
+      // 圓角矩形路徑
+      function roundedRect(ctx, x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * Math.max(0, Math.min(1, t));
+      }
+
+      // ============================================================
+      //  圖片相似度系統
+      //  在遊戲載入後，為所有圖片計算顏色特徵向量，
+      //  用於難度自適應的干擾項選擇。
+      // ============================================================
+      const SIM_CACHE = {
+        signatures: new Map(),   // imageKey → Float32Array (color histogram)
+        simMatrix: new Map(),    // "keyA|keyB" → similarity (0~1)
+        ranked: new Map(),       // imageKey → [{key, sim}] sorted desc
+        ready: false
+      };
+
+      // 從 Phaser texture 提取顏色直方圖特徵（不使用 getImageData，透過 RenderTexture）
+      function extractColorSignature(scene, imageKey) {
+        if (SIM_CACHE.signatures.has(imageKey)) return SIM_CACHE.signatures.get(imageKey);
+
+        // 使用 8x8 的 RenderTexture 取得平均顏色塊
+        const SIZE = 8;
+        const rt = scene.make.renderTexture({ width: SIZE, height: SIZE, add: false });
+        const img = scene.make.image({ key: imageKey, x: 0, y: 0, add: false }).setOrigin(0);
+        const srcW = img.width, srcH = img.height;
+        img.setDisplaySize(SIZE, SIZE);
+        rt.draw(img, 0, 0);
+
+        // 使用 snapshotPixel 取樣每個像素 — 但這是異步的
+        // 改用 canvas fallback: 直接從 Phaser 的 source image 繪製到小 canvas
+        const srcImg = scene.textures.get(imageKey).getSourceImage();
+        const c = document.createElement('canvas');
+        c.width = SIZE; c.height = SIZE;
+        const ctx = c.getContext('2d', { willReadFrequently: true });
+        const BINS = 8;
+        try {
+          ctx.drawImage(srcImg, 0, 0, SIZE, SIZE);
+          const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+
+          // 計算 RGB 直方圖 (每通道 8 bins = 24 維向量)
+          const hist = new Float32Array(BINS * 3);
+          const pixCount = SIZE * SIZE;
+          for (let i = 0; i < data.length; i += 4) {
+            const rBin = Math.min(BINS - 1, (data[i] / 256 * BINS) | 0);
+            const gBin = Math.min(BINS - 1, (data[i + 1] / 256 * BINS) | 0);
+            const bBin = Math.min(BINS - 1, (data[i + 2] / 256 * BINS) | 0);
+            hist[rBin]++;
+            hist[BINS + gBin]++;
+            hist[BINS * 2 + bBin]++;
+          }
+          // 歸一化
+          for (let i = 0; i < hist.length; i++) hist[i] /= pixCount;
+
+          // 加入平均顏色和亮度作為額外特徵 (共 28 維)
+          let avgR = 0, avgG = 0, avgB = 0, avgL = 0;
+          for (let i = 0; i < data.length; i += 4) {
+            avgR += data[i]; avgG += data[i + 1]; avgB += data[i + 2];
+            avgL += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+          }
+          const sig = new Float32Array(BINS * 3 + 4);
+          sig.set(hist);
+          sig[BINS * 3] = avgR / pixCount / 255;
+          sig[BINS * 3 + 1] = avgG / pixCount / 255;
+          sig[BINS * 3 + 2] = avgB / pixCount / 255;
+          sig[BINS * 3 + 3] = avgL / pixCount / 255;
+
+          SIM_CACHE.signatures.set(imageKey, sig);
+          rt.destroy();
+          img.destroy();
+          return sig;
+        } catch (e) {
+          // cross-origin fallback: 用隨機特徵（不影響遊戲，只是干擾項選擇退化為隨機）
+          const sig = new Float32Array(BINS * 3 + 4);
+          for (let i = 0; i < sig.length; i++) sig[i] = Math.random();
+          SIM_CACHE.signatures.set(imageKey, sig);
+          rt.destroy();
+          img.destroy();
+          return sig;
+        }
+      }
+
+      // 計算兩個特徵向量的餘弦相似度
+      function cosineSim(a, b) {
+        let dot = 0, normA = 0, normB = 0;
+        for (let i = 0; i < a.length; i++) {
+          dot += a[i] * b[i];
+          normA += a[i] * a[i];
+          normB += b[i] * b[i];
+        }
+        return dot / (Math.sqrt(normA) * Math.sqrt(normB) + 1e-8);
+      }
+
+      // 建立所有圖片的相似度排名
+      function buildSimilarityMatrix(scene) {
+        if (SIM_CACHE.ready) return;
+        console.time('buildSimilarityMatrix');
+
+        // 1. 提取所有特徵
+        for (const key of ALL_IMAGES) {
+          extractColorSignature(scene, key);
+        }
+
+        // 2. 為每張圖片計算與其他圖片的相似度並排序
+        for (const keyA of ALL_IMAGES) {
+          const sigA = SIM_CACHE.signatures.get(keyA);
+          const others = [];
+          for (const keyB of ALL_IMAGES) {
+            if (keyA === keyB) continue;
+            const pairKey = keyA < keyB ? `${keyA}|${keyB}` : `${keyB}|${keyA}`;
+            let sim;
+            if (SIM_CACHE.simMatrix.has(pairKey)) {
+              sim = SIM_CACHE.simMatrix.get(pairKey);
+            } else {
+              const sigB = SIM_CACHE.signatures.get(keyB);
+              sim = cosineSim(sigA, sigB);
+              SIM_CACHE.simMatrix.set(pairKey, sim);
+            }
+            others.push({ key: keyB, sim });
+          }
+          // 按相似度從高到低排序
+          others.sort((a, b) => b.sim - a.sim);
+          SIM_CACHE.ranked.set(keyA, others);
+        }
+
+        SIM_CACHE.ready = true;
+        console.timeEnd('buildSimilarityMatrix');
+        console.log(`Similarity matrix built for ${ALL_IMAGES.length} images`);
+      }
+
+      // 根據難度選擇干擾項
+      // d 低 → 隨機選（簡單）  d 高 → 選最相似的（困難）
+      function pickDistractors(correctKey, difficulty, count = 3) {
+        if (!SIM_CACHE.ready || !SIM_CACHE.ranked.has(correctKey)) {
+          // fallback: 隨機
+          const pool = ALL_IMAGES.filter(k => k !== correctKey);
+          shuffle(pool);
+          return pool.slice(0, count);
+        }
+
+        const ranked = SIM_CACHE.ranked.get(correctKey);
+        const d = Math.max(0, Math.min(1, difficulty));
+
+        // d=0: 從排名後 50% 中隨機挑 (不相似)
+        // d=0.5: 從排名前 60% 中隨機挑
+        // d=0.9+: 從排名前 20% 中挑最相似的（但排除完全相同的）
+        const topFraction = lerp(0.9, 0.15, d);
+        const poolSize = Math.max(count + 1, Math.ceil(ranked.length * topFraction));
+
+        // 排除相似度 > 0.999 的（幾乎完全相同的圖片）
+        const candidates = ranked.filter(r => r.sim < 0.999).slice(0, poolSize);
+
+        if (candidates.length <= count) {
+          return candidates.map(c => c.key);
+        }
+
+        // 從候選池中隨機選，但高難度時偏好更相似的
+        // 使用加權隨機：位置越前（越相似）權重越高
+        const selected = [];
+        const available = [...candidates];
+        for (let i = 0; i < count && available.length > 0; i++) {
+          // 難度越高，偏好指數越大
+          const bias = lerp(0.2, 2.0, d);
+          const weights = available.map((_, idx) =>
+            Math.pow(1 - idx / available.length, bias)
+          );
+          const totalW = weights.reduce((a, b) => a + b, 0);
+          let r = Math.random() * totalW;
+          let pick = 0;
+          for (let j = 0; j < weights.length; j++) {
+            r -= weights[j];
+            if (r <= 0) { pick = j; break; }
+          }
+          selected.push(available[pick].key);
+          available.splice(pick, 1);
+        }
+        return selected;
+      }
+
+      // ---------------- UI ----------------
+      function makeButton(scene, centerX, centerY, text) {
+        const w = 180,
+          h = 90;
+        const g = scene.add.graphics();
+        g.fillStyle(0x000000, 0.15).fillRoundedRect(4, 6, w, h, 18);
+        g.fillStyle(0xe56e5b, 1).fillRoundedRect(0, 0, w, h, 18);
+        g.lineStyle(3, 0xffffff, 1).strokeRoundedRect(0, 0, w, h, 18);
+        const t = scene.add
+          .text(w / 2, h / 2, text, {
+            font: "bold 28px Arial",
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 6,
+          })
+          .setOrigin(0.5);
+        const inner = scene.add.container(0, 0, [g, t]);
+        const cont = scene.add.container(centerX - w / 2, centerY - h / 2, [
+          inner,
+        ]);
+        cont.setSize(w, h);
+        cont.setInteractive(
+          new Phaser.Geom.Rectangle(0, 0, w, h),
+          Phaser.Geom.Rectangle.Contains
+        );
+        cont.input.useHandCursor = true;
+        cont.__inner = inner;
+        return cont;
+      }
+
+      function makeCard(scene, key, isQuestion, label) {
+        const w = isQuestion ? 320 : 210,
+          h = isQuestion ? 220 : 170;
+        const pad = 10,
+          boxW = w - 2 * pad,
+          boxH = h - 2 * pad;
+
+        const g = scene.add.graphics();
+        g.fillStyle(0x000000, 0.28).fillRoundedRect(4, 6, w, h, 10);
+        g.fillStyle(CARD_BG, 1).fillRoundedRect(0, 0, w, h, 10);
+        g.lineStyle(2, CARD_BORDER, 0.95).strokeRoundedRect(
+          2,
+          2,
+          w - 4,
+          h - 4,
+          8
+        );
+
+        const img = scene.add.image(0, 0, key).setOrigin(0.5);
+        const sx = boxW / (img.width || boxW),
+          sy = boxH / (img.height || boxH);
+        const s = Math.max(sx, sy);
+        img.setScale(s);
+        img.x = pad + boxW / 2;
+        img.y = pad + boxH / 2;
+
+        const inner = scene.add.container(0, 0, [g, img]);
+        if (!isQuestion && label) {
+          const lt = scene.add
+            .text(10, h - 10, label + ".", {
+              font: "bold 22px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 5,
+            })
+            .setOrigin(0, 1);
+          inner.add(lt);
+        }
+        // 問題卡加上「?」標記
+        if (isQuestion) {
+          const qMark = scene.add
+            .text(w - 16, 8, "?", {
+              font: "bold 28px Arial",
+              fill: "#FFD700",
+              stroke: "#000",
+              strokeThickness: 5,
+            })
+            .setOrigin(1, 0);
+          inner.add(qMark);
+        }
+        const cont = scene.add.container(0, 0, [inner]);
+        cont.setSize(w, h);
+        cont.setInteractive(
+          new Phaser.Geom.Rectangle(0, 0, w, h),
+          Phaser.Geom.Rectangle.Contains
+        );
+        cont.input.useHandCursor = true;
+        cont.__inner = inner;
+        cont.__img = img;
+        cont.__size = { w, h, boxW, boxH, pad };
+        return cont;
+      }
+
+      // 正確反饋效果
+      function fxCorrect(scene, cont) {
+        const inner = cont.__inner;
+        const cx = cont.x + cont.width / 2;
+        const cy = cont.y + cont.height / 2;
+
+        const flash = scene.add
+          .rectangle(cx, cy, cont.width + 20, cont.height + 20, 0xffff00, 0.7)
+          .setDepth(30);
+
+        const rings = [];
+        for (let i = 0; i < 3; i++) {
+          const ring = scene.add
+            .circle(cx, cy, 10 + i * 15, 0x00ff88, 0.7 - i * 0.2)
+            .setDepth(31);
+          rings.push(ring);
+          scene.tweens.add({
+            targets: ring,
+            radius: 80 + i * 20,
+            alpha: 0,
+            duration: 350 + i * 100,
+            ease: "Sine.easeOut",
+            onComplete: () => ring.destroy(),
+          });
+        }
+
+        scene.tweens.add({
+          targets: inner,
+          scaleX: 1.15,
+          scaleY: 1.15,
+          duration: 120,
+          yoyo: true,
+          ease: "Back.easeOut",
+          onComplete: () => {
+            for (let i = 0; i < 8; i++) {
+              createStar(scene, cx, cy, i);
+            }
+          },
+        });
+
+        scene.tweens.add({
+          targets: flash,
+          alpha: 0,
+          scale: 1.3,
+          duration: 250,
+          onComplete: () => flash.destroy(),
+        });
+
+        const glow = scene.add
+          .rectangle(cx, cy, cont.width + 10, cont.height + 10, 0xffff00, 0)
+          .setDepth(29);
+        scene.tweens.add({
+          targets: glow,
+          alpha: 0.4,
+          duration: 150,
+          yoyo: true,
+          onComplete: () => glow.destroy(),
+        });
+      }
+
+      function createStar(scene, x, y, index) {
+        const angle = (index / 8) * Math.PI * 2;
+        const distance = 50 + Math.random() * 30;
+        const duration = 300 + Math.random() * 200;
+
+        const points = [];
+        const outerRadius = 8;
+        const innerRadius = 4;
+        let rot = (Math.PI / 2) * 3;
+        const step = Math.PI / 5;
+
+        for (let i = 0; i < 10; i++) {
+          const radius = i % 2 === 0 ? outerRadius : innerRadius;
+          points.push({
+            x: x + Math.cos(rot) * radius,
+            y: y + Math.sin(rot) * radius,
+          });
+          rot += step;
+        }
+
+        const star = scene.add.polygon(x, y, points, 0xffff00).setDepth(32);
+        scene.tweens.add({
+          targets: star,
+          x: x + Math.cos(angle) * distance,
+          y: y + Math.sin(angle) * distance,
+          angle: 180 + Math.random() * 180,
+          alpha: 0,
+          scale: 0.5 + Math.random() * 0.5,
+          duration: duration,
+          ease: "Cubic.easeOut",
+          onComplete: () => star.destroy(),
+        });
+      }
+
+      function fxWrong(scene, cont) {
+        scene.cameras.main.shake(150, 0.006);
+
+        const overlay = scene.add
+          .rectangle(
+            cont.x + cont.width / 2,
+            cont.y + cont.height / 2,
+            cont.width + 4,
+            cont.height + 4,
+            0xff0000,
+            0.5
+          )
+          .setDepth(30);
+
+        const crossSize = Math.min(cont.width, cont.height) * 0.6;
+        const cx = cont.x + cont.width / 2;
+        const cy = cont.y + cont.height / 2;
+        const thickness = 6;
+
+        const cross1 = scene.add.graphics().setDepth(31);
+        cross1.lineStyle(thickness, 0xff0000, 0.8);
+        cross1.beginPath();
+        cross1.moveTo(cx - crossSize / 2, cy - crossSize / 2);
+        cross1.lineTo(cx + crossSize / 2, cy + crossSize / 2);
+        cross1.strokePath();
+        cross1.setAlpha(0);
+
+        const cross2 = scene.add.graphics().setDepth(31);
+        cross2.lineStyle(thickness, 0xff0000, 0.8);
+        cross2.beginPath();
+        cross2.moveTo(cx + crossSize / 2, cy - crossSize / 2);
+        cross2.lineTo(cx - crossSize / 2, cy + crossSize / 2);
+        cross2.strokePath();
+        cross2.setAlpha(0);
+
+        scene.tweens.add({
+          targets: [cross1, cross2],
+          alpha: 1,
+          duration: 80,
+          onComplete: () => {
+            scene.tweens.add({
+              targets: cont,
+              x: cont.x + 5,
+              duration: 50,
+              yoyo: true,
+              repeat: 2,
+              ease: "Sine.easeInOut",
+              onComplete: () => {
+                scene.tweens.add({
+                  targets: [overlay, cross1, cross2],
+                  alpha: 0,
+                  duration: 150,
+                  onComplete: () => {
+                    overlay.destroy();
+                    cross1.destroy();
+                    cross2.destroy();
+                  },
+                });
+              },
+            });
+          },
+        });
+      }
+
+      function spawnPlusOne(scene, x, y) {
+        const container = scene.add.container(x, y).setDepth(1000);
+        const glow = scene.add.circle(0, 0, 18, 0x00ff88, 0.3);
+        const t = scene.add
+          .text(0, 0, "+1s", {
+            font: "bold 28px Arial",
+            fill: "#00ff88",
+            stroke: "#001a0f",
+            strokeThickness: 6,
+          })
+          .setOrigin(0.5);
+        container.add([glow, t]);
+        scene.tweens.add({
+          targets: container,
+          y: y - 50,
+          alpha: 0,
+          scale: 1.2,
+          duration: 600,
+          ease: "Back.easeOut",
+          onComplete: () => container.destroy(),
+        });
+      }
+
+      // 答對時：揭開遮蓋，顯示完整圖片
+      // 遮蓋層淡出，露出底層的原圖
+      function fxReveal(scene, qCard) {
+        if (!qCard || !qCard.active) return;
+        if (qCard.__coverImg) {
+          scene.tweens.add({
+            targets: qCard.__coverImg,
+            alpha: 0,
+            duration: 350,
+            ease: "Quad.easeIn",
+          });
+        }
+      }
+
+      // ---------------- 數據收集 ----------------
+      async function logGameData(gameData) {
+        const sessionData = {
+          timestamp: new Date().toISOString(),
+          sessionId: gameData.sessionId || `session_${Date.now()}`,
+          gameType: "g1-3_find_whole_image",
+          playerData: {
+            accuracy: gameData.correctCount / Math.max(1, gameData.totalRounds),
+            avgResponseTime:
+              gameData.responseTimeTotal / Math.max(1, gameData.totalRounds),
+            finalDifficulty: gameData.difficulty,
+            difficultyHistory: gameData.difficultyHistory || [],
+            performanceByRound: gameData.roundStats || [],
+          },
+          gameSettings: {
+            timeLimit: TIME_START,
+            targetCorrect: TARGET_CORRECT,
+          },
+          deviceInfo: {
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
+            userAgent: navigator.userAgent,
+          },
+        };
+
+        try {
+          const offlineData = JSON.parse(
+            localStorage.getItem("offlineGameData") || "[]"
+          );
+          offlineData.push(sessionData);
+          localStorage.setItem("offlineGameData", JSON.stringify(offlineData));
+          console.log("Game data logged to local storage");
+
+          if (
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+          ) {
+            console.table({
+              "Session ID": sessionData.sessionId,
+              Timestamp: sessionData.timestamp,
+              Accuracy: sessionData.playerData.accuracy.toFixed(2),
+              "Avg RT":
+                sessionData.playerData.avgResponseTime.toFixed(0) + "ms",
+              "Final Diff":
+                sessionData.playerData.finalDifficulty.toFixed(2),
+            });
+          }
+        } catch (err) {
+          console.error("Error logging game data:", err);
+        }
+        return sessionData;
+      }
+
+      // ---------------- 選單場景 ----------------
+      class SceneMenu extends Phaser.Scene {
+        constructor() {
+          super("menu");
+        }
+        preload() {
+          this.loadingText = this.add
+            .text(GAME_W / 2, GAME_H / 2, TEXTS.loading + " 0%", {
+              font: "28px Arial",
+              fill: "#fff",
+            })
+            .setOrigin(0.5);
+
+          this.load.on("progress", (p) => {
+            const percent = Math.floor(p * 100);
+            if (this.loadingText)
+              this.loadingText.setText(`${TEXTS.loading} ${percent}%`);
+          });
+          ALL_IMAGES.forEach((src) => this.load.image(src, src));
+        }
+        create() {
+          if (this.loadingText) this.loadingText.destroy();
+
+          // 建立圖片相似度矩陣（用於難度自適應干擾項選擇）
+          buildSimilarityMatrix(this);
+
+          this.cameras.main.setBackgroundColor("#000");
+          this.mapPointer = createPointerMapper(this.game);
+
+          const bg = this.add.graphics();
+          bg.fillStyle(PANEL_COLOR, 1).fillRoundedRect(0, 0, GAME_W, GAME_H, 6);
+          bg.lineStyle(2, PANEL_BORDER, 1).strokeRoundedRect(
+            2, 2, GAME_W - 4, GAME_H - 4, 6
+          );
+
+          this.add.text(84, 64, TEXTS.title, {
+            font: "bold 48px Arial",
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 8,
+            lineSpacing: -8,
+          });
+          const play = makeButton(
+            this,
+            GAME_W / 2 - 120,
+            GAME_H / 2 + 40,
+            "遊戲開始"
+          );
+          const help = makeButton(
+            this,
+            GAME_W / 2 + 120,
+            GAME_H / 2 + 40,
+            "遊戲玩法"
+          );
+
+          this.input.on("pointerdown", (raw) => {
+            const p = this.mapPointer(raw.event);
+            const hit = (btn) =>
+              Phaser.Geom.Rectangle.Contains(btn.getBounds(), p.x, p.y);
+            if (hit(play)) this.scene.start("game");
+            else if (hit(help)) this.showHelp();
+          });
+        }
+        showHelp() {
+          const dim = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2, GAME_W, GAME_H, 0x000000, 0.7)
+            .setDepth(100)
+            .setInteractive();
+
+          const panel = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2, 600, 480, 0xffffff)
+            .setDepth(101)
+            .setStrokeStyle(4, 0x4a90e2);
+
+          const titleBar = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2 - 220, 600, 60, 0x4a90e2)
+            .setDepth(101);
+
+          const title = this.add
+            .text(GAME_W / 2, GAME_H / 2 - 220, "遊戲玩法", {
+              font: "bold 32px Arial",
+              fill: "#ffffff",
+            })
+            .setOrigin(0.5)
+            .setDepth(102);
+
+          const goalHeader = this.add
+            .text(GAME_W / 2 - 270, GAME_H / 2 - 170, "【遊戲目標】", {
+              font: "bold 24px Arial",
+              fill: "#4a90e2",
+            })
+            .setDepth(102);
+
+          const goalText = this.add
+            .text(
+              GAME_W / 2 - 270,
+              GAME_H / 2 - 130,
+              "上方圖片被大面積遮蓋，只露出部份區域。\n請從下方 4 張完整圖片中，找出被遮住的那一張。",
+              {
+                font: "20px Arial",
+                fill: "#333333",
+                lineSpacing: 6,
+              }
+            )
+            .setDepth(102);
+
+          const rulesHeader = this.add
+            .text(GAME_W / 2 - 270, GAME_H / 2 - 60, "【遊戲規則】", {
+              font: "bold 24px Arial",
+              fill: "#4a90e2",
+            })
+            .setDepth(102);
+
+          const rules = [
+            "• 選對可得 10 分，並增加時間",
+            "• 選錯扣 5 分",
+            "• 難度會根據你的表現自動調整",
+            "• 難度越高，圖片被遮蓋得越多",
+            "• 答對 20 題即可通關",
+          ];
+
+          const ruleTexts = [];
+          rules.forEach((rule, index) => {
+            const ruleText = this.add
+              .text(GAME_W / 2 - 270, GAME_H / 2 - 20 + index * 30, rule, {
+                font: "20px Arial",
+                fill: "#333333",
+              })
+              .setDepth(102);
+            ruleTexts.push(ruleText);
+          });
+
+          const btnBg = this.add
+            .rectangle(GAME_W / 2, GAME_H / 2 + 190, 160, 60, 0xe56e5b)
+            .setDepth(102)
+            .setInteractive()
+            .setStrokeStyle(2, 0xffffff);
+
+          const btnText = this.add
+            .text(GAME_W / 2, GAME_H / 2 + 190, "知道了", {
+              font: "bold 24px Arial",
+              fill: "#ffffff",
+            })
+            .setOrigin(0.5)
+            .setDepth(103);
+
+          btnBg.on("pointerdown", () => {
+            const elements = [
+              dim, panel, titleBar, title, goalHeader, goalText,
+              rulesHeader, ...ruleTexts, btnBg, btnText,
+            ];
+            this.tweens.add({
+              targets: elements,
+              alpha: 0,
+              duration: 200,
+              onComplete: () => elements.forEach((el) => el.destroy()),
+            });
+          });
+
+          const elements = [
+            panel, titleBar, title, goalHeader, goalText,
+            rulesHeader, ...ruleTexts, btnBg, btnText,
+          ];
+          elements.forEach((el) => {
+            el.alpha = 0;
+            el.y += 20;
+          });
+          this.tweens.add({
+            targets: elements,
+            alpha: 1,
+            y: "-=20",
+            duration: 200,
+            ease: "Power1",
+            stagger: 30,
+          });
+        }
+      }
+
+      // ---------------- 遊戲場景 ----------------
+      class SceneGame extends Phaser.Scene {
+        constructor() {
+          super("game");
+        }
+        init() {
+          this.score = 0;
+          this.levelIndex = 0;
+          this.timeLeft = TIME_START;
+          this.correctCount = 0;
+          this.isGameOver = false;
+          this.startTime = 0;
+          this.hoverIndex = -1;
+          this.clickLocked = false;
+          this.lastClickAt = 0;
+          this.modalOpen = false;
+          this.ddm = new DifficultyManager(0.3);
+          this.answerIndex = -1;
+          this.tempKeys = [];
+          this.sessionId = `session_${Date.now()}`;
+          this.responseTimeTotal = 0;
+          this.roundStats = [];
+          this.timeWarningActive = false;
+          this.currentCorrectKey = null;
+
+          this.stages = [
+            { name: "入門", minCorrect: 0, maxDifficulty: 0.3, timeBonus: 2.0 },
+            { name: "基礎", minCorrect: 5, maxDifficulty: 0.5, timeBonus: 1.5 },
+            { name: "進階", minCorrect: 10, maxDifficulty: 0.7, timeBonus: 1.0 },
+            { name: "挑戰", minCorrect: 15, maxDifficulty: 0.9, timeBonus: 0.5 },
+          ];
+          this.currentStage = this.stages[0];
+        }
+        create() {
+          this.mapPointer = createPointerMapper(this.game);
+
+          const p = this.add.graphics();
+          p.fillStyle(PANEL_COLOR, 1).fillRoundedRect(0, 0, GAME_W, GAME_H, 6);
+          p.lineStyle(2, PANEL_BORDER, 1).strokeRoundedRect(
+            2, 2, GAME_W - 4, GAME_H - 4, 6
+          );
+
+          this.hudG = this.add.graphics().setDepth(50);
+          this.hudText = this.add
+            .text(SAFE_PAD + 8, SAFE_PAD - 2, "", {
+              font: "bold 18px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 4,
+            })
+            .setDepth(51);
+          this.drawHUD();
+
+          this.title = this.add.text(
+            SAFE_PAD + 8,
+            SAFE_PAD + 20,
+            "找出全相 第1回合",
+            {
+              font: "bold 32px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 6,
+            }
+          );
+          this.scoreText = this.add.text(
+            SAFE_PAD + 8,
+            SAFE_PAD + 56,
+            `${TEXTS.chance}: ${this.score}`,
+            {
+              font: "bold 28px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 6,
+            }
+          );
+
+          this.timerGfx = this.add.graphics();
+          this.timerText = this.add
+            .text(
+              GAME_W - SAFE_PAD - 140,
+              SAFE_PAD + 20,
+              `${TEXTS.time}: ${this.timeLeft}`,
+              {
+                font: "bold 28px Arial",
+                fill: "#fff",
+                stroke: "#000",
+                strokeThickness: 6,
+              }
+            )
+            .setOrigin(0, 0.5);
+          this.updateTimerBar();
+
+          this.backBtn = makeButton(
+            this,
+            GAME_W - SAFE_PAD - 90,
+            SAFE_PAD + 96,
+            "回主頁"
+          ).setDepth(20);
+          this.input.on("pointerdown", (raw) => {
+            if (this.modalOpen) return;
+            const p = this.mapPointer(raw.event);
+            if (
+              Phaser.Geom.Rectangle.Contains(
+                this.backBtn.getBounds(),
+                p.x,
+                p.y
+              )
+            )
+              this.askBackHome();
+          });
+
+          this.timeEvent = this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: () => {
+              if (this.isGameOver || this.modalOpen) return;
+              this.timeLeft = Math.max(0, this.timeLeft - 1);
+              this.updateTimerBar();
+              if (this.timeLeft <= 0) this.finish(false);
+            },
+          });
+
+          this.startTime = performance.now();
+          this.loadLevel(0);
+
+          this.input.on("pointermove", (raw) => {
+            if (this.modalOpen) return;
+            const p = this.mapPointer(raw.event);
+            this.updateHover(p);
+          });
+
+          this.input.on("pointerdown", (raw) => {
+            if (this.modalOpen) return;
+            if (this.clickLocked) return;
+
+            const now = performance.now();
+            if (now - this.lastClickAt < MIN_CLICK_GAP_MS) return;
+            this.lastClickAt = now;
+
+            const p = this.mapPointer(raw.event);
+            if (!this.opts || !this.opts.length || this.isGameOver) return;
+
+            let hitIndex = -1;
+            for (let i = 0; i < this.opts.length; i++) {
+              if (
+                Phaser.Geom.Rectangle.Contains(
+                  this.opts[i].getBounds(),
+                  p.x,
+                  p.y
+                )
+              ) {
+                hitIndex = i;
+                break;
+              }
+            }
+            if (hitIndex === -1) return;
+
+            this.clickLocked = true;
+            this._rtStart = this._rtStart || performance.now();
+            this.pick(hitIndex, p, performance.now() - this._rtStart);
+            this._rtStart = performance.now();
+          });
+        }
+
+        getCurrentStage() {
+          for (let i = this.stages.length - 1; i >= 0; i--) {
+            if (this.correctCount >= this.stages[i].minCorrect) {
+              return this.stages[i];
+            }
+          }
+          return this.stages[0];
+        }
+
+        showStageBanner(stageName) {
+          const banner = this.add
+            .container(GAME_W / 2, GAME_H / 2 - 100)
+            .setDepth(900);
+
+          const bg = this.add.graphics();
+          bg.fillStyle(0x3366cc, 0.9);
+          bg.fillRoundedRect(-200, -40, 400, 80, 16);
+          bg.lineStyle(4, 0xffffff, 1);
+          bg.strokeRoundedRect(-200, -40, 400, 80, 16);
+          banner.add(bg);
+
+          const text = this.add
+            .text(0, -10, TEXTS.stage_intro + stageName + "階段", {
+              font: "bold 32px Arial",
+              fill: "#FFFFFF",
+            })
+            .setOrigin(0.5);
+          const subtext = this.add
+            .text(0, 20, TEXTS.stage_difficulty, {
+              font: "24px Arial",
+              fill: "#FFFFFF",
+            })
+            .setOrigin(0.5);
+          banner.add(text);
+          banner.add(subtext);
+
+          banner.setAlpha(0);
+          banner.setScale(0.5);
+          this.tweens.add({
+            targets: banner,
+            alpha: 1,
+            scale: 1,
+            duration: 300,
+            ease: "Back.easeOut",
+            onComplete: () => {
+              this.time.delayedCall(1500, () => {
+                this.tweens.add({
+                  targets: banner,
+                  alpha: 0,
+                  scale: 0.8,
+                  duration: 300,
+                  onComplete: () => banner.destroy(),
+                });
+              });
+            },
+          });
+        }
+
+        drawHUD() {
+          const d = this.ddm?.d ?? 0.3;
+          const x = SAFE_PAD + 6,
+            y = SAFE_PAD + 4,
+            w = 320,
+            h = 10;
+          this.hudText.setText(`${TEXTS.difficulty} d=${d.toFixed(2)}`);
+          this.hudG.clear();
+          this.hudG
+            .fillStyle(0x000000, 0.35)
+            .fillRoundedRect(x - 2, y - 2, w + 4, h + 4, 6);
+          this.hudG.lineStyle(2, 0xffffff, 1).strokeRoundedRect(x, y, w, h, 6);
+          const ratio = Phaser.Math.Clamp((d - 0.1) / (0.9 - 0.1), 0, 1);
+          this.hudG
+            .fillStyle(0xffd166, 1)
+            .fillRoundedRect(x + 1, y + 1, (w - 2) * ratio, h - 2, 5);
+        }
+
+        updateTimerBar() {
+          const x = GAME_W - SAFE_PAD - 380,
+            y = SAFE_PAD + 18,
+            w = 360,
+            h = 22;
+          const ratio = Phaser.Math.Clamp(this.timeLeft / TIME_START, 0, 1);
+          const color = this.timeLeft > 10 ? 0x3ac66e : 0xdc3545;
+          this.timerText.setText(`${TEXTS.time}: ${this.timeLeft}`);
+          this.timerGfx.clear();
+          this.timerGfx
+            .fillStyle(0x000000, 0.35)
+            .fillRoundedRect(x - 2, y - 2, w + 4, h + 4, 10);
+          this.timerGfx
+            .lineStyle(2, 0xffffff, 1)
+            .strokeRoundedRect(x, y, w, h, 10);
+          this.timerGfx
+            .fillStyle(color, 1)
+            .fillRoundedRect(x + 1, y + 1, (w - 2) * ratio, h - 2, 9);
+
+          if (
+            this.timeLeft <= 10 &&
+            !this.timeWarningActive &&
+            this.timeLeft > 0
+          ) {
+            this.timeWarningActive = true;
+            this.cameras.main.flash(300, 255, 0, 0, 0.3);
+            this.tweens.add({
+              targets: this.timerText,
+              scale: 1.1,
+              duration: 300,
+              yoyo: true,
+              repeat: -1,
+            });
+          } else if (this.timeLeft > 10 && this.timeWarningActive) {
+            this.timeWarningActive = false;
+            this.tweens.killTweensOf(this.timerText);
+            this.timerText.setScale(1);
+          }
+        }
+
+        updateHover(p) {
+          if (!this.opts || !this.opts.length) return;
+          let newIndex = -1;
+          for (let i = 0; i < this.opts.length; i++) {
+            if (
+              Phaser.Geom.Rectangle.Contains(
+                this.opts[i].getBounds(),
+                p.x,
+                p.y
+              )
+            ) {
+              newIndex = i;
+              break;
+            }
+          }
+          if (newIndex === this.hoverIndex) return;
+          this.hoverIndex = newIndex;
+          for (let i = 0; i < this.opts.length; i++) {
+            const inner = this.opts[i].__inner;
+            this.tweens.add({
+              targets: inner,
+              scale: i === newIndex ? 1.04 : 1.0,
+              duration: 90,
+              ease: "Quad.easeOut",
+            });
+          }
+        }
+
+        unloadTempTextures() {
+          const tm = this.textures;
+          this.tempKeys.forEach((k) => {
+            if (tm.exists(k)) tm.remove(k);
+          });
+          this.tempKeys.length = 0;
+        }
+
+        // 出題：隨機選正確圖 → 生成遮蓋版 → 4 個選項（1 正確 + 3 干擾）
+        loadLevel(i) {
+          this.levelIndex = i;
+          this.unloadTempTextures();
+
+          if (this.qCard) this.qCard.destroy();
+          if (this.opts) this.opts.forEach((o) => o.destroy());
+
+          const correctKey = rp(ALL_IMAGES);
+          this.currentCorrectKey = correctKey;
+          this.title.setText(`找出全相 第${i + 1}回合`);
+
+          if (this.tip && this.tip.active) this.tip.destroy();
+          this.tip = this.add
+            .text(GAME_W / 2, SAFE_PAD + 60, TEXTS.tip, {
+              font: "28px Arial",
+              fill: "#fff",
+              stroke: "#000",
+              strokeThickness: 6,
+            })
+            .setOrigin(0.5);
+
+          // 題目卡：原圖 + 遮蓋層疊加
+          this.qCard = makeCard(this, correctKey, true, null);
+          this.qCard.x =
+            SAFE_PAD + (GAME_W - SAFE_PAD * 2) / 2 - this.qCard.width / 2;
+          this.qCard.y = SAFE_PAD + 110;
+
+          // 生成遮蓋層（只有色塊，不含外部圖片）
+          const coverKey = generateCoverTexture(this, correctKey, this.ddm.d);
+          if (coverKey) {
+            this.tempKeys.push(coverKey);
+            const s = this.qCard.__size;
+            const coverImg = this.add.image(0, 0, coverKey).setOrigin(0.5);
+            const csx = s.boxW / (coverImg.width || s.boxW);
+            const csy = s.boxH / (coverImg.height || s.boxH);
+            coverImg.setScale(Math.max(csx, csy));
+            coverImg.x = s.pad + s.boxW / 2;
+            coverImg.y = s.pad + s.boxH / 2;
+            this.qCard.__inner.add(coverImg);
+            this.qCard.__coverImg = coverImg;
+          }
+
+          // 根據難度選擇干擾項：難度越高 → 干擾圖越相似
+          const distractors = pickDistractors(correctKey, this.ddm.d, 3);
+
+          const letters = ["A", "B", "C", "D"];
+          const totalW = 4 * 210 + 3 * 30;
+          const startX = SAFE_PAD + (GAME_W - SAFE_PAD * 2 - totalW) / 2;
+          const y = SAFE_PAD + 360;
+
+          let options = [correctKey, ...distractors];
+          shuffle(options);
+          this.answerIndex = options.indexOf(correctKey);
+
+          this.opts = [];
+          for (let idx = 0; idx < 4; idx++) {
+            const k = options[idx];
+            const usable = this.textures.exists(k) ? k : correctKey;
+            const card = makeCard(this, usable, false, letters[idx]);
+            card.x = startX + idx * (210 + 30);
+            card.y = y;
+            this.opts.push(card);
+          }
+
+          this.hoverIndex = -1;
+          if (i === 0) {
+            this.time.delayedCall(50, () => (this.clickLocked = false));
+          } else {
+            this.time.delayedCall(1500, () => (this.clickLocked = false));
+          }
+          this._rtStart = performance.now();
+          this.drawHUD();
+        }
+
+        pick(idx, pointerWorld, rtMs) {
+          const isCorrect = idx === this.answerIndex;
+
+          const roundData = {
+            roundIndex: this.levelIndex,
+            difficulty: this.ddm.d,
+            responseTimeMs: rtMs,
+            isCorrect: isCorrect,
+            timestamp: new Date().getTime(),
+          };
+          this.roundStats.push(roundData);
+          this.responseTimeTotal += rtMs;
+
+          if (isCorrect) {
+            fxCorrect(this, this.opts[idx]);
+            spawnPlusOne(this, pointerWorld.x, pointerWorld.y - 20);
+
+            // 揭開遮蓋顯示完整圖片
+            fxReveal(this, this.qCard);
+
+            const newStage = this.getCurrentStage();
+            const timeBonus = newStage.timeBonus || TIME_BONUS;
+            const prevStage = this.currentStage;
+            this.currentStage = newStage;
+
+            this.score += 10;
+            this.correctCount += 1;
+            this.timeLeft = Math.min(TIME_START, this.timeLeft + timeBonus);
+            this.updateTimerBar();
+
+            if (prevStage !== newStage) {
+              this.showStageBanner(newStage.name);
+            }
+
+            this.scoreText.setText(`${TEXTS.chance}: ${this.score}`);
+
+            this.ddm.record(true, rtMs || 1500);
+            const maxDifficulty = newStage.maxDifficulty;
+            if (this.ddm.d > maxDifficulty) {
+              this.ddm.d = maxDifficulty;
+            }
+            this.drawHUD();
+
+            if (this.correctCount >= TARGET_CORRECT) {
+              this.finish(true);
+              return;
+            }
+
+            this.time.delayedCall(500, () => {
+              this.loadLevel(this.levelIndex + 1);
+            });
+
+            this.time.delayedCall(600, () => {
+              this.clickLocked = false;
+            });
+          } else {
+            this.score -= 5;
+            this.scoreText.setText(`${TEXTS.chance}: ${this.score}`);
+            fxWrong(this, this.opts[idx]);
+            this.ddm.record(false, Math.max(rtMs || 2200, 2200));
+            this.drawHUD();
+            this.time.delayedCall(500, () => (this.clickLocked = false));
+          }
+        }
+
+        async finish(isClear) {
+          if (this.isGameOver) return;
+          this.isGameOver = true;
+          this.clickLocked = true;
+
+          const usedMs = Math.max(
+            0,
+            performance.now() - (this.startTime || performance.now())
+          );
+          const usedSec = Math.round(usedMs / 1000);
+
+          const title = isClear ? "通關成功！" : "時間到！";
+          const detail = isClear
+            ? `完成 ${TARGET_CORRECT} 題，用時 ${usedSec} 秒`
+            : `共完成 ${this.correctCount} 題`;
+          const gi = isClear
+            ? gradeByPerformance(usedSec, this.correctCount, TARGET_CORRECT)
+            : { grade: "—", msg: "再試一次吧！" };
+
+          const dim = this.add.rectangle(
+            GAME_W / 2,
+            GAME_H / 2,
+            GAME_W,
+            GAME_H,
+            0x000000,
+            0.55
+          );
+          const pane = this.add.graphics({
+            x: GAME_W / 2 - 300,
+            y: GAME_H / 2 - 180,
+          });
+          pane.fillStyle(0xffffff, 1).fillRoundedRect(0, 0, 600, 320, 14);
+          pane.lineStyle(3, 0x333333, 1).strokeRoundedRect(0, 0, 600, 320, 14);
+
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 110, title, {
+              font: "bold 40px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 60, detail, {
+              font: "28px Arial",
+              fill: "#333",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 - 10, `Grade: ${gi.grade}`, {
+              font: "bold 36px Arial",
+              fill: "#0a6",
+            })
+            .setOrigin(0.5);
+          this.add
+            .text(GAME_W / 2, GAME_H / 2 + 30, gi.msg, {
+              font: "24px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5);
+
+          const replay = makeButton(
+            this,
+            GAME_W / 2 - 100,
+            GAME_H / 2 + 110,
+            "重玩"
+          );
+          const home = makeButton(
+            this,
+            GAME_W / 2 + 100,
+            GAME_H / 2 + 110,
+            "回主頁"
+          );
+
+          try {
+            await logGameData({
+              sessionId: this.sessionId,
+              totalRounds: this.levelIndex + 1,
+              correctCount: this.correctCount,
+              responseTimeTotal: this.responseTimeTotal,
+              difficulty: this.ddm.d,
+              difficultyHistory: this.ddm.diffHistory,
+              roundStats: this.roundStats,
+              finalGrade: gi.grade,
+              timeUsedSec: usedSec,
+              completionStatus: isClear ? "complete" : "timeout",
+            });
+          } catch (error) {
+            console.error("Error logging game data:", error);
+          }
+
+          const onDown = (raw) => {
+            const p = this.mapPointer(raw.event);
+            if (
+              Phaser.Geom.Rectangle.Contains(replay.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              this.scene.restart();
+            } else if (
+              Phaser.Geom.Rectangle.Contains(home.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              window.location.href = THEME_URL;
+            }
+          };
+          this.input.on("pointerdown", onDown);
+        }
+
+        askBackHome() {
+          if (this.modalOpen) return;
+          this.modalOpen = true;
+
+          const dim = this.add
+            .rectangle(
+              GAME_W / 2,
+              GAME_H / 2,
+              GAME_W,
+              GAME_H,
+              0x000000,
+              0.55
+            )
+            .setDepth(1900)
+            .setInteractive();
+          const pane = this.add
+            .graphics({ x: GAME_W / 2 - 260, y: GAME_H / 2 - 120 })
+            .setDepth(2000);
+          pane.fillStyle(0xffffff, 1).fillRoundedRect(0, 0, 520, 220, 14);
+          pane.lineStyle(3, 0x333333, 1).strokeRoundedRect(0, 0, 520, 220, 14);
+          const t = this.add
+            .text(GAME_W / 2, GAME_H / 2 - 40, TEXTS.confirmHome, {
+              font: "28px Arial",
+              fill: "#222",
+            })
+            .setOrigin(0.5)
+            .setDepth(2000);
+          const yes = makeButton(
+            this,
+            GAME_W / 2 - 90,
+            GAME_H / 2 + 60,
+            TEXTS.yes
+          ).setDepth(2000);
+          const no = makeButton(
+            this,
+            GAME_W / 2 + 90,
+            GAME_H / 2 + 60,
+            TEXTS.no
+          ).setDepth(2000);
+
+          const close = () => {
+            [dim, pane, t, yes, no].forEach((o) => o && o.destroy());
+            this.modalOpen = false;
+          };
+
+          const onDown = (raw) => {
+            const p = this.mapPointer(raw.event);
+            if (
+              Phaser.Geom.Rectangle.Contains(yes.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              this.unloadTempTextures();
+              window.location.href = THEME_URL;
+            } else if (
+              Phaser.Geom.Rectangle.Contains(no.getBounds(), p.x, p.y)
+            ) {
+              this.input.off("pointerdown", onDown);
+              close();
+            }
+          };
+          this.input.on("pointerdown", onDown);
+          this.input.keyboard?.once("keydown-ESC", () => {
+            this.input.off("pointerdown", onDown);
+            close();
+          });
+        }
+      }
+
+      // --- 遊戲啟動主邏輯 ---
+      async function initGame() {
+        try {
+          const response = await fetch("/api/games/occupation/images");
+          if (!response.ok) {
+            throw new Error(`API 請求失敗: ${response.statusText}`);
+          }
+          ALL_IMAGES = await response.json();
+
+          if (!ALL_IMAGES || ALL_IMAGES.length < 10) {
+            console.error("錯誤：可用的圖片資源不足。至少需要10張圖片。");
+            document.getElementById("game-container").innerHTML =
+              '<div style="color:white; text-align:center; padding: 50px;">遊戲資源加載失敗：圖片數量不足。</div>';
+            return;
+          }
+
+          const game = new Phaser.Game({
+            type: Phaser.WEBGL,
+            width: GAME_W,
+            height: GAME_H,
+            parent: "game-container",
+            backgroundColor: "#000000",
+            scene: [SceneMenu, SceneGame],
+            scale: {
+              mode: Phaser.Scale.FIT,
+              autoCenter: Phaser.Scale.CENTER_BOTH,
+              expandParent: true,
+            },
+            input: { activePointers: 1, windowEvents: true },
+            render: { antialias: true, premultipliedAlpha: true },
+            loader: {
+              baseURL: "",
+              crossOrigin: "anonymous",
+            },
+          });
+        } catch (error) {
+          console.error("無法初始化遊戲:", error);
+          document.getElementById("game-container").innerHTML =
+            '<div style="color:white; text-align:center; padding-top: 50px;">遊戲加載失敗，請檢查後端服務是否正常或刷新頁面。</div>';
+        }
+      }
+
+      initGame();
+    </script>
+  </body>
+</html>
