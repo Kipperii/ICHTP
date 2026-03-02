@@ -13,27 +13,35 @@ PER_FILE_LIMIT = 2 * 1024 * 1024  # 2MB 與前端一致
 # 預設場景 / 遊戲 → 對應內建資源相對路徑（相對於 static）
 DEFAULT_SCENE_GAME_DIRS = {
     ('supermarket', 'find_same'): 'games/supermarket/g1-1/images',
+    ('supermarket', 'find_whole'): 'games/supermarket/g1-1/images',   # G1-3 shares G1-1 images
     ('supermarket', 'memory'): 'games/supermarket/g1-2/images',
     
     ('home', 'find_same'): 'games/home/g1-1/images',
+    ('home', 'find_whole'): 'games/home/g1-1/images',
     ('home', 'memory'): 'games/home/g1-2/images',
     
     ('occupation', 'find_same'): 'games/occupation/g1-1/images',
+    ('occupation', 'find_whole'): 'games/occupation/g1-1/images',
     ('occupation', 'memory'): 'games/occupation/g1-2/images',
     
     ('picnic', 'find_same'): 'games/picnic/g1-1/images',
+    ('picnic', 'find_whole'): 'games/picnic/g1-1/images',
     ('picnic', 'memory'): 'games/picnic/g1-2/images',
     
     ('playground', 'find_same'): 'games/playground/g1-1/images',
+    ('playground', 'find_whole'): 'games/playground/g1-1/images',
     ('playground', 'memory'): 'games/playground/g1-2/images',
     
     ('restaurant', 'find_same'): 'games/restaurant/g1-1/images',
+    ('restaurant', 'find_whole'): 'games/restaurant/g1-1/images',
     ('restaurant', 'memory'): 'games/restaurant/g1-2/images',
     
     ('school', 'find_same'): 'games/school/g1-1/images',
+    ('school', 'find_whole'): 'games/school/g1-1/images',
     ('school', 'memory'): 'games/school/g1-2/images',
     
     ('sportcentre', 'find_same'): 'games/sportcentre/g1-1/images',
+    ('sportcentre', 'find_whole'): 'games/sportcentre/g1-1/images',
     ('sportcentre', 'memory'): 'games/sportcentre/g1-2/images'
 }
 
