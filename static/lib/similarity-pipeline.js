@@ -384,8 +384,8 @@
       aiScore = cosineSimilarity(origFeat.aiEmbedding, vEmb);
       
       // [Fix] AI-based Hard Reject — MobileNet cosine similarity threshold
-      // Lowered from 0.995 to 0.97 to reliably catch visually near-identical variants.
-      if(aiScore > 0.97) {
+      // Lowered to 0.9 to aggressively reject visually similar variants.
+      if(aiScore > 0.9) {
          if(vEmb) vEmb.dispose();
          return {reject:true, meta:{aHash:vHash, aHashHam:hamToOrig, mse, ssim, aiScore, simScore:1.0, note:"AI says too similar"}};
       }
@@ -469,7 +469,7 @@
         const vEmb = getAIEmbedding(SP.aiModel, canvas);
         if(vEmb){
           for(const accEmb of acceptedEmbeddings){
-            if(cosineSimilarity(accEmb, vEmb) > 0.97){
+            if(cosineSimilarity(accEmb, vEmb) > 0.9){
               tooSimilarToAccepted = true;
               break;
             }
