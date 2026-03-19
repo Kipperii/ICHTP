@@ -523,6 +523,13 @@
   function genVariantCanvasBasic(img, d){
     const w = img.naturalWidth || img.width;
     const h = img.naturalHeight || img.height;
+
+    // New variant family: clone extracted object(s) onto blue background (2~5, non-overlap)
+    if(Math.random() < lerp(0.20, 0.40, d)){
+      const cloneVariant = genObjectCloneVariantCanvas(img, d);
+      if(cloneVariant) return cloneVariant;
+    }
+
     const c = document.createElement('canvas'); c.width=w; c.height=h;
     const ctx = c.getContext('2d', {willReadFrequently:true});
 
@@ -531,21 +538,48 @@
 
     const flipH = Math.random() < lerp(0.15,0.5,d);
     const flipV = Math.random() < lerp(0.08,0.3,d);
+    // Mild transform combo: small rotation + perspective-like tilt (shear) + non-uniform scaling
+    // Keep values conservative to avoid over-hard distractors.
+    // Minimum deformation thresholds to avoid near-identical outputs
+    let rotDeg = (Math.random()*2-1) * lerp(3.5, 6.0, d);
+    const minRotDeg = lerp(2.2, 3.5, d);
+    if(Math.abs(rotDeg) < minRotDeg) rotDeg = rotDeg >= 0 ? minRotDeg : -minRotDeg;
+    const rotRad = rotDeg * Math.PI / 180;
+
+    let dx = (Math.random()*2-1) * lerp(0.03, 0.06, d);
+    let dy = (Math.random()*2-1) * lerp(0.03, 0.06, d);
+    const minScaleDelta = lerp(0.02, 0.04, d);
+    if(Math.abs(dx) < minScaleDelta) dx = dx >= 0 ? minScaleDelta : -minScaleDelta;
+    if(Math.abs(dy) < minScaleDelta) dy = dy >= 0 ? minScaleDelta : -minScaleDelta;
+    const sx = 1 + dx;
+    const sy = 1 + dy;
+
+    let tiltX = (Math.random()*2-1) * lerp(0.015, 0.04, d);
+    let tiltY = (Math.random()*2-1) * lerp(0.01, 0.03, d);
+    const minTiltX = lerp(0.010, 0.018, d);
+    const minTiltY = lerp(0.008, 0.015, d);
+    if(Math.abs(tiltX) < minTiltX) tiltX = tiltX >= 0 ? minTiltX : -minTiltX;
+    if(Math.abs(tiltY) < minTiltY) tiltY = tiltY >= 0 ? minTiltY : -minTiltY;
+
     ctx.save();
-    ctx.translate(flipH?w:0, flipV?h:0);
-    ctx.scale(flipH?-1:1, flipV?-1:1);
-    ctx.drawImage(img,0,0);
+    ctx.translate(w/2, h/2);
+    ctx.transform(1, tiltY, tiltX, 1, 0, 0);
+    ctx.rotate(rotRad);
+    ctx.scale(flipH?-sx:sx, flipV?-sy:sy);
+    ctx.drawImage(img, -w/2, -h/2, w, h);
     ctx.restore();
 
-    if(Math.random()<lerp(0.15,0.55,d)){
-      ctx.globalCompositeOperation = pick(['multiply','screen','overlay','difference','exclusion']);
-      ctx.globalAlpha = clamp(lerp(0.25,0.65,d)+ (Math.random()*0.15-0.07),0.2,0.85);
+    if(Math.random()<lerp(0.12,0.35,d)){
+      // Use safer blend modes only to avoid dark/inverted artifacts.
+      ctx.globalCompositeOperation = pick(['screen','overlay','soft-light']);
+      ctx.globalAlpha = clamp(lerp(0.12,0.30,d)+ (Math.random()*0.08-0.04),0.10,0.35);
       ctx.save();
       const f2h = Math.random()<0.5, f2v=Math.random()<0.3;
       ctx.translate(f2h?w:0, f2v?h:0);
       ctx.scale(f2h?-1:1, f2v?-1:1);
-      const offX = (Math.random()*2-1)*lerp(10,4,d);
-      const offY = (Math.random()*2-1)*lerp(10,4,d);
+      // Keep offset small to reduce visible edge ghosting.
+      const offX = (Math.random()*2-1)*lerp(3.5,1.6,d);
+      const offY = (Math.random()*2-1)*lerp(3.5,1.6,d);
       ctx.drawImage(img, offX, offY);
       ctx.restore();
       ctx.globalAlpha = 1;
@@ -597,16 +631,7 @@
       ctx.putImageData(id,0,0);
     }
 
-    if(Math.random()<lerp(0.25,0.55,d)){
-      const tmp=document.createElement('canvas');
-      tmp.width=w; tmp.height=h;
-      const tctx=tmp.getContext('2d');
-      const blurPx=lerp(1.0,4.0,d);
-      tctx.filter=`blur(${blurPx.toFixed(2)}px)`;
-      tctx.drawImage(c,0,0);
-      ctx.clearRect(0,0,w,h);
-      ctx.drawImage(tmp,0,0);
-    }
+    // Blur removed intentionally (low therapeutic value in current validation setup).
 
     const pad = Math.round(Math.random()*lerp(18,5,d));
     if(pad>0 && pad*2 < Math.min(w,h)){
@@ -617,6 +642,94 @@
     }
 
     return Object.assign(c,{_sig:`${flipH?'H':''}${flipV?'V':''}`});
+  }
+
+  function genObjectCloneVariantCanvas(img, d){
+    const w = img.naturalWidth || img.width;
+    const h = img.naturalHeight || img.height;
+    if(w <= 0 || h <= 0) return null;
+
+    const src = document.createElement('canvas');
+    src.width = w; src.height = h;
+    const sctx = src.getContext('2d', {willReadFrequently:true});
+    sctx.drawImage(img, 0, 0, w, h);
+
+    const bounds = extractAlphaBounds(src, 18);
+    if(!bounds) return null;
+
+    const crop = document.createElement('canvas');
+    crop.width = bounds.w;
+    crop.height = bounds.h;
+    crop.getContext('2d').drawImage(src, bounds.x, bounds.y, bounds.w, bounds.h, 0, 0, bounds.w, bounds.h);
+
+    const out = document.createElement('canvas');
+    out.width = w; out.height = h;
+    const octx = out.getContext('2d', {willReadFrequently:true});
+    octx.fillStyle = '#6b6db0';
+    octx.fillRect(0, 0, w, h);
+
+    const targetCount = 2 + ((Math.random() * 4) | 0); // 2~5
+    const minSize = Math.round(Math.min(w, h) * lerp(0.12, 0.10, d));
+    const maxSize = Math.round(Math.min(w, h) * lerp(0.28, 0.22, d));
+    const placed = [];
+
+    for(let i=0; i<targetCount; i++){
+      let placedThis = false;
+      for(let attempt=0; attempt<90; attempt++){
+        const target = minSize + Math.random() * Math.max(1, (maxSize - minSize));
+        const scale = target / Math.max(crop.width, crop.height);
+        const dw = Math.max(8, Math.round(crop.width * scale));
+        const dh = Math.max(8, Math.round(crop.height * scale));
+
+        const x = Math.round(Math.random() * Math.max(0, w - dw));
+        const y = Math.round(Math.random() * Math.max(0, h - dh));
+
+        const margin = Math.round(lerp(8, 14, d));
+        const rect = {x: x - margin, y: y - margin, w: dw + margin*2, h: dh + margin*2};
+        if(hasRectOverlap(rect, placed)) continue;
+
+        placed.push(rect);
+        octx.drawImage(crop, 0, 0, crop.width, crop.height, x, y, dw, dh);
+        placedThis = true;
+        break;
+      }
+      if(!placedThis && placed.length < 2){
+        return null;
+      }
+    }
+
+    if(placed.length < 2) return null;
+    const sig = `OBJ${placed.length}_${placed.map(r=>`${r.x}|${r.y}|${r.w}|${r.h}`).join(';')}`;
+    return Object.assign(out, {_sig: sig});
+  }
+
+  function extractAlphaBounds(canvas, alphaThreshold=16){
+    const w = canvas.width, h = canvas.height;
+    const ctx = canvas.getContext('2d', {willReadFrequently:true});
+    const data = ctx.getImageData(0, 0, w, h).data;
+    let minX = w, minY = h, maxX = -1, maxY = -1;
+    for(let y=0; y<h; y++){
+      for(let x=0; x<w; x++){
+        const a = data[(y*w + x)*4 + 3];
+        if(a > alphaThreshold){
+          if(x < minX) minX = x;
+          if(y < minY) minY = y;
+          if(x > maxX) maxX = x;
+          if(y > maxY) maxY = y;
+        }
+      }
+    }
+    if(maxX < minX || maxY < minY) return null;
+    return {x:minX, y:minY, w:maxX-minX+1, h:maxY-minY+1};
+  }
+
+  function hasRectOverlap(rect, rects){
+    for(const r of rects){
+      if(!(rect.x + rect.w <= r.x || r.x + r.w <= rect.x || rect.y + rect.h <= r.y || r.y + r.h <= rect.y)){
+        return true;
+      }
+    }
+    return false;
   }
 
   function avgColor(img){

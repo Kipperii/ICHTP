@@ -230,15 +230,19 @@
         ctx.textBaseline = "middle";
         ctx.fillText("?", w / 2, h / 2);
 
-        // --- 步驟 4：用 destination-out 挖出透明窗口 ---
-        ctx.globalCompositeOperation = "destination-out";
-        for (const win of windows) {
-          const r = Math.min(win.w, win.h) * 0.2;
-          ctx.beginPath();
-          roundedRect(ctx, win.x, win.y, win.w, win.h, r);
-          ctx.fill();
+        // --- 步驟 4：在窗口內繪製原圖（非透明化）---
+        const srcImg = tex.getSourceImage();
+        if (srcImg) {
+          for (const win of windows) {
+            const r = Math.min(win.w, win.h) * 0.2;
+            ctx.save();
+            ctx.beginPath();
+            roundedRect(ctx, win.x, win.y, win.w, win.h, r);
+            ctx.clip();
+            ctx.drawImage(srcImg, 0, 0, w, h);
+            ctx.restore();
+          }
         }
-        ctx.globalCompositeOperation = "source-over";
 
         // --- 建立 Phaser Texture（使用 addCanvas，同步且不涉及 toDataURL）---
         const key =

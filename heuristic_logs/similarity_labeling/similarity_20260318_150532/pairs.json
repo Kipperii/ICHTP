@@ -1,0 +1,3002 @@
+[
+  {
+    "pair_id": 1,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_304/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_304/12.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 2,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_304/16.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_304/17.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 3,
+    "img_a": "static/games/picnic/g1-1/images/23.jpg",
+    "img_b": "static/games/picnic/g1-1/images/34.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 4,
+    "img_a": "static/games/index/183.png",
+    "img_b": "static/games/index/471.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 5,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_387/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_387/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 6,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/11.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_344/15.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 7,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/1.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_304/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 8,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_348/15.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_348/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 9,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/25.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 10,
+    "img_a": "static/games/playground/images/338.png",
+    "img_b": "static/games/playground/images/397.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 11,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_387/2.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_387/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 12,
+    "img_a": "static/games/home/g1-1/images/128.jpg",
+    "img_b": "static/games/home/g1-1/images/88.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 13,
+    "img_a": "static/games/restaurant/g1-1/images/23.jpg",
+    "img_b": "static/games/restaurant/g1-1/images/31.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 14,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_348/15.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_348/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 15,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/141.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/146.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 16,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_362/10.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_362/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 17,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_344/17.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_344/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 18,
+    "img_a": "static/games/supermarket/g1-2/107.jpg",
+    "img_b": "static/games/supermarket/g1-2/65.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 19,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_348/12.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_348/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 20,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_362/10.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_362/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 21,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_395/30.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_395/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 22,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_361/13.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_361/20.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 23,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_352/16.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_352/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 24,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_352/11.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_352/18.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 25,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/12.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_304/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 26,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_362/4.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_362/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 27,
+    "img_a": "static/games/theme/occupation.jpg",
+    "img_b": "static/games/theme/school.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 28,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_361/21.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_361/3.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 29,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/17.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 30,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/10.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 31,
+    "img_a": "static/games/school/g1-2/158.jpg",
+    "img_b": "static/games/school/g1-2/185.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 32,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_352/20.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_352/22.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 33,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_361/22.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_361/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 34,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 35,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_304/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 36,
+    "img_a": "static/games/playground/g1-2/110.jpg",
+    "img_b": "static/games/playground/g1-2/146.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 37,
+    "img_a": "static/games/occupation/images/369.jpg",
+    "img_b": "static/games/occupation/images/425.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 38,
+    "img_a": "static/games/occupation/images/388.jpg",
+    "img_b": "static/games/occupation/images/408.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 39,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/165.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/43.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 40,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_352/13.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_352/16.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 41,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_334/80.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/91.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 42,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_352/3.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_352/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 43,
+    "img_a": "static/games/restaurant/g1-1/images/26.jpg",
+    "img_b": "static/games/restaurant/g1-1/images/33.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 44,
+    "img_a": "static/games/picnic/g1-1/images/23.jpg",
+    "img_b": "static/games/picnic/g1-1/images/31.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 45,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_395/12.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_395/14.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 46,
+    "img_a": "static/games/index/images/207.png",
+    "img_b": "static/games/index/images/213.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 47,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_387/3.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_387/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 48,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_387/15.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_387/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 49,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_395/36.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 50,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_348/1.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_348/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 51,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/10.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 52,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/13.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_362/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 53,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_352/19.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_352/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 54,
+    "img_a": "static/games/index/images/318.png",
+    "img_b": "static/games/index/images/390.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 55,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_352/1.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_352/22.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 56,
+    "img_a": "static/games/sportcentre/images/345.jpg",
+    "img_b": "static/games/sportcentre/images/414.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 57,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_348/14.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_348/24.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 58,
+    "img_a": "static/games/index/322.png",
+    "img_b": "static/games/index/456.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 59,
+    "img_a": "static/games/school/g1-2/152.jpg",
+    "img_b": "static/games/school/g1-2/17.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 60,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_361/19.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_361/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 61,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_361/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_361/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 62,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_395/28.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/38.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 63,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/150.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_334/266.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 64,
+    "img_a": "static/games/theme/occupation.jpg",
+    "img_b": "static/games/theme/restaurant.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 65,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_362/12.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_362/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 66,
+    "img_a": "static/games/home/g1-2/113.jpg",
+    "img_b": "static/games/home/g1-2/65.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 67,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_387/11.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_387/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 68,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_304/13.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_304/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 69,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/23.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 70,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_361/24.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_361/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 71,
+    "img_a": "static/games/school/g1-2/173.jpg",
+    "img_b": "static/games/school/g1-2/85.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 72,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/191.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/242.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 73,
+    "img_a": "static/games/playground/g1-2/47.jpg",
+    "img_b": "static/games/playground/g1-2/50.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 74,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_361/35.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_361/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 75,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_344/12.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_344/16.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 76,
+    "img_a": "static/games/picnic/g1-1/images/17.jpg",
+    "img_b": "static/games/picnic/g1-1/images/26.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 77,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/204.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_334/88.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 78,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_387/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_387/16.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 79,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/12.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_395/22.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 80,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_387/10.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_387/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 81,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/11.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_304/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 82,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/227.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/56.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 83,
+    "img_a": "static/games/occupation/images/319.png",
+    "img_b": "static/games/occupation/images/419.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 84,
+    "img_a": "static/games/sportcentre/images/406.jpg",
+    "img_b": "static/games/sportcentre/images/425.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 85,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_344/21.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_344/23.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 86,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/15.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_395/34.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 87,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_348/21.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_348/22.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 88,
+    "img_a": "static/games/supermarket/g1-1/images/11.jpg",
+    "img_b": "static/games/supermarket/g1-1/images/56.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 89,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/12.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 90,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_362/3.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_362/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 91,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/149.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/213.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 92,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/20.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_395/40.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 93,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_344/13.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_344/21.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 94,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_387/16.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_387/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 95,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_344/11.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_344/22.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 96,
+    "img_a": "static/games/supermarket/g1-2/89.jpg",
+    "img_b": "static/games/supermarket/g1-2/92.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 97,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_344/10.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_344/12.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 98,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 99,
+    "img_a": "static/games/home/hub/173.jpg",
+    "img_b": "static/games/home/hub/200.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 100,
+    "img_a": "static/games/playground/hub/65.png",
+    "img_b": "static/games/playground/hub/73.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 101,
+    "img_a": "static/games/occupation/images/289.png",
+    "img_b": "static/games/occupation/images/388.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 102,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_361/1.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_361/31.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 103,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_387/2.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_387/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 104,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_362/4.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_362/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 105,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_387/5.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_387/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 106,
+    "img_a": "static/games/supermarket/g1-1/images/29.jpg",
+    "img_b": "static/games/supermarket/g1-1/images/83.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 107,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/23.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 108,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_348/15.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_348/18.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 109,
+    "img_a": "static/games/occupation/images/289.png",
+    "img_b": "static/games/occupation/images/428.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 110,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_304/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 111,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_334/125.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/243.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 112,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_361/37.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_361/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 113,
+    "img_a": "static/games/restaurant/g1-2/119.jpg",
+    "img_b": "static/games/restaurant/g1-2/155.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 114,
+    "img_a": "static/games/restaurant/hub/130.jpg",
+    "img_b": "static/games/restaurant/hub/175.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 115,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_387/11.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_387/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 116,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/154.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/285.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 117,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_352/16.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_352/3.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 118,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_395/11.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 119,
+    "img_a": "static/games/home/g1-2/170.jpg",
+    "img_b": "static/games/home/g1-2/50.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 120,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_362/5.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_362/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 121,
+    "img_a": "static/games/picnic/images/335.png",
+    "img_b": "static/games/picnic/images/345.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 122,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/19.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 123,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/220.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/281.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 124,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/18.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_304/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 125,
+    "img_a": "static/games/picnic/images/284.png",
+    "img_b": "static/games/picnic/images/291.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 126,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_348/3.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_348/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 127,
+    "img_a": "static/games/home/images/291.png",
+    "img_b": "static/games/home/images/419.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 128,
+    "img_a": "static/games/occupation/images/345.jpg",
+    "img_b": "static/games/occupation/images/414.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 129,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/11.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_304/3.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 130,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_344/18.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_344/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 131,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_352/22.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_352/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 132,
+    "img_a": "static/games/sportcentre/g1-2/104.jpg",
+    "img_b": "static/games/sportcentre/g1-2/32.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 133,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/18.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/25.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 134,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/12.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/13.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 135,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_352/12.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_352/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 136,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_344/13.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_344/17.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 137,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_387/15.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_387/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 138,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/193.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/220.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 139,
+    "img_a": "static/games/restaurant/g1-2/20.jpg",
+    "img_b": "static/games/restaurant/g1-2/92.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 140,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_361/14.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_361/34.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 141,
+    "img_a": "static/games/theme/home.jpg",
+    "img_b": "static/games/theme/restaurant.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 142,
+    "img_a": "static/games/home/g1-1/images/87.jpg",
+    "img_b": "static/games/home/g1-1/images/89.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 143,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/14.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_304/17.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 144,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_304/5.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_304/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 145,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_348/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_348/12.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 146,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/18.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_395/40.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 147,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_348/2.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_348/3.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 148,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_344/13.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_344/21.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 149,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_304/18.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 150,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_352/10.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_352/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 151,
+    "img_a": "static/games/occupation/hub/139.jpg",
+    "img_b": "static/games/occupation/hub/200.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 152,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_348/25.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_348/9.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 153,
+    "img_a": "static/games/playground/hub/170.jpg",
+    "img_b": "static/games/playground/hub/200.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 154,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_352/14.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_352/21.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 155,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/14.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_344/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 156,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/16.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_304/5.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 157,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_361/15.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_361/19.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 158,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_362/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_362/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 159,
+    "img_a": "static/games/picnic/g1-1/images/29.jpg",
+    "img_b": "static/games/picnic/g1-1/images/36.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 160,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_348/18.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_348/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 161,
+    "img_a": "static/games/supermarket/images/286.jpg",
+    "img_b": "static/games/supermarket/images/338.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 162,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/15.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/20.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 163,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/11.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_304/17.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 164,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_352/17.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_352/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 165,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/283.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/67.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 166,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/29.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 167,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/12.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_344/17.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 168,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_362/13.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_362/6.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 169,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_348/12.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_348/4.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 170,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_304/2.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_304/3.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 171,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_304/12.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_304/8.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 172,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_387/13.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_387/15.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 173,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_352/21.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_352/7.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 174,
+    "img_a": "static/games/home/g1-1/images/128.jpg",
+    "img_b": "static/games/home/g1-1/images/83.jpg",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 175,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_304/11.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_304/2.png",
+    "stratum": "same_dir"
+  },
+  {
+    "pair_id": 176,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/157.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/85.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 177,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/143.png",
+    "img_b": "static/games/sportcentre/hub/96.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 178,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_223_Q3_1/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/65.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 179,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/122.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/193.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 180,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/162.png",
+    "img_b": "static/games/sportcentre/images/397.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 181,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/248.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/118.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 182,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_121_btn3_5_B/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/165.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 183,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/163.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_49_btn1_3_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 184,
+    "img_a": "static/games/occupation/hub/82.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/251.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 185,
+    "img_a": "static/games/playground/hub/76.jpg",
+    "img_b": "static/games/sportcentre/images/329.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 186,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_106_btn2_2_D/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_46_btn1_3_C/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 187,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/15.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/296.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 188,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_235_A2_4/1.png",
+    "img_b": "static/games/school/images/286.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 189,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/145.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_387/15.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 190,
+    "img_a": "static/games/home/g1-1/buttons/DefineButton2_337/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_304/14.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 191,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/14.png",
+    "img_b": "static/games/picnic/images/314.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 192,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/54.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_154_btn3_2_C/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 193,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/23.png",
+    "img_b": "static/games/sportcentre/g1-2/185.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 194,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/218.png",
+    "img_b": "static/games/restaurant/g1-2/170.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 195,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_348/8.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_352/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 196,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/109.png",
+    "img_b": "static/games/supermarket/g1-1/images/65.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 197,
+    "img_a": "static/games/restaurant/hub/61.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/222.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 198,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_362/3.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_361/23.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 199,
+    "img_a": "static/games/home/hub/112.jpg",
+    "img_b": "static/games/sportcentre/hub/103.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 200,
+    "img_a": "static/games/picnic/hub/210.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/254.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 201,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_352/22.png",
+    "img_b": "static/games/sportcentre/images/289.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 202,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/47.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/56.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 203,
+    "img_a": "static/games/home/images/421.jpg",
+    "img_b": "static/games/supermarket/g1-2/119.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 204,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/266.png",
+    "img_b": "static/games/supermarket/g1-1/images/158.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 205,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/190.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/130.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 206,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/45.png",
+    "img_b": "static/games/picnic/g1-1/images/11.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 207,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/167.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_334/60.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 208,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/72.png",
+    "img_b": "static/games/restaurant/images/294.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 209,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/264.png",
+    "img_b": "static/uploads/supermarket/memory/116_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 210,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/30.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_395/16.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 211,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/207.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/22.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 212,
+    "img_a": "static/games/occupation/images/345.jpg",
+    "img_b": "static/games/sportcentre/g1-1/buttons/DefineButton2_424/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 213,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_334/159.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/54.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 214,
+    "img_a": "static/games/playground/images/416.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_31_btn1_4_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 215,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/66.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_310/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 216,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/46.png",
+    "img_b": "static/games/sportcentre/g1-2/36.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 217,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_136_btn3_4_A/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_306/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 218,
+    "img_a": "static/games/supermarket/g1-2/113.jpg",
+    "img_b": "static/uploads/supermarket/memory/14_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 219,
+    "img_a": "static/games/occupation/g1-1/images/32.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/286.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 220,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/29.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/147.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 221,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/273.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/155.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 222,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/90.png",
+    "img_b": "static/games/restaurant/g1-2/161.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 223,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_344/15.png",
+    "img_b": "static/games/school/g1-2/122.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 224,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/12.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_395/24.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 225,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/208.png",
+    "img_b": "static/games/restaurant/g1-2/164.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 226,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_344/14.png",
+    "img_b": "static/games/sportcentre/images/416.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 227,
+    "img_a": "static/games/school/g1-2/155.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/147.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 228,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/182.png",
+    "img_b": "static/games/supermarket/g1-2/47.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 229,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_352/12.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/274.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 230,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/176.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/61.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 231,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/30.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_387/15.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 232,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_348/2.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_361/11.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 233,
+    "img_a": "static/games/restaurant/images/286.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_395/15.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 234,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_361/18.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_361/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 235,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/90.png",
+    "img_b": "static/games/supermarket/g1-2/134.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 236,
+    "img_a": "static/games/picnic/g1-2/167.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/31.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 237,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/30.png",
+    "img_b": "static/games/supermarket/images/406.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 238,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_133_btn3_4_B/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/22.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 239,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/30.png",
+    "img_b": "static/games/picnic/g1-2/107.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 240,
+    "img_a": "static/games/home/g1-2/104.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_348/16.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 241,
+    "img_a": "static/games/picnic/hub/86.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/286.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 242,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/262.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_395/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 243,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/20.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/52.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 244,
+    "img_a": "static/games/home/g1-2/173.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_358/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 245,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/245.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_334/70.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 246,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/239.png",
+    "img_b": "static/games/playground/images/388.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 247,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/85.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/140.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 248,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/110.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/232.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 249,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_361/33.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/21.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 250,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/282.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/157.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 251,
+    "img_a": "static/games/restaurant/g1-2/23.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_361/28.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 252,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_361/19.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/217.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 253,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_229_Q3_3/1.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/249.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 254,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_121_btn3_5_B/1.png",
+    "img_b": "static/uploads/supermarket/memory/146_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 255,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_241_A1_3/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/152.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 256,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/130.png",
+    "img_b": "static/games/supermarket/images/397.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 257,
+    "img_a": "static/games/playground/images/291.png",
+    "img_b": "static/games/sportcentre/g1-1/images/11.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 258,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_142_btn3_3_C/1.png",
+    "img_b": "static/games/restaurant/images/369.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 259,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_187_btn2_1_A/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_358/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 260,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_133_btn3_4_B/1.png",
+    "img_b": "static/games/supermarket/g1-2/170.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 261,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/240.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_352/20.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 262,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_361/14.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_395/7.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 263,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_362/7.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/204.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 264,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/16.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_211_Q2_5/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 265,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/151.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_64_btn1_1_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 266,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/99.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_157_btn3_2_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 267,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/20.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_106_btn2_2_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 268,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/54.png",
+    "img_b": "static/games/supermarket/g1-1/buttons/DefineButton2_379/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 269,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/132.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_148_btn3_3_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 270,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_361/15.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/98.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 271,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/166.png",
+    "img_b": "static/games/restaurant/g1-2/41.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 272,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_348/13.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/79.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 273,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/185.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_220_Q2_3/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 274,
+    "img_a": "static/games/school/hub/103.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/120.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 275,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/187.png",
+    "img_b": "static/games/sportcentre/hub/86.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 276,
+    "img_a": "static/games/home/g1-2/89.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_387/3.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 277,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/225.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/45.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 278,
+    "img_a": "static/games/occupation/g1-2/125.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_97_btn2_3_C/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 279,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/90.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_361/25.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 280,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/256.png",
+    "img_b": "static/games/playground/hub/76.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 281,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/9.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_395/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 282,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/252.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/64.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 283,
+    "img_a": "static/games/playground/hub/76.jpg",
+    "img_b": "static/games/supermarket/hub/73.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 284,
+    "img_a": "static/games/picnic/g1-2/20.jpg",
+    "img_b": "static/games/supermarket/g1-2/14.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 285,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_348/15.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/26.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 286,
+    "img_a": "static/games/home/g1-2/35.jpg",
+    "img_b": "static/games/restaurant/hub/119.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 287,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/129.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_70_btn2_5_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 288,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/14.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_352/6.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 289,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/187.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_352/20.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 290,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_387/14.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_79_btn2_5_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 291,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/283.png",
+    "img_b": "static/games/sportcentre/g1-2/119.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 292,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/215.png",
+    "img_b": "static/games/supermarket/g1-2/20.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 293,
+    "img_a": "static/games/picnic/g1-1/images/17.jpg",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/90.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 294,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/136.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/71.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 295,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/82.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/293.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 296,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/156.png",
+    "img_b": "static/games/restaurant/hub/73.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 297,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_259_A3_4/1.png",
+    "img_b": "static/games/supermarket/g1-1/buttons/DefineButton2_404/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 298,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/140.png",
+    "img_b": "static/games/school/g1-2/95.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 299,
+    "img_a": "static/games/restaurant/g1-2/170.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/182.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 300,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_352/21.png",
+    "img_b": "static/games/theme/occupation.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 301,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_361/35.png",
+    "img_b": "static/games/playground/g1-2/116.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 302,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/224.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/234.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 303,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_334/54.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_43_btn1_3_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 304,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_25_btn1_5_B/1.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_352/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 305,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_118_btn3_5_C/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/136.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 306,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/176.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_124_btn3_5_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 307,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/142.png",
+    "img_b": "static/games/sportcentre/g1-1/images/11.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 308,
+    "img_a": "static/games/playground/hub/103.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_106_btn2_2_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 309,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_280_btn1_1_A/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/3.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 310,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_67_btn1_2_A/1.png",
+    "img_b": "static/games/picnic/g1-1/buttons/DefineButton2_401/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 311,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/122.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/116.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 312,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/58.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/3.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 313,
+    "img_a": "static/games/index/images/390.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/165.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 314,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_250_A3_5/1.png",
+    "img_b": "static/uploads/supermarket/memory/38_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 315,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/184.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_25_btn1_5_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 316,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/117.png",
+    "img_b": "static/games/school/hub/198.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 317,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/29.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_348/24.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 318,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/43.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_344/3.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 319,
+    "img_a": "static/games/playground/g1-2/155.jpg",
+    "img_b": "static/games/sportcentre/hub/30.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 320,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_387/16.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/184.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 321,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/92.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_395/39.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 322,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/249.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 323,
+    "img_a": "static/games/occupation/g1-1/images/11.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_256_A3_3/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 324,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_395/20.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/81.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 325,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_49_btn1_3_B/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/16.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 326,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/87.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/24.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 327,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/30.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/96.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 328,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/34.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_356/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 329,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_395/32.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_88_btn2_4_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 330,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_352/2.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/31.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 331,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_106_btn2_2_D/1.png",
+    "img_b": "static/uploads/supermarket/memory/92_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 332,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/97.png",
+    "img_b": "static/games/restaurant/g1-2/17.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 333,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/125.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_352/12.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 334,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_395/2.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/219.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 335,
+    "img_a": "static/games/home/hub/207.jpg",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/78.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 336,
+    "img_a": "static/games/picnic/g1-2/35.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_362/13.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 337,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/65.png",
+    "img_b": "static/games/supermarket/g1-2/104.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 338,
+    "img_a": "static/games/restaurant/g1-2/164.jpg",
+    "img_b": "static/games/school/images/316.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 339,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/257.png",
+    "img_b": "static/games/supermarket/g1-1/buttons/DefineButton2_293/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 340,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/56.png",
+    "img_b": "static/games/playground/hub/73.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 341,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/199.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_31_btn1_4_D/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 342,
+    "img_a": "static/games/occupation/g1-2/128.jpg",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/239.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 343,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_310/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_199_Q1_4/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 344,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_361/11.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_361/31.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 345,
+    "img_a": "static/games/picnic/g1-2/56.jpg",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/86.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 346,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/152.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/195.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 347,
+    "img_a": "static/games/picnic/g1-2/143.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_85_btn2_4_C/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 348,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_235_A2_4/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/263.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 349,
+    "img_a": "static/games/home/hub/173.jpg",
+    "img_b": "static/games/occupation/hub/61.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 350,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/47.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/67.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 351,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/148.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_220_Q2_3/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 352,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_70_btn2_5_D/1.png",
+    "img_b": "static/games/supermarket/hub/139.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 353,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/39.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/116.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 354,
+    "img_a": "static/games/restaurant/images/335.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_395/27.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 355,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_268_A1_5/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/273.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 356,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/113.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_361/29.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 357,
+    "img_a": "static/games/home/images/414.jpg",
+    "img_b": "static/games/playground/g1-1/images/34.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 358,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/168.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/132.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 359,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/61.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/125.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 360,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/10.png",
+    "img_b": "static/games/sportcentre/images/291.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 361,
+    "img_a": "static/games/playground/g1-2/122.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_189/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 362,
+    "img_a": "static/games/restaurant/hub/61.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/6.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 363,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_344/21.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_344/12.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 364,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/289.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_395/31.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 365,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/281.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/19.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 366,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_361/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/206.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 367,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_395/39.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_387/4.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 368,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_344/9.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/102.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 369,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/114.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/233.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 370,
+    "img_a": "static/games/occupation/images/286.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/76.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 371,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/106.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/169.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 372,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_348/3.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_387/9.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 373,
+    "img_a": "static/games/supermarket/g1-1/sprites/DefineSprite_334/112.png",
+    "img_b": "static/games/supermarket/images/284.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 374,
+    "img_a": "static/games/occupation/g1-2/35.jpg",
+    "img_b": "static/games/occupation/hub/76.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 375,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/129.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_361/9.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 376,
+    "img_a": "static/games/picnic/g1-2/149.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_124_btn3_5_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 377,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/103.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_344/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 378,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/55.png",
+    "img_b": "static/games/supermarket/hub/30.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 379,
+    "img_a": "static/games/picnic/hub/195.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/157.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 380,
+    "img_a": "static/games/index/images/271.jpg",
+    "img_b": "static/games/occupation/images/338.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 381,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/210.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_133_btn3_4_B/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 382,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_70_btn2_5_D/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_395/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 383,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_304/5.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_265_A3_1/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 384,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_348/13.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/245.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 385,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/158.png",
+    "img_b": "static/games/picnic/g1-2/101.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 386,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/55.png",
+    "img_b": "static/games/home/g1-1/sprites/DefineSprite_348/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 387,
+    "img_a": "static/games/playground/g1-1/buttons/DefineButton2_404/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/5.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 388,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/156.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/167.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 389,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/33.png",
+    "img_b": "static/games/supermarket/g1-2/155.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 390,
+    "img_a": "static/games/index/images/458.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_271_A1_4/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 391,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_283_Q1_1/1.png",
+    "img_b": "static/games/sportcentre/g1-1/buttons/DefineButton2_337/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 392,
+    "img_a": "static/games/picnic/hub/32.jpg",
+    "img_b": "static/games/restaurant/g1-2/92.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 393,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_348/20.png",
+    "img_b": "static/games/restaurant/images/419.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 394,
+    "img_a": "static/games/occupation/g1-2/185.jpg",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/89.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 395,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/99.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_348/17.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 396,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_250_A3_5/1.png",
+    "img_b": "static/games/restaurant/images/390.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 397,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_361/7.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/105.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 398,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/4.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_304/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 399,
+    "img_a": "static/games/sportcentre/g1-1/images/33.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/2.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 400,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/3.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_304/17.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 401,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/59.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_334/77.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 402,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/14.png",
+    "img_b": "static/games/school/g1-2/83.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 403,
+    "img_a": "static/games/home/hub/139.jpg",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/98.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 404,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_31_btn1_4_D/1.png",
+    "img_b": "static/games/school/g1-2/137.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 405,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/22.png",
+    "img_b": "static/games/supermarket/images/365.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 406,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/152.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/227.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 407,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/198.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/50.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 408,
+    "img_a": "static/games/playground/images/291.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/4.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 409,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_352/13.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_362/11.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 410,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_157_btn3_2_B/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_309/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 411,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/9.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/46.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 412,
+    "img_a": "static/games/school/hub/89.jpg",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/7.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 413,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_352/6.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/252.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 414,
+    "img_a": "static/games/index/images/183.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_362/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 415,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_250_A3_5/1.png",
+    "img_b": "static/games/supermarket/images/294.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 416,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_304/4.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/13.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 417,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_374/1.png",
+    "img_b": "static/games/sportcentre/hub/198.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 418,
+    "img_a": "static/games/home/g1-2/20.jpg",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_344/4.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 419,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/13.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/35.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 420,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_43_btn1_3_D/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/30.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 421,
+    "img_a": "static/games/home/g1-1/images/125.jpg",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_344/23.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 422,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/163.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_362/11.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 423,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/135.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/107.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 424,
+    "img_a": "static/games/playground/g1-1/buttons/DefineButton2_337/1.png",
+    "img_b": "static/games/restaurant/hub/103.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 425,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/227.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/240.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 426,
+    "img_a": "static/games/picnic/images/345.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/237.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 427,
+    "img_a": "static/games/picnic/hub/175.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/207.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 428,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/19.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_387/6.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 429,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/255.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_304/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 430,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_374/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 431,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/105.png",
+    "img_b": "static/games/sportcentre/hub/213.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 432,
+    "img_a": "static/games/picnic/g1-1/buttons/DefineButton2_379/1.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/286.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 433,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_265_A3_1/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_361/8.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 434,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/191.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_395/4.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 435,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/57.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_387/14.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 436,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_395/2.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_334/274.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 437,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_352/24.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_361/21.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 438,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/11.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/144.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 439,
+    "img_a": "static/games/school/images/286.jpg",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_67_btn1_2_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 440,
+    "img_a": "static/games/picnic/images/369.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_348/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 441,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/141.png",
+    "img_b": "static/games/restaurant/g1-2/77.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 442,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_304/16.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/101.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 443,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/119.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/184.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 444,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_49_btn1_3_B/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/143.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 445,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_306/1.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_356/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 446,
+    "img_a": "static/games/home/g1-2/17.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_344/23.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 447,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/280.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/167.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 448,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/70.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_361/13.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 449,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/219.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/208.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 450,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/177.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_344/24.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 451,
+    "img_a": "static/games/home/images/363.jpg",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/221.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 452,
+    "img_a": "static/games/sportcentre/g1-1/buttons/DefineButton2_413/1.png",
+    "img_b": "static/games/supermarket/g1-1/images/23.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 453,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/139.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_304/17.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 454,
+    "img_a": "static/games/supermarket/g1-1/images/146.jpg",
+    "img_b": "static/games/supermarket/images/372.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 455,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_395/28.png",
+    "img_b": "static/games/sportcentre/g1-1/images/23.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 456,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/283.png",
+    "img_b": "static/games/supermarket/images/319.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 457,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_395/24.png",
+    "img_b": "static/games/supermarket/g1-2/74.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 458,
+    "img_a": "static/games/restaurant/hub/139.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/280.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 459,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_352/1.png",
+    "img_b": "static/games/sportcentre/g1-2/113.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 460,
+    "img_a": "static/games/occupation/g1-2/119.jpg",
+    "img_b": "static/games/picnic/g1-2/185.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 461,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/99.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_271_A1_4/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 462,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_361/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 463,
+    "img_a": "static/games/home/images/349.jpg",
+    "img_b": "static/games/restaurant/hub/110.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 464,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_348/7.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/162.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 465,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_334/21.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/33.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 466,
+    "img_a": "static/games/occupation/g1-1/buttons/DefineButton2_392/1.png",
+    "img_b": "static/games/supermarket/g1-1/buttons/DefineButton2_424/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 467,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_34_btn1_4_C/1.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/274.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 468,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/187.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/139.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 469,
+    "img_a": "static/games/picnic/images/349.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/106.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 470,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/103.png",
+    "img_b": "static/games/sportcentre/hub/73.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 471,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_395/17.png",
+    "img_b": "static/games/supermarket/hub/47.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 472,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/257.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_395/11.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 473,
+    "img_a": "static/games/home/hub/65.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/161.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 474,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_348/16.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/226.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 475,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/10.png",
+    "img_b": "static/uploads/supermarket/memory/38_218x192.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 476,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/131.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/248.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 477,
+    "img_a": "static/games/home/g1-1/buttons/DefineButton2_392/1.png",
+    "img_b": "static/games/sportcentre/g1-2/74.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 478,
+    "img_a": "static/games/restaurant/g1-2/104.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_361/27.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 479,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/8.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_334/199.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 480,
+    "img_a": "static/games/occupation/g1-2/98.jpg",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/277.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 481,
+    "img_a": "static/games/playground/g1-1/sprites/DefineSprite_395/17.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/81.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 482,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/129.png",
+    "img_b": "static/games/supermarket/g1-2/77.jpg",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 483,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_34_btn1_4_C/1.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_344/12.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 484,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_344/10.png",
+    "img_b": "static/games/supermarket/hub/217.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 485,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_157_btn3_2_B/1.png",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_395/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 486,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/191.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/10.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 487,
+    "img_a": "static/games/picnic/images/341.jpg",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_344/3.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 488,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_136_btn3_4_A/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/173.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 489,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_334/2.png",
+    "img_b": "static/games/occupation/g1-1/sprites/DefineSprite_334/12.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 490,
+    "img_a": "static/games/sportcentre/g1-1/sprites/DefineSprite_334/246.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_348/24.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 491,
+    "img_a": "static/games/picnic/g1-1/sprites/DefineSprite_334/31.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/258.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 492,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_348/14.png",
+    "img_b": "static/games/playground/g1-1/sprites/DefineSprite_334/133.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 493,
+    "img_a": "static/games/home/g1-1/sprites/DefineSprite_304/2.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/22.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 494,
+    "img_a": "static/games/restaurant/g1-1/sprites/DefineSprite_334/16.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_395/33.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 495,
+    "img_a": "static/games/home/images/416.jpg",
+    "img_b": "static/games/picnic/g1-1/sprites/DefineSprite_334/190.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 496,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_235_A2_4/1.png",
+    "img_b": "static/games/restaurant/g1-1/sprites/DefineSprite_91_btn2_4_A/1.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 497,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_304/6.png",
+    "img_b": "static/games/sportcentre/g1-1/sprites/DefineSprite_395/40.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 498,
+    "img_a": "static/games/occupation/g1-1/sprites/DefineSprite_334/94.png",
+    "img_b": "static/games/school/g1-1/sprites/DefineSprite_334/128.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 499,
+    "img_a": "static/games/playground/g1-1/buttons/DefineButton2_381/1.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/41.png",
+    "stratum": "random"
+  },
+  {
+    "pair_id": 500,
+    "img_a": "static/games/school/g1-1/sprites/DefineSprite_334/205.png",
+    "img_b": "static/games/supermarket/g1-1/sprites/DefineSprite_334/225.png",
+    "stratum": "random"
+  }
+]

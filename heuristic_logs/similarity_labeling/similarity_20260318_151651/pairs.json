@@ -1,0 +1,4002 @@
+[
+  {
+    "pair_id": 1,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 2,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/140.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 3,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42027654
+  },
+  {
+    "pair_id": 4,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 5,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/29.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 6,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42055182
+  },
+  {
+    "pair_id": 7,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/113.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 8,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 9,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42082710
+  },
+  {
+    "pair_id": 10,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 11,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/176.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 12,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42110238
+  },
+  {
+    "pair_id": 13,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 14,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 15,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42137766
+  },
+  {
+    "pair_id": 16,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/38.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 17,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 18,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42165294
+  },
+  {
+    "pair_id": 19,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 20,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/116.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 21,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42192822
+  },
+  {
+    "pair_id": 22,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/161.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 23,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 24,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42220350
+  },
+  {
+    "pair_id": 25,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 26,
+    "img_a": "scripts/test photo for similarity_label_tool/89.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 27,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42247878
+  },
+  {
+    "pair_id": 28,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 29,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 30,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42275406
+  },
+  {
+    "pair_id": 31,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/28.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 32,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 33,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42302934
+  },
+  {
+    "pair_id": 34,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 35,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 36,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42330462
+  },
+  {
+    "pair_id": 37,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/167.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 38,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 39,
+    "img_a": "scripts/test photo for similarity_label_tool/83.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42357990
+  },
+  {
+    "pair_id": 40,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 41,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 42,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42385518
+  },
+  {
+    "pair_id": 43,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 44,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 45,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42413046
+  },
+  {
+    "pair_id": 46,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 47,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 48,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42440574
+  },
+  {
+    "pair_id": 49,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 50,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/71.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 51,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42468102
+  },
+  {
+    "pair_id": 52,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 53,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 54,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42495630
+  },
+  {
+    "pair_id": 55,
+    "img_a": "scripts/test photo for similarity_label_tool/86.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 56,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/33.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 57,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42523158
+  },
+  {
+    "pair_id": 58,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 59,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 60,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42550686
+  },
+  {
+    "pair_id": 61,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 62,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 63,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42578214
+  },
+  {
+    "pair_id": 64,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 65,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 66,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42605742
+  },
+  {
+    "pair_id": 67,
+    "img_a": "scripts/test photo for similarity_label_tool/185.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 68,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/50.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 69,
+    "img_a": "scripts/test photo for similarity_label_tool/20.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42633270
+  },
+  {
+    "pair_id": 70,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 71,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 72,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42660798
+  },
+  {
+    "pair_id": 73,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 74,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 75,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42688326
+  },
+  {
+    "pair_id": 76,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/23.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 77,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 78,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42715854
+  },
+  {
+    "pair_id": 79,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 80,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 81,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42743382
+  },
+  {
+    "pair_id": 82,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/149.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 83,
+    "img_a": "scripts/test photo for similarity_label_tool/44.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 84,
+    "img_a": "scripts/test photo for similarity_label_tool/41.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42770910
+  },
+  {
+    "pair_id": 85,
+    "img_a": "scripts/test photo for similarity_label_tool/20.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 86,
+    "img_a": "scripts/test photo for similarity_label_tool/20.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 87,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42798438
+  },
+  {
+    "pair_id": 88,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 89,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 90,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42825966
+  },
+  {
+    "pair_id": 91,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 92,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 93,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42853494
+  },
+  {
+    "pair_id": 94,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/119.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 95,
+    "img_a": "scripts/test photo for similarity_label_tool/74.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 96,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42881022
+  },
+  {
+    "pair_id": 97,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/140.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 98,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 99,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42908550
+  },
+  {
+    "pair_id": 100,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 101,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/71.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 102,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42936078
+  },
+  {
+    "pair_id": 103,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 104,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 105,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42963606
+  },
+  {
+    "pair_id": 106,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 107,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 108,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42991134
+  },
+  {
+    "pair_id": 109,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 110,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 111,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43018662
+  },
+  {
+    "pair_id": 112,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/140.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 113,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/158.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 114,
+    "img_a": "scripts/test photo for similarity_label_tool/8.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43046190
+  },
+  {
+    "pair_id": 115,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/29.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 116,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/29.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 117,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43073718
+  },
+  {
+    "pair_id": 118,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 119,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/14.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 120,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43101246
+  },
+  {
+    "pair_id": 121,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 122,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 123,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43128774
+  },
+  {
+    "pair_id": 124,
+    "img_a": "scripts/test photo for similarity_label_tool/185.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 125,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 126,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43156302
+  },
+  {
+    "pair_id": 127,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 128,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 129,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43183830
+  },
+  {
+    "pair_id": 130,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 131,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 132,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43211358
+  },
+  {
+    "pair_id": 133,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 134,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 135,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43238886
+  },
+  {
+    "pair_id": 136,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/17.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 137,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/140.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 138,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43266414
+  },
+  {
+    "pair_id": 139,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 140,
+    "img_a": "scripts/test photo for similarity_label_tool/131.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 141,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43293942
+  },
+  {
+    "pair_id": 142,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 143,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 144,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43321470
+  },
+  {
+    "pair_id": 145,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/33.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 146,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 147,
+    "img_a": "scripts/test photo for similarity_label_tool/95.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43348998
+  },
+  {
+    "pair_id": 148,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/170.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 149,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/182.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 150,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43376526
+  },
+  {
+    "pair_id": 151,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 152,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/167.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 153,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43404054
+  },
+  {
+    "pair_id": 154,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 155,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 156,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43431582
+  },
+  {
+    "pair_id": 157,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/134.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 158,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 159,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43459110
+  },
+  {
+    "pair_id": 160,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/29.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 161,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 162,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43486638
+  },
+  {
+    "pair_id": 163,
+    "img_a": "scripts/test photo for similarity_label_tool/131.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 164,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/17.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 165,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43514166
+  },
+  {
+    "pair_id": 166,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 167,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 168,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43541694
+  },
+  {
+    "pair_id": 169,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 170,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 171,
+    "img_a": "scripts/test photo for similarity_label_tool/77.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43569222
+  },
+  {
+    "pair_id": 172,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 173,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 174,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43596750
+  },
+  {
+    "pair_id": 175,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 176,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 177,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43624278
+  },
+  {
+    "pair_id": 178,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 179,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 180,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43651806
+  },
+  {
+    "pair_id": 181,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/116.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 182,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 183,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43679334
+  },
+  {
+    "pair_id": 184,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 185,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 186,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43706862
+  },
+  {
+    "pair_id": 187,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 188,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 189,
+    "img_a": "scripts/test photo for similarity_label_tool/44.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43734390
+  },
+  {
+    "pair_id": 190,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 191,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/149.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 192,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43761918
+  },
+  {
+    "pair_id": 193,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 194,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 195,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43789446
+  },
+  {
+    "pair_id": 196,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 197,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 198,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43816974
+  },
+  {
+    "pair_id": 199,
+    "img_a": "scripts/test photo for similarity_label_tool/23.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/33.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 200,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 201,
+    "img_a": "scripts/test photo for similarity_label_tool/98.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43844502
+  },
+  {
+    "pair_id": 202,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/71.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 203,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 204,
+    "img_a": "scripts/test photo for similarity_label_tool/89.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43872030
+  },
+  {
+    "pair_id": 205,
+    "img_a": "scripts/test photo for similarity_label_tool/80.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 206,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 207,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43899558
+  },
+  {
+    "pair_id": 208,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 209,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 210,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43927086
+  },
+  {
+    "pair_id": 211,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/149.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 212,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 213,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43954614
+  },
+  {
+    "pair_id": 214,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 215,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 216,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 43982142
+  },
+  {
+    "pair_id": 217,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 218,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/185.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 219,
+    "img_a": "scripts/test photo for similarity_label_tool/74.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44009670
+  },
+  {
+    "pair_id": 220,
+    "img_a": "scripts/test photo for similarity_label_tool/83.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 221,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 222,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44037198
+  },
+  {
+    "pair_id": 223,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 224,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 225,
+    "img_a": "scripts/test photo for similarity_label_tool/31.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44064726
+  },
+  {
+    "pair_id": 226,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 227,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/158.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 228,
+    "img_a": "scripts/test photo for similarity_label_tool/80.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44092254
+  },
+  {
+    "pair_id": 229,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 230,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 231,
+    "img_a": "scripts/test photo for similarity_label_tool/8.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44119782
+  },
+  {
+    "pair_id": 232,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 233,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 234,
+    "img_a": "scripts/test photo for similarity_label_tool/164.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44147310
+  },
+  {
+    "pair_id": 235,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 236,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 237,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44174838
+  },
+  {
+    "pair_id": 238,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/119.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 239,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 240,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44202366
+  },
+  {
+    "pair_id": 241,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 242,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 243,
+    "img_a": "scripts/test photo for similarity_label_tool/41.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44229894
+  },
+  {
+    "pair_id": 244,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 245,
+    "img_a": "scripts/test photo for similarity_label_tool/164.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 246,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44257422
+  },
+  {
+    "pair_id": 247,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 248,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/122.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 249,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44284950
+  },
+  {
+    "pair_id": 250,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 251,
+    "img_a": "scripts/test photo for similarity_label_tool/83.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 252,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44312478
+  },
+  {
+    "pair_id": 253,
+    "img_a": "scripts/test photo for similarity_label_tool/65.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 254,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 255,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44340006
+  },
+  {
+    "pair_id": 256,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 257,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 258,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44367534
+  },
+  {
+    "pair_id": 259,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 260,
+    "img_a": "scripts/test photo for similarity_label_tool/8.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 261,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44395062
+  },
+  {
+    "pair_id": 262,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 263,
+    "img_a": "scripts/test photo for similarity_label_tool/31.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 264,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44422590
+  },
+  {
+    "pair_id": 265,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 266,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 267,
+    "img_a": "scripts/test photo for similarity_label_tool/77.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44450118
+  },
+  {
+    "pair_id": 268,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 269,
+    "img_a": "scripts/test photo for similarity_label_tool/131.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 270,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44477646
+  },
+  {
+    "pair_id": 271,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 272,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/131.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 273,
+    "img_a": "scripts/test photo for similarity_label_tool/8.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44505174
+  },
+  {
+    "pair_id": 274,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 275,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 276,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44532702
+  },
+  {
+    "pair_id": 277,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 278,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 279,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44560230
+  },
+  {
+    "pair_id": 280,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 281,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 282,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44587758
+  },
+  {
+    "pair_id": 283,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 284,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 285,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44615286
+  },
+  {
+    "pair_id": 286,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/167.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 287,
+    "img_a": "scripts/test photo for similarity_label_tool/182.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 288,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44642814
+  },
+  {
+    "pair_id": 289,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/14.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 290,
+    "img_a": "scripts/test photo for similarity_label_tool/71.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 291,
+    "img_a": "scripts/test photo for similarity_label_tool/74.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44670342
+  },
+  {
+    "pair_id": 292,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 293,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/71.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 294,
+    "img_a": "scripts/test photo for similarity_label_tool/164.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44697870
+  },
+  {
+    "pair_id": 295,
+    "img_a": "scripts/test photo for similarity_label_tool/65.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 296,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/14.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 297,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44725398
+  },
+  {
+    "pair_id": 298,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 299,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/17.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 300,
+    "img_a": "scripts/test photo for similarity_label_tool/164.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44752926
+  },
+  {
+    "pair_id": 301,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 302,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 303,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44780454
+  },
+  {
+    "pair_id": 304,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 305,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/33.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 306,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44807982
+  },
+  {
+    "pair_id": 307,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 308,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 309,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44835510
+  },
+  {
+    "pair_id": 310,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 311,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 312,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44863038
+  },
+  {
+    "pair_id": 313,
+    "img_a": "scripts/test photo for similarity_label_tool/80.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 314,
+    "img_a": "scripts/test photo for similarity_label_tool/131.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 315,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44890566
+  },
+  {
+    "pair_id": 316,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 317,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 318,
+    "img_a": "scripts/test photo for similarity_label_tool/89.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44918094
+  },
+  {
+    "pair_id": 319,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/116.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 320,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 321,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44945622
+  },
+  {
+    "pair_id": 322,
+    "img_a": "scripts/test photo for similarity_label_tool/161.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 323,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 324,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 44973150
+  },
+  {
+    "pair_id": 325,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/167.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 326,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 327,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45000678
+  },
+  {
+    "pair_id": 328,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/143.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 329,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 330,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45028206
+  },
+  {
+    "pair_id": 331,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 332,
+    "img_a": "scripts/test photo for similarity_label_tool/23.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/89.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 333,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45055734
+  },
+  {
+    "pair_id": 334,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 335,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 336,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45083262
+  },
+  {
+    "pair_id": 337,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 338,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/164.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 339,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45110790
+  },
+  {
+    "pair_id": 340,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 341,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 342,
+    "img_a": "scripts/test photo for similarity_label_tool/44.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45138318
+  },
+  {
+    "pair_id": 343,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 344,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 345,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45165846
+  },
+  {
+    "pair_id": 346,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 347,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/44.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 348,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45193374
+  },
+  {
+    "pair_id": 349,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 350,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 351,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45220902
+  },
+  {
+    "pair_id": 352,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 353,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/17.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 354,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45248430
+  },
+  {
+    "pair_id": 355,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/38.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 356,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 357,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45275958
+  },
+  {
+    "pair_id": 358,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/170.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 359,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 360,
+    "img_a": "scripts/test photo for similarity_label_tool/89.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45303486
+  },
+  {
+    "pair_id": 361,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 362,
+    "img_a": "scripts/test photo for similarity_label_tool/131.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 363,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45331014
+  },
+  {
+    "pair_id": 364,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/28.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 365,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 366,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45358542
+  },
+  {
+    "pair_id": 367,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 368,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/152.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 369,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45386070
+  },
+  {
+    "pair_id": 370,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 371,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 372,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45413598
+  },
+  {
+    "pair_id": 373,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/33.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 374,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 375,
+    "img_a": "scripts/test photo for similarity_label_tool/35.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45441126
+  },
+  {
+    "pair_id": 376,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/20.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 377,
+    "img_a": "scripts/test photo for similarity_label_tool/182.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 378,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45468654
+  },
+  {
+    "pair_id": 379,
+    "img_a": "scripts/test photo for similarity_label_tool/83.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 380,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/65.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 381,
+    "img_a": "scripts/test photo for similarity_label_tool/74.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45496182
+  },
+  {
+    "pair_id": 382,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 383,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/149.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 384,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45523710
+  },
+  {
+    "pair_id": 385,
+    "img_a": "scripts/test photo for similarity_label_tool/20.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 386,
+    "img_a": "scripts/test photo for similarity_label_tool/31.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 387,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45551238
+  },
+  {
+    "pair_id": 388,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/158.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 389,
+    "img_a": "scripts/test photo for similarity_label_tool/71.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 390,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45578766
+  },
+  {
+    "pair_id": 391,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/50.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 392,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 393,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45606294
+  },
+  {
+    "pair_id": 394,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 395,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/107.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 396,
+    "img_a": "scripts/test photo for similarity_label_tool/71.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45633822
+  },
+  {
+    "pair_id": 397,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/98.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 398,
+    "img_a": "scripts/test photo for similarity_label_tool/182.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 399,
+    "img_a": "scripts/test photo for similarity_label_tool/107.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45661350
+  },
+  {
+    "pair_id": 400,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 401,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 402,
+    "img_a": "scripts/test photo for similarity_label_tool/68.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45688878
+  },
+  {
+    "pair_id": 403,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 404,
+    "img_a": "scripts/test photo for similarity_label_tool/134.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 405,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45716406
+  },
+  {
+    "pair_id": 406,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/38.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 407,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/185.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 408,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45743934
+  },
+  {
+    "pair_id": 409,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/140.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 410,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/38.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 411,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45771462
+  },
+  {
+    "pair_id": 412,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 413,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 414,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45798990
+  },
+  {
+    "pair_id": 415,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 416,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 417,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45826518
+  },
+  {
+    "pair_id": 418,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 419,
+    "img_a": "scripts/test photo for similarity_label_tool/38.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 420,
+    "img_a": "scripts/test photo for similarity_label_tool/86.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45854046
+  },
+  {
+    "pair_id": 421,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/23.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 422,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/27.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 423,
+    "img_a": "scripts/test photo for similarity_label_tool/92.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45881574
+  },
+  {
+    "pair_id": 424,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 425,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/77.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 426,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45909102
+  },
+  {
+    "pair_id": 427,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/179.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 428,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 429,
+    "img_a": "scripts/test photo for similarity_label_tool/80.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45936630
+  },
+  {
+    "pair_id": 430,
+    "img_a": "scripts/test photo for similarity_label_tool/23.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/34.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 431,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/30.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 432,
+    "img_a": "scripts/test photo for similarity_label_tool/41.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45964158
+  },
+  {
+    "pair_id": 433,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 434,
+    "img_a": "scripts/test photo for similarity_label_tool/50.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 435,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 45991686
+  },
+  {
+    "pair_id": 436,
+    "img_a": "scripts/test photo for similarity_label_tool/176.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/31.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 437,
+    "img_a": "scripts/test photo for similarity_label_tool/44.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/71.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 438,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46019214
+  },
+  {
+    "pair_id": 439,
+    "img_a": "scripts/test photo for similarity_label_tool/20.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 440,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/86.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 441,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46046742
+  },
+  {
+    "pair_id": 442,
+    "img_a": "scripts/test photo for similarity_label_tool/128.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 443,
+    "img_a": "scripts/test photo for similarity_label_tool/182.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/8.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 444,
+    "img_a": "scripts/test photo for similarity_label_tool/185.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46074270
+  },
+  {
+    "pair_id": 445,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/176.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 446,
+    "img_a": "scripts/test photo for similarity_label_tool/23.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/56.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 447,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46101798
+  },
+  {
+    "pair_id": 448,
+    "img_a": "scripts/test photo for similarity_label_tool/185.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/32.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 449,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 450,
+    "img_a": "scripts/test photo for similarity_label_tool/80.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46129326
+  },
+  {
+    "pair_id": 451,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/176.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 452,
+    "img_a": "scripts/test photo for similarity_label_tool/149.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 453,
+    "img_a": "scripts/test photo for similarity_label_tool/86.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46156854
+  },
+  {
+    "pair_id": 454,
+    "img_a": "scripts/test photo for similarity_label_tool/155.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/158.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 455,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 456,
+    "img_a": "scripts/test photo for similarity_label_tool/33.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46184382
+  },
+  {
+    "pair_id": 457,
+    "img_a": "scripts/test photo for similarity_label_tool/113.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/122.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 458,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/14.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 459,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46211910
+  },
+  {
+    "pair_id": 460,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/41.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 461,
+    "img_a": "scripts/test photo for similarity_label_tool/110.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/137.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 462,
+    "img_a": "scripts/test photo for similarity_label_tool/125.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46239438
+  },
+  {
+    "pair_id": 463,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/170.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 464,
+    "img_a": "scripts/test photo for similarity_label_tool/179.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 465,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46266966
+  },
+  {
+    "pair_id": 466,
+    "img_a": "scripts/test photo for similarity_label_tool/11.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/170.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 467,
+    "img_a": "scripts/test photo for similarity_label_tool/137.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/74.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 468,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46294494
+  },
+  {
+    "pair_id": 469,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/170.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 470,
+    "img_a": "scripts/test photo for similarity_label_tool/56.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 471,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46322022
+  },
+  {
+    "pair_id": 472,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 473,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/38.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 474,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46349550
+  },
+  {
+    "pair_id": 475,
+    "img_a": "scripts/test photo for similarity_label_tool/77.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/80.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 476,
+    "img_a": "scripts/test photo for similarity_label_tool/28.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/50.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 477,
+    "img_a": "scripts/test photo for similarity_label_tool/27.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46377078
+  },
+  {
+    "pair_id": 478,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/182.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 479,
+    "img_a": "scripts/test photo for similarity_label_tool/101.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/92.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 480,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46404606
+  },
+  {
+    "pair_id": 481,
+    "img_a": "scripts/test photo for similarity_label_tool/152.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/161.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 482,
+    "img_a": "scripts/test photo for similarity_label_tool/167.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/50.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 483,
+    "img_a": "scripts/test photo for similarity_label_tool/143.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46432134
+  },
+  {
+    "pair_id": 484,
+    "img_a": "scripts/test photo for similarity_label_tool/77.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 485,
+    "img_a": "scripts/test photo for similarity_label_tool/74.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/95.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 486,
+    "img_a": "scripts/test photo for similarity_label_tool/47.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46459662
+  },
+  {
+    "pair_id": 487,
+    "img_a": "scripts/test photo for similarity_label_tool/170.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/26.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 488,
+    "img_a": "scripts/test photo for similarity_label_tool/26.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 489,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46487190
+  },
+  {
+    "pair_id": 490,
+    "img_a": "scripts/test photo for similarity_label_tool/30.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 491,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/83.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 492,
+    "img_a": "scripts/test photo for similarity_label_tool/173.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46514718
+  },
+  {
+    "pair_id": 493,
+    "img_a": "scripts/test photo for similarity_label_tool/14.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/185.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 494,
+    "img_a": "scripts/test photo for similarity_label_tool/146.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/173.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 495,
+    "img_a": "scripts/test photo for similarity_label_tool/83.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46542246
+  },
+  {
+    "pair_id": 496,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/185.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 497,
+    "img_a": "scripts/test photo for similarity_label_tool/158.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/167.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 498,
+    "img_a": "scripts/test photo for similarity_label_tool/29.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 46569774
+  },
+  {
+    "pair_id": 499,
+    "img_a": "scripts/test photo for similarity_label_tool/34.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/35.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 500,
+    "img_a": "scripts/test photo for similarity_label_tool/17.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/68.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  }
+]

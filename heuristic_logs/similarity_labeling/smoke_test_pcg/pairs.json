@@ -1,0 +1,50 @@
+[
+  {
+    "pair_id": 1,
+    "img_a": "scripts/test photo for similarity_label_tool/104.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "same_dir",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 2,
+    "img_a": "scripts/test photo for similarity_label_tool/140.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/146.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 3,
+    "img_a": "scripts/test photo for similarity_label_tool/32.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42027654
+  },
+  {
+    "pair_id": 4,
+    "img_a": "scripts/test photo for similarity_label_tool/122.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/14.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 5,
+    "img_a": "scripts/test photo for similarity_label_tool/116.jpg",
+    "img_b": "scripts/test photo for similarity_label_tool/47.jpg",
+    "stratum": "random",
+    "is_pcg": false,
+    "pcg_seed": 0
+  },
+  {
+    "pair_id": 6,
+    "img_a": "scripts/test photo for similarity_label_tool/119.jpg",
+    "img_b": "__PCG_GENERATED__",
+    "stratum": "pcg_generated",
+    "is_pcg": true,
+    "pcg_seed": 42055182
+  }
+]
