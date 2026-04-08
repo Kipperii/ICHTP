@@ -32,6 +32,10 @@ LABEL_FIELDS = [
     "pair_id",
     "label",
     "similarity_score",
+    "score_hash",
+    "score_mse",
+    "score_ssim",
+    "score_mobilenet",
     "annotator",
     "note",
     "timestamp",
@@ -98,6 +102,10 @@ class LabelState:
                     "pair_id": row.get("pair_id", ""),
                     "label": row.get("label", ""),
                     "similarity_score": row.get("similarity_score", ""),
+                    "score_hash": row.get("score_hash", ""),
+                    "score_mse": row.get("score_mse", ""),
+                    "score_ssim": row.get("score_ssim", ""),
+                    "score_mobilenet": row.get("score_mobilenet", ""),
                     "annotator": row.get("annotator", ""),
                     "note": row.get("note", ""),
                     "timestamp": row.get("timestamp", ""),
@@ -116,12 +124,20 @@ class LabelState:
         annotator: str,
         note: str,
         similarity_score: float | None,
+        score_hash: float | None = None,
+        score_mse: float | None = None,
+        score_ssim: float | None = None,
+        score_mobilenet: float | None = None,
     ) -> Dict[str, str]:
         now = datetime.now().isoformat(timespec="seconds")
         row = {
             "pair_id": str(pair_id),
             "label": str(label),
             "similarity_score": "" if similarity_score is None else f"{similarity_score:.6f}",
+            "score_hash": "" if score_hash is None else f"{score_hash:.6f}",
+            "score_mse": "" if score_mse is None else f"{score_mse:.6f}",
+            "score_ssim": "" if score_ssim is None else f"{score_ssim:.6f}",
+            "score_mobilenet": "" if score_mobilenet is None else f"{score_mobilenet:.6f}",
             "annotator": annotator.strip() or "anonymous",
             "note": note.strip(),
             "timestamp": now,
@@ -160,6 +176,10 @@ class LabelState:
                         "pcg_seed",
                         "label",
                         "similarity_score",
+                        "score_hash",
+                        "score_mse",
+                        "score_ssim",
+                        "score_mobilenet",
                         "annotator",
                         "note",
                         "timestamp",
@@ -178,6 +198,10 @@ class LabelState:
                             "pcg_seed": p.pcg_seed,
                             "label": latest.get("label", ""),
                             "similarity_score": latest.get("similarity_score", ""),
+                            "score_hash": latest.get("score_hash", ""),
+                            "score_mse": latest.get("score_mse", ""),
+                            "score_ssim": latest.get("score_ssim", ""),
+                            "score_mobilenet": latest.get("score_mobilenet", ""),
                             "annotator": latest.get("annotator", ""),
                             "note": latest.get("note", ""),
                             "timestamp": latest.get("timestamp", ""),
@@ -392,6 +416,10 @@ def create_app(state: LabelState) -> Flask:
                 "pcg_seed": p.pcg_seed,
                 "label": int(latest["label"]) if latest and latest.get("label", "").isdigit() else None,
                 "similarity_score": float(latest["similarity_score"]) if latest and latest.get("similarity_score", "") not in ("", None) else None,
+                "score_hash": float(latest["score_hash"]) if latest and latest.get("score_hash", "") not in ("", None) else None,
+                "score_mse": float(latest["score_mse"]) if latest and latest.get("score_mse", "") not in ("", None) else None,
+                "score_ssim": float(latest["score_ssim"]) if latest and latest.get("score_ssim", "") not in ("", None) else None,
+                "score_mobilenet": float(latest["score_mobilenet"]) if latest and latest.get("score_mobilenet", "") not in ("", None) else None,
                 "annotator": latest.get("annotator", "") if latest else "",
                 "note": latest.get("note", "") if latest else "",
             }
@@ -420,6 +448,10 @@ def create_app(state: LabelState) -> Flask:
         pair_id = data.get("pair_id")
         label = data.get("label")
         similarity_score = data.get("similarity_score")
+        score_hash = data.get("score_hash")
+        score_mse = data.get("score_mse")
+        score_ssim = data.get("score_ssim")
+        score_mobilenet = data.get("score_mobilenet")
         annotator = data.get("annotator", "anonymous")
         note = data.get("note", "")
 
@@ -433,6 +465,17 @@ def create_app(state: LabelState) -> Flask:
             except (TypeError, ValueError):
                 return jsonify({"error": "similarity_score must be numeric or null"}), 400
 
+        # Helper to safely parse raw feature floats
+        def _parse_float(val):
+            if val is None or str(val) == "": return None
+            try: return float(val)
+            except: return None
+            
+        score_hash = _parse_float(score_hash)
+        score_mse = _parse_float(score_mse)
+        score_ssim = _parse_float(score_ssim)
+        score_mobilenet = _parse_float(score_mobilenet)
+
         if pair_id < 1 or pair_id > len(state.pairs):
             return jsonify({"error": "pair_id out of range"}), 404
 
@@ -442,6 +485,10 @@ def create_app(state: LabelState) -> Flask:
             annotator=str(annotator),
             note=str(note),
             similarity_score=similarity_score,
+            score_hash=score_hash,
+            score_mse=score_mse,
+            score_ssim=score_ssim,
+            score_mobilenet=score_mobilenet,
         )
         return jsonify({"ok": True, "saved": saved, "status": state.get_status()})
 
@@ -530,6 +577,10 @@ let currentIndex = 0;
 let current = null;
 let total = 0;
 let currentSimilarityScore = null;
+let currentScoreHash = null;
+let currentScoreMse = null;
+let currentScoreSsim = null;
+let currentScoreMobileNet = null;
 let aiModel = null;
 let aiModelLoadingPromise = null;
 
@@ -806,9 +857,17 @@ async function computeAndShowSimilarityScore(){
         const cB = canvasFromImgElement(imgBEl);
         const result = await computePipelineStyleScore(cA, cB, 0.5);
         currentSimilarityScore = Number(result.score.toFixed(6));
+        currentScoreHash = Number(result.ham.toFixed(6));
+        currentScoreMse = Number(result.mse.toFixed(6));
+        currentScoreSsim = Number(result.ssim.toFixed(6));
+        currentScoreMobileNet = Number(result.aiScore.toFixed(6));
         scoreEl.innerText = `Score: ${currentSimilarityScore.toFixed(4)} (AI=${result.aiScore.toFixed(3)})`;
     } catch (e) {
         currentSimilarityScore = null;
+        currentScoreHash = null;
+        currentScoreMse = null;
+        currentScoreSsim = null;
+        currentScoreMobileNet = null;
         scoreEl.innerText = 'Score: N/A';
     }
 }
@@ -1087,6 +1146,10 @@ async function saveLabel(label){
             pair_id: current.pair_id,
             label,
             similarity_score: currentSimilarityScore,
+            score_hash: currentScoreHash,
+            score_mse: currentScoreMse,
+            score_ssim: currentScoreSsim,
+            score_mobilenet: currentScoreMobileNet,
             annotator,
             note: ''
         })
