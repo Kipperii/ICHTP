@@ -959,6 +959,19 @@ function generateObjectCloneVariantDataUrlFromImage(src, d, rng){
     const sctx = srcCanvas.getContext('2d', { willReadFrequently: true });
     sctx.drawImage(src, 0, 0, w, h);
 
+    const imgD = sctx.getImageData(0, 0, w, h);
+    const dArr = imgD.data;
+    const bgR = dArr[0], bgG = dArr[1], bgB = dArr[2];
+    if(dArr[3] > 10){
+      const tol = 45;
+      for(let i=0; i<dArr.length; i+=4){
+        if(Math.abs(dArr[i]-bgR) < tol && Math.abs(dArr[i+1]-bgG) < tol && Math.abs(dArr[i+2]-bgB) < tol){
+          dArr[i+3] = 0; 
+        }
+      }
+      sctx.putImageData(imgD, 0, 0);
+    }
+
     const bounds = extractAlphaBounds(srcCanvas, 18);
     if(!bounds) return null;
 
@@ -969,12 +982,12 @@ function generateObjectCloneVariantDataUrlFromImage(src, d, rng){
     const out = document.createElement('canvas');
     out.width = w; out.height = h;
     const octx = out.getContext('2d', { willReadFrequently: true });
-    octx.fillStyle = '#6b6db0';
+    octx.fillStyle = `rgb(${bgR}, ${bgG}, ${bgB})`;
     octx.fillRect(0, 0, w, h);
 
-    const targetCount = 2 + Math.floor(rng() * 4); // 2~5
-    const minSize = Math.round(Math.min(w, h) * (0.12 + (0.10 - 0.12) * d));
-    const maxSize = Math.round(Math.min(w, h) * (0.28 + (0.22 - 0.28) * d));
+    const targetCount = 2 + Math.floor(rng() * 2); // 2~3
+    const minSize = Math.round(Math.min(w, h) * (0.40 + (0.35 - 0.40) * d));
+    const maxSize = Math.round(Math.min(w, h) * (0.65 + (0.55 - 0.65) * d));
     const placed = [];
 
     for(let i=0;i<targetCount;i++){
