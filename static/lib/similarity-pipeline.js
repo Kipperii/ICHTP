@@ -654,6 +654,21 @@
     const sctx = src.getContext('2d', {willReadFrequently:true});
     sctx.drawImage(img, 0, 0, w, h);
 
+    // Simple chroma key to remove solid/gradient background (assuming top-left is background)
+    // This perfectly cuts out the object from JPGs and avoids square bounding boxes!
+    const imgD = sctx.getImageData(0, 0, w, h);
+    const dArr = imgD.data;
+    const bgR = dArr[0], bgG = dArr[1], bgB = dArr[2];
+    if(dArr[3] > 10){
+      const tol = 45; // tolerance for image noise and gradient
+      for(let i=0; i<dArr.length; i+=4){
+        if(Math.abs(dArr[i]-bgR) < tol && Math.abs(dArr[i+1]-bgG) < tol && Math.abs(dArr[i+2]-bgB) < tol){
+          dArr[i+3] = 0; // Make background pixel transparent
+        }
+      }
+      sctx.putImageData(imgD, 0, 0);
+    }
+
     const bounds = extractAlphaBounds(src, 18);
     if(!bounds) return null;
 
@@ -666,15 +681,14 @@
     out.width = w; out.height = h;
     const octx = out.getContext('2d', {willReadFrequently:true});
     
-    // Sample top-left pixel to get the exact source background color to ensure seamless blending
-    const bgData = sctx.getImageData(0, 0, 1, 1).data;
-    const bgCol = bgData[3] > 0 ? `rgb(${bgData[0]}, ${bgData[1]}, ${bgData[2]})` : avgColor(img);
-    octx.fillStyle = bgCol;
+    // Fill the background with the top-left pixel color
+    // Because we 'chroma-keyed' the crop above, it will paste seamlessly without square boxes.
+    octx.fillStyle = `rgb(${bgR}, ${bgG}, ${bgB})`;
     octx.fillRect(0, 0, w, h);
 
-    const targetCount = 2 + ((Math.random() * 3) | 0); // 2~4
-    const minSize = Math.round(Math.min(w, h) * lerp(0.30, 0.25, d));
-    const maxSize = Math.round(Math.min(w, h) * lerp(0.55, 0.45, d));
+    const targetCount = 2 + ((Math.random() * 2) | 0); // 2~3 items (fewer but bigger)
+    const minSize = Math.round(Math.min(w, h) * lerp(0.40, 0.35, d));
+    const maxSize = Math.round(Math.min(w, h) * lerp(0.65, 0.55, d));
     const placed = [];
 
     for(let i=0; i<targetCount; i++){
