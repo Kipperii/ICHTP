@@ -661,19 +661,29 @@
     function getCol(x,y){ const i=(y*w+x)*4; return [dArr[i],dArr[i+1],dArr[i+2],dArr[i+3]]; }
     const TL = getCol(0,0), TR = getCol(w-1,0), BL = getCol(0,h-1), BR = getCol(w-1,h-1);
 
-    // Simple chroma key to remove solid/gradient background (bilinear interpolation of 4 corners)
-    // This perfectly cuts out the object from JPGs and avoids square bounding boxes!
+    // Flood-fill chroma key starting from edges to prevent internal object holes
     if(TL[3] > 10){
-      for(let y=0; y<h; y++){
-        for(let x=0; x<w; x++){
-          const idx = (y * w + x) * 4;
-          const tx = x / w, ty = y / h;
-          const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
-          const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
-          const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
-          if(Math.abs(dArr[idx]-expR)<40 && Math.abs(dArr[idx+1]-expG)<40 && Math.abs(dArr[idx+2]-expB)<40){
-            dArr[idx+3] = 0; // Make background pixel transparent
-          }
+      const visited = new Uint8Array(w * h);
+      let q = [];
+      for(let x=0; x<w; x++){ q.push(x, 0); q.push(x, h-1); }
+      for(let y=0; y<h; y++){ q.push(0, y); q.push(w-1, y); }
+      let head = 0;
+      while(head < q.length){
+        const x = q[head++], y = q[head++];
+        const idx = y * w + x;
+        if(visited[idx]) continue;
+        visited[idx] = 1;
+        const tx = x / (w-1 || 1), ty = y / (h-1 || 1);
+        const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
+        const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
+        const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
+        const pIdx = idx * 4;
+        if(Math.abs(dArr[pIdx]-expR)<40 && Math.abs(dArr[pIdx+1]-expG)<40 && Math.abs(dArr[pIdx+2]-expB)<40){
+          dArr[pIdx+3] = 0;
+          if(x>0) q.push(x-1, y);
+          if(x<w-1) q.push(x+1, y);
+          if(y>0) q.push(x, y-1);
+          if(y<h-1) q.push(x, y+1);
         }
       }
       sctx.putImageData(imgD, 0, 0);
@@ -691,8 +701,19 @@
     out.width = w; out.height = h;
     const octx = out.getContext('2d', {willReadFrequently:true});
     
-    // Fill the background completely using the original image to preserve nice gradients.
-    octx.drawImage(img, 0, 0, w, h);
+    // Synthesize a clean background gradient so we don't paste over the original object!
+    const bgImgD = octx.createImageData(w, h);
+    for(let y=0; y<h; y++){
+      for(let x=0; x<w; x++){
+        const tx = x / (w-1 || 1), ty = y / (h-1 || 1);
+        const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
+        const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
+        const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
+        const idx = (y*w + x)*4;
+        bgImgD.data[idx] = expR; bgImgD.data[idx+1] = expG; bgImgD.data[idx+2] = expB; bgImgD.data[idx+3] = 255;
+      }
+    }
+    octx.putImageData(bgImgD, 0, 0);
 
     const targetCount = 2 + ((Math.random() * 2) | 0); // 2~3 items (fewer but bigger)
     const minSize = Math.round(Math.min(w, h) * lerp(0.40, 0.35, d));
