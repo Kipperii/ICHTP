@@ -665,12 +665,16 @@
     const out = document.createElement('canvas');
     out.width = w; out.height = h;
     const octx = out.getContext('2d', {willReadFrequently:true});
-    octx.fillStyle = '#6b6db0';
+    
+    // Sample top-left pixel to get the exact source background color to ensure seamless blending
+    const bgData = sctx.getImageData(0, 0, 1, 1).data;
+    const bgCol = bgData[3] > 0 ? `rgb(${bgData[0]}, ${bgData[1]}, ${bgData[2]})` : avgColor(img);
+    octx.fillStyle = bgCol;
     octx.fillRect(0, 0, w, h);
 
-    const targetCount = 2 + ((Math.random() * 4) | 0); // 2~5
-    const minSize = Math.round(Math.min(w, h) * lerp(0.12, 0.10, d));
-    const maxSize = Math.round(Math.min(w, h) * lerp(0.28, 0.22, d));
+    const targetCount = 2 + ((Math.random() * 3) | 0); // 2~4
+    const minSize = Math.round(Math.min(w, h) * lerp(0.30, 0.25, d));
+    const maxSize = Math.round(Math.min(w, h) * lerp(0.55, 0.45, d));
     const placed = [];
 
     for(let i=0; i<targetCount; i++){
