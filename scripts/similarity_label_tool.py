@@ -961,12 +961,20 @@ function generateObjectCloneVariantDataUrlFromImage(src, d, rng){
 
     const imgD = sctx.getImageData(0, 0, w, h);
     const dArr = imgD.data;
-    const bgR = dArr[0], bgG = dArr[1], bgB = dArr[2];
-    if(dArr[3] > 10){
-      const tol = 45;
-      for(let i=0; i<dArr.length; i+=4){
-        if(Math.abs(dArr[i]-bgR) < tol && Math.abs(dArr[i+1]-bgG) < tol && Math.abs(dArr[i+2]-bgB) < tol){
-          dArr[i+3] = 0; 
+    function getCol(x,y){ const i=(y*w+x)*4; return [dArr[i],dArr[i+1],dArr[i+2],dArr[i+3]]; }
+    const TL = getCol(0,0), TR = getCol(w-1,0), BL = getCol(0,h-1), BR = getCol(w-1,h-1);
+
+    if(TL[3] > 10){
+      for(let y=0; y<h; y++){
+        for(let x=0; x<w; x++){
+          const idx = (y * w + x) * 4;
+          const tx = x / w, ty = y / h;
+          const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
+          const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
+          const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
+          if(Math.abs(dArr[idx]-expR)<40 && Math.abs(dArr[idx+1]-expG)<40 && Math.abs(dArr[idx+2]-expB)<40){
+            dArr[idx+3] = 0; 
+          }
         }
       }
       sctx.putImageData(imgD, 0, 0);
@@ -982,8 +990,7 @@ function generateObjectCloneVariantDataUrlFromImage(src, d, rng){
     const out = document.createElement('canvas');
     out.width = w; out.height = h;
     const octx = out.getContext('2d', { willReadFrequently: true });
-    octx.fillStyle = `rgb(${bgR}, ${bgG}, ${bgB})`;
-    octx.fillRect(0, 0, w, h);
+    octx.drawImage(src, 0, 0, w, h);
 
     const targetCount = 2 + Math.floor(rng() * 2); // 2~3
     const minSize = Math.round(Math.min(w, h) * (0.40 + (0.35 - 0.40) * d));
