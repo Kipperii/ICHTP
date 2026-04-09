@@ -967,25 +967,29 @@ function generateObjectCloneVariantDataUrlFromImage(src, d, rng){
     if(TL[3] > 10){
       const visited = new Uint8Array(w * h);
       let q = [];
-      for(let x=0; x<w; x++){ q.push(x, 0); q.push(x, h-1); }
-      for(let y=0; y<h; y++){ q.push(0, y); q.push(w-1, y); }
+      const pushQ = (px, py) => {
+        const idx = py * w + px;
+        if(!visited[idx]){ visited[idx] = 1; q.push(px, py); }
+      };
+
+      for(let x=0; x<w; x++){ pushQ(x, 0); pushQ(x, h-1); }
+      for(let y=0; y<h; y++){ pushQ(0, y); pushQ(w-1, y); }
+      
       let head = 0;
       while(head < q.length){
         const x = q[head++], y = q[head++];
-        const idx = y * w + x;
-        if(visited[idx]) continue;
-        visited[idx] = 1;
         const tx = x / (w-1 || 1), ty = y / (h-1 || 1);
         const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
         const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
         const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
-        const pIdx = idx * 4;
+        const pIdx = (y * w + x) * 4;
+        
         if(Math.abs(dArr[pIdx]-expR)<40 && Math.abs(dArr[pIdx+1]-expG)<40 && Math.abs(dArr[pIdx+2]-expB)<40){
           dArr[pIdx+3] = 0;
-          if(x>0) q.push(x-1, y);
-          if(x<w-1) q.push(x+1, y);
-          if(y>0) q.push(x, y-1);
-          if(y<h-1) q.push(x, y+1);
+          if(x>0) pushQ(x-1, y);
+          if(x<w-1) pushQ(x+1, y);
+          if(y>0) pushQ(x, y-1);
+          if(y<h-1) pushQ(x, y+1);
         }
       }
       sctx.putImageData(imgD, 0, 0);
