@@ -533,7 +533,10 @@
     const c = document.createElement('canvas'); c.width=w; c.height=h;
     const ctx = c.getContext('2d', {willReadFrequently:true});
 
-    ctx.fillStyle = avgColor(img);
+    // Use standard ICHTP background color
+    const bgColor = '#8287d9';
+
+    ctx.fillStyle = bgColor;
     ctx.fillRect(0,0,w,h);
 
     const flipH = Math.random() < lerp(0.15,0.5,d);
@@ -705,19 +708,9 @@
     out.width = w; out.height = h;
     const octx = out.getContext('2d', {willReadFrequently:true});
     
-    // Synthesize a clean background gradient so we don't paste over the original object!
-    const bgImgD = octx.createImageData(w, h);
-    for(let y=0; y<h; y++){
-      for(let x=0; x<w; x++){
-        const tx = x / (w-1 || 1), ty = y / (h-1 || 1);
-        const expR = TL[0] + (TR[0]-TL[0])*tx + (BL[0]-TL[0])*ty + (TL[0]-TR[0]-BL[0]+BR[0])*tx*ty;
-        const expG = TL[1] + (TR[1]-TL[1])*tx + (BL[1]-TL[1])*ty + (TL[1]-TR[1]-BL[1]+BR[1])*tx*ty;
-        const expB = TL[2] + (TR[2]-TL[2])*tx + (BL[2]-TL[2])*ty + (TL[2]-TR[2]-BL[2]+BR[2])*tx*ty;
-        const idx = (y*w + x)*4;
-        bgImgD.data[idx] = expR; bgImgD.data[idx+1] = expG; bgImgD.data[idx+2] = expB; bgImgD.data[idx+3] = 255;
-      }
-    }
-    octx.putImageData(bgImgD, 0, 0);
+    // Fill with the standard ICHTP background color
+    octx.fillStyle = '#8287d9';
+    octx.fillRect(0, 0, w, h);
 
     const targetCount = 2 + ((Math.random() * 2) | 0); // 2~3 items (fewer but bigger)
     const minSize = Math.round(Math.min(w, h) * lerp(0.40, 0.35, d));
