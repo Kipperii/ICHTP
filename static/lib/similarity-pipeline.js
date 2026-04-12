@@ -21,9 +21,9 @@
   /* ================== Config ================== */
   const defaultWeights = {
     mseW: 0.05,
-    hdiffW: 0.15,
-    ssimW: 0.40,
-    aiW: 0.30,
+    hdiffW: 0.10,
+    ssimW: 0.15,
+    aiW: 0.60,
     orbW: 0.00,
     diversityW: 0.10
   };
