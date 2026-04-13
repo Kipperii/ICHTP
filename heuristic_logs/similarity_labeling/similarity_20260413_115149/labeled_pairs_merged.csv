@@ -1,0 +1,501 @@
+pair_id,img_a,img_b,stratum,is_pcg,pcg_seed,label,similarity_score,score_hash,score_mse,score_ssim,score_mobilenet,annotator,note,timestamp
+1,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/47.jpg,same_dir,0,0,0,,,,,,anonymous,,2026-04-13T11:52:15
+2,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/140.jpg,same_dir,0,0,0,,,,,,anonymous,,2026-04-13T11:52:15
+3,scripts/test photo for similarity_label_tool/32.jpg,__PCG_GENERATED__,pcg_generated,1,42027654,2,0.653299,23.000000,5788.830078,0.337294,0.938734,anonymous,,2026-04-13T11:52:18
+4,scripts/test photo for similarity_label_tool/116.jpg,scripts/test photo for similarity_label_tool/47.jpg,same_dir,0,0,0,0.262876,13.000000,16112.069580,0.286747,0.385495,anonymous,,2026-04-13T11:52:18
+5,scripts/test photo for similarity_label_tool/173.jpg,scripts/test photo for similarity_label_tool/29.jpg,same_dir,0,0,0,0.318200,17.000000,11561.095947,0.407210,0.438715,anonymous,,2026-04-13T11:52:19
+6,scripts/test photo for similarity_label_tool/119.jpg,__PCG_GENERATED__,pcg_generated,1,42055182,1,0.514445,7.000000,6184.038574,0.580673,0.814061,anonymous,,2026-04-13T11:52:22
+7,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/113.jpg,same_dir,0,0,0,0.375343,24.000000,17111.033936,0.255784,0.465727,anonymous,,2026-04-13T11:52:23
+8,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/20.jpg,same_dir,0,0,0,0.384104,42.000000,27824.931152,0.262657,0.473506,anonymous,,2026-04-13T11:52:24
+9,scripts/test photo for similarity_label_tool/104.jpg,__PCG_GENERATED__,pcg_generated,1,42082710,3,0.708546,6.000000,4631.767578,0.646438,0.958130,anonymous,,2026-04-13T11:52:26
+10,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/27.jpg,same_dir,0,0,0,0.309096,17.000000,15455.859863,0.270323,0.423542,anonymous,,2026-04-13T11:52:26
+11,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/176.jpg,same_dir,0,0,0,0.439946,34.000000,31933.386963,0.218888,0.566576,anonymous,,2026-04-13T11:52:27
+12,scripts/test photo for similarity_label_tool/47.jpg,__PCG_GENERATED__,pcg_generated,1,42110238,2,0.491102,16.000000,16710.375000,0.529867,0.731142,anonymous,,2026-04-13T11:52:28
+13,scripts/test photo for similarity_label_tool/68.jpg,scripts/test photo for similarity_label_tool/8.jpg,same_dir,0,0,0,0.255935,16.000000,11162.988770,0.389049,0.344687,anonymous,,2026-04-13T11:52:28
+14,scripts/test photo for similarity_label_tool/50.jpg,scripts/test photo for similarity_label_tool/68.jpg,same_dir,0,0,0,0.250106,18.000000,19662.906006,0.366006,0.315478,anonymous,,2026-04-13T11:52:29
+15,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,42137766,2,0.688453,29.000000,18732.806641,0.143791,0.909375,anonymous,,2026-04-13T11:52:31
+16,scripts/test photo for similarity_label_tool/173.jpg,scripts/test photo for similarity_label_tool/38.jpg,same_dir,0,0,0,0.289244,16.000000,11242.178223,0.445886,0.400202,anonymous,,2026-04-13T11:52:31
+17,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/146.jpg,same_dir,0,0,1,0.514832,19.000000,15371.144775,0.340168,0.648713,anonymous,,2026-04-13T11:52:32
+18,scripts/test photo for similarity_label_tool/140.jpg,__PCG_GENERATED__,pcg_generated,1,42165294,1,0.631594,48.000000,16663.854248,0.150518,0.885990,anonymous,,2026-04-13T11:52:33
+19,scripts/test photo for similarity_label_tool/50.jpg,scripts/test photo for similarity_label_tool/95.jpg,same_dir,0,0,0,0.340686,47.000000,17598.317871,0.491546,0.401144,anonymous,,2026-04-13T11:52:34
+20,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/116.jpg,same_dir,0,0,2,0.684998,12.000000,8756.039063,0.340918,0.936740,anonymous,,2026-04-13T11:52:36
+21,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,42192822,2,0.599758,22.000000,17196.684570,0.242016,0.859246,anonymous,,2026-04-13T11:52:37
+22,scripts/test photo for similarity_label_tool/116.jpg,scripts/test photo for similarity_label_tool/161.jpg,same_dir,0,0,0,0.383470,47.000000,18885.856934,0.277869,0.472450,anonymous,,2026-04-13T11:52:38
+23,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/30.jpg,same_dir,0,0,0,0.375045,42.000000,20592.962646,0.245546,0.458408,anonymous,,2026-04-13T11:52:39
+24,scripts/test photo for similarity_label_tool/122.jpg,__PCG_GENERATED__,pcg_generated,1,42220350,1,0.609243,8.000000,4007.555908,0.631279,0.930449,anonymous,,2026-04-13T11:52:41
+25,scripts/test photo for similarity_label_tool/179.jpg,scripts/test photo for similarity_label_tool/44.jpg,same_dir,0,0,2,0.545946,21.000000,22651.967773,0.369002,0.779305,anonymous,,2026-04-13T11:52:43
+26,scripts/test photo for similarity_label_tool/89.jpg,scripts/test photo for similarity_label_tool/98.jpg,same_dir,0,0,0,0.239981,12.000000,12417.167480,0.402252,0.346886,anonymous,,2026-04-13T11:52:43
+27,scripts/test photo for similarity_label_tool/47.jpg,__PCG_GENERATED__,pcg_generated,1,42247878,3,0.536232,6.000000,3650.458496,0.589226,0.843999,anonymous,,2026-04-13T11:52:45
+28,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/27.jpg,same_dir,0,0,0,0.331001,19.000000,12903.377686,0.278596,0.440558,anonymous,,2026-04-13T11:52:46
+29,scripts/test photo for similarity_label_tool/32.jpg,scripts/test photo for similarity_label_tool/74.jpg,same_dir,0,0,0,0.337186,22.000000,5254.295898,0.269093,0.421625,anonymous,,2026-04-13T11:52:46
+30,scripts/test photo for similarity_label_tool/116.jpg,__PCG_GENERATED__,pcg_generated,1,42275406,2,0.485192,24.000000,15859.481445,0.352343,0.648809,anonymous,,2026-04-13T11:52:48
+31,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/28.jpg,same_dir,0,0,0,0.408553,43.000000,18941.149414,0.259470,0.514255,anonymous,,2026-04-13T11:52:48
+32,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.305644,13.000000,12296.273682,0.247347,0.456775,anonymous,,2026-04-13T11:52:49
+33,scripts/test photo for similarity_label_tool/35.jpg,__PCG_GENERATED__,pcg_generated,1,42302934,2,0.562907,4.000000,1683.578857,0.715015,0.768906,anonymous,,2026-04-13T11:52:52
+34,scripts/test photo for similarity_label_tool/149.jpg,scripts/test photo for similarity_label_tool/56.jpg,same_dir,0,0,0,0.273676,46.000000,16109.016357,0.494503,0.244757,anonymous,,2026-04-13T11:52:53
+35,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/77.jpg,same_dir,0,0,0,0.342418,43.000000,25304.222900,0.174545,0.404030,anonymous,,2026-04-13T11:52:54
+36,scripts/test photo for similarity_label_tool/47.jpg,__PCG_GENERATED__,pcg_generated,1,42330462,3,0.602646,5.000000,3653.096924,0.645905,0.912454,anonymous,,2026-04-13T11:53:20
+37,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/167.jpg,same_dir,0,0,0,0.399590,24.000000,21868.415771,0.237289,0.506140,anonymous,,2026-04-13T11:53:21
+38,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/164.jpg,same_dir,0,0,0,0.441989,46.000000,16650.499512,0.203201,0.569982,anonymous,,2026-04-13T11:53:23
+39,scripts/test photo for similarity_label_tool/83.jpg,__PCG_GENERATED__,pcg_generated,1,42357990,1,0.627560,23.000000,18961.826660,0.142643,0.895836,anonymous,,2026-04-13T11:53:26
+40,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.381753,39.000000,14817.676514,0.172360,0.469588,anonymous,,2026-04-13T11:53:27
+41,scripts/test photo for similarity_label_tool/38.jpg,scripts/test photo for similarity_label_tool/89.jpg,same_dir,0,0,0,0.322412,49.000000,15680.664551,0.294602,0.370687,anonymous,,2026-04-13T11:53:27
+42,scripts/test photo for similarity_label_tool/26.jpg,__PCG_GENERATED__,pcg_generated,1,42385518,2,0.653661,8.000000,5674.336426,0.542587,0.938619,anonymous,,2026-04-13T11:53:32
+43,scripts/test photo for similarity_label_tool/30.jpg,scripts/test photo for similarity_label_tool/32.jpg,same_dir,0,0,0,0.328014,49.000000,18352.336426,0.283975,0.380023,anonymous,,2026-04-13T11:53:32
+44,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/44.jpg,same_dir,0,0,0,0.305673,24.000000,17119.027100,0.248998,0.349612,anonymous,,2026-04-13T11:53:33
+45,scripts/test photo for similarity_label_tool/113.jpg,__PCG_GENERATED__,pcg_generated,1,42413046,1,0.557886,15.000000,9933.557617,0.328889,0.857685,anonymous,,2026-04-13T11:53:35
+46,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/179.jpg,same_dir,0,0,0,0.401975,16.000000,21488.289063,0.268009,0.588087,anonymous,,2026-04-13T11:53:37
+47,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/89.jpg,same_dir,0,0,0,0.389715,45.000000,18265.008545,0.242738,0.482859,anonymous,,2026-04-13T11:53:37
+48,scripts/test photo for similarity_label_tool/29.jpg,__PCG_GENERATED__,pcg_generated,1,42440574,3,0.715293,8.000000,1754.145264,0.725497,0.890045,anonymous,,2026-04-13T11:53:41
+49,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/35.jpg,same_dir,0,0,0,0.191662,15.000000,13550.195557,0.408874,0.247311,anonymous,,2026-04-13T11:53:42
+50,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/71.jpg,same_dir,0,0,0,0.338205,45.000000,25366.319092,0.214284,0.397008,anonymous,,2026-04-13T11:53:42
+51,scripts/test photo for similarity_label_tool/173.jpg,__PCG_GENERATED__,pcg_generated,1,42468102,1,0.673241,43.000000,12487.451904,0.326597,0.883260,anonymous,,2026-04-13T11:53:49
+52,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/68.jpg,same_dir,0,0,0,0.237813,24.000000,13288.288330,0.377754,0.236510,anonymous,,2026-04-13T11:53:50
+53,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/146.jpg,same_dir,0,0,1,0.480660,39.000000,19255.374756,0.205254,0.634433,anonymous,,2026-04-13T11:53:51
+54,scripts/test photo for similarity_label_tool/107.jpg,__PCG_GENERATED__,pcg_generated,1,42495630,1,0.493188,13.000000,14588.463623,0.291493,0.769349,anonymous,,2026-04-13T11:53:53
+55,scripts/test photo for similarity_label_tool/86.jpg,scripts/test photo for similarity_label_tool/92.jpg,same_dir,0,0,0,0.264536,17.000000,11819.327637,0.376573,0.337163,anonymous,,2026-04-13T11:53:54
+56,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/33.jpg,same_dir,0,0,0,0.357256,38.000000,23847.997803,0.239965,0.428760,anonymous,,2026-04-13T11:53:54
+57,scripts/test photo for similarity_label_tool/104.jpg,__PCG_GENERATED__,pcg_generated,1,42523158,3,0.710013,44.000000,14818.050781,0.241046,0.906188,anonymous,,2026-04-13T11:53:56
+58,scripts/test photo for similarity_label_tool/17.jpg,scripts/test photo for similarity_label_tool/80.jpg,same_dir,0,0,0,0.343521,43.000000,14989.021729,0.424188,0.391621,anonymous,,2026-04-13T11:53:57
+59,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/143.jpg,same_dir,0,0,1,0.511641,18.000000,14600.377441,0.410975,0.652429,anonymous,,2026-04-13T11:53:59
+60,scripts/test photo for similarity_label_tool/113.jpg,__PCG_GENERATED__,pcg_generated,1,42550686,2,0.603716,12.000000,5773.579590,0.580572,0.920036,anonymous,,2026-04-13T11:54:01
+61,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/47.jpg,same_dir,0,0,1,0.462043,20.000000,23478.750488,0.249779,0.649214,anonymous,,2026-04-13T11:54:03
+62,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/47.jpg,same_dir,0,0,0,0.270022,15.000000,21707.840820,0.390119,0.377913,anonymous,,2026-04-13T11:54:03
+63,scripts/test photo for similarity_label_tool/137.jpg,__PCG_GENERATED__,pcg_generated,1,42578214,2,0.619983,20.000000,18398.499023,0.125336,0.799492,anonymous,,2026-04-13T11:54:12
+64,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/83.jpg,same_dir,0,0,0,0.355506,50.000000,14751.790527,0.290095,0.425843,anonymous,,2026-04-13T11:54:12
+65,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/164.jpg,same_dir,0,0,0,0.360010,30.000000,25162.839600,0.195450,0.433349,anonymous,,2026-04-13T11:54:13
+66,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,42605742,2,0.679575,27.000000,24314.344238,0.220408,0.821149,anonymous,,2026-04-13T11:54:16
+67,scripts/test photo for similarity_label_tool/185.jpg,scripts/test photo for similarity_label_tool/20.jpg,same_dir,0,0,0,0.319187,15.000000,23388.474854,0.396414,0.459854,anonymous,,2026-04-13T11:54:17
+68,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/50.jpg,same_dir,0,0,0,0.353477,48.000000,20721.502197,0.341038,0.422462,anonymous,,2026-04-13T11:54:17
+69,scripts/test photo for similarity_label_tool/20.jpg,__PCG_GENERATED__,pcg_generated,1,42633270,3,0.645602,3.000000,2501.601074,0.704979,0.940028,anonymous,,2026-04-13T11:54:19
+70,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/32.jpg,same_dir,0,0,0,0.360595,23.000000,16010.638428,0.247550,0.450894,anonymous,,2026-04-13T11:54:20
+71,scripts/test photo for similarity_label_tool/35.jpg,scripts/test photo for similarity_label_tool/65.jpg,same_dir,0,0,0,0.346011,48.000000,15689.054932,0.390639,0.410019,anonymous,,2026-04-13T11:54:20
+72,scripts/test photo for similarity_label_tool/30.jpg,__PCG_GENERATED__,pcg_generated,1,42660798,2,0.451141,16.000000,11575.453613,0.437985,0.670030,anonymous,,2026-04-13T11:54:22
+73,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/30.jpg,same_dir,0,0,0,0.362953,18.000000,16910.406006,0.285685,0.503558,anonymous,,2026-04-13T11:54:23
+74,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/30.jpg,same_dir,0,0,0,0.375015,49.000000,15384.025146,0.390751,0.458358,anonymous,,2026-04-13T11:54:23
+75,scripts/test photo for similarity_label_tool/104.jpg,__PCG_GENERATED__,pcg_generated,1,42688326,2,0.631245,41.000000,13770.286865,0.258909,0.885408,anonymous,,2026-04-13T11:54:28
+76,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/23.jpg,same_dir,0,0,0,0.286391,15.000000,16671.322510,0.241160,0.405193,anonymous,,2026-04-13T11:54:31
+77,scripts/test photo for similarity_label_tool/35.jpg,scripts/test photo for similarity_label_tool/44.jpg,same_dir,0,0,0,0.228041,15.000000,21367.531738,0.403915,0.307944,anonymous,,2026-04-13T11:54:32
+78,scripts/test photo for similarity_label_tool/27.jpg,__PCG_GENERATED__,pcg_generated,1,42715854,3,0.690627,39.000000,2698.561035,0.614995,0.915454,anonymous,,2026-04-13T11:54:35
+79,scripts/test photo for similarity_label_tool/35.jpg,scripts/test photo for similarity_label_tool/80.jpg,same_dir,0,0,0,0.321371,43.000000,14060.616455,0.401979,0.368951,anonymous,,2026-04-13T11:54:36
+80,scripts/test photo for similarity_label_tool/33.jpg,scripts/test photo for similarity_label_tool/56.jpg,same_dir,0,0,0,0.468493,9.000000,6551.540771,0.767077,0.571883,anonymous,,2026-04-13T11:54:37
+81,scripts/test photo for similarity_label_tool/134.jpg,__PCG_GENERATED__,pcg_generated,1,42743382,1,0.550023,30.000000,24295.359863,0.159056,0.750039,anonymous,,2026-04-13T11:54:39
+82,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/149.jpg,same_dir,0,0,0,0.306091,24.000000,18812.565674,0.292505,0.350307,anonymous,,2026-04-13T11:54:40
+83,scripts/test photo for similarity_label_tool/44.jpg,scripts/test photo for similarity_label_tool/95.jpg,same_dir,0,0,0,0.351057,47.000000,17527.425537,0.488500,0.418429,anonymous,,2026-04-13T11:54:41
+84,scripts/test photo for similarity_label_tool/41.jpg,__PCG_GENERATED__,pcg_generated,1,42770910,3,0.744027,4.000000,2715.126953,0.752903,0.936925,anonymous,,2026-04-13T11:54:43
+85,scripts/test photo for similarity_label_tool/20.jpg,scripts/test photo for similarity_label_tool/98.jpg,same_dir,0,0,0,0.352852,48.000000,8469.468018,0.474814,0.421420,anonymous,,2026-04-13T11:54:44
+86,scripts/test photo for similarity_label_tool/20.jpg,scripts/test photo for similarity_label_tool/86.jpg,same_dir,0,0,0,0.367023,48.000000,14859.685303,0.340739,0.420237,anonymous,,2026-04-13T11:54:45
+87,scripts/test photo for similarity_label_tool/33.jpg,__PCG_GENERATED__,pcg_generated,1,42798438,3,0.765980,0.000000,2092.916504,0.850208,0.912906,anonymous,,2026-04-13T11:54:47
+88,scripts/test photo for similarity_label_tool/32.jpg,scripts/test photo for similarity_label_tool/8.jpg,same_dir,0,0,0,0.239597,14.000000,9129.054443,0.456179,0.336950,anonymous,,2026-04-13T11:54:48
+89,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/164.jpg,same_dir,0,0,0,0.452159,46.000000,16413.850098,0.218286,0.586932,anonymous,,2026-04-13T11:54:49
+90,scripts/test photo for similarity_label_tool/38.jpg,__PCG_GENERATED__,pcg_generated,1,42825966,2,0.548315,15.000000,5459.712158,0.525729,0.768929,anonymous,,2026-04-13T11:54:51
+91,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/95.jpg,same_dir,0,0,0,0.338433,41.000000,12653.316406,0.270932,0.397388,anonymous,,2026-04-13T11:54:52
+92,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/30.jpg,same_dir,0,0,0,0.290330,45.000000,18140.294922,0.314653,0.317216,anonymous,,2026-04-13T11:54:53
+93,scripts/test photo for similarity_label_tool/26.jpg,__PCG_GENERATED__,pcg_generated,1,42853494,2,0.573886,8.000000,4380.529053,0.560892,0.923971,anonymous,,2026-04-13T11:54:59
+94,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/119.jpg,same_dir,0,0,0,0.366377,25.000000,19087.390381,0.169879,0.443962,anonymous,,2026-04-13T12:03:06
+95,scripts/test photo for similarity_label_tool/74.jpg,scripts/test photo for similarity_label_tool/80.jpg,same_dir,0,0,0,0.309726,44.000000,17220.208984,0.268213,0.349544,anonymous,,2026-04-13T12:03:07
+96,scripts/test photo for similarity_label_tool/170.jpg,__PCG_GENERATED__,pcg_generated,1,42881022,3,0.725446,6.000000,3550.830566,0.676766,0.954247,anonymous,,2026-04-13T12:03:08
+97,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/140.jpg,same_dir,0,0,0,0.399216,44.000000,23737.907959,0.180637,0.498694,anonymous,,2026-04-13T12:03:09
+98,scripts/test photo for similarity_label_tool/28.jpg,scripts/test photo for similarity_label_tool/80.jpg,same_dir,0,0,0,0.320301,24.000000,15474.786621,0.451930,0.373991,anonymous,,2026-04-13T12:03:10
+99,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,42908550,2,0.588926,17.000000,12462.360596,0.305038,0.889925,anonymous,,2026-04-13T12:03:12
+100,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/44.jpg,same_dir,0,0,0,0.299982,17.000000,15877.486328,0.257353,0.408352,anonymous,,2026-04-13T12:03:12
+101,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/71.jpg,same_dir,0,0,0,0.329390,37.000000,13028.758301,0.312454,0.382317,anonymous,,2026-04-13T12:03:13
+102,scripts/test photo for similarity_label_tool/176.jpg,__PCG_GENERATED__,pcg_generated,1,42936078,2,0.690449,27.000000,26503.570068,0.254915,0.834609,anonymous,,2026-04-13T12:03:15
+103,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.348555,41.000000,12466.754395,0.154516,0.414258,anonymous,,2026-04-13T12:03:15
+104,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/92.jpg,same_dir,0,0,0,0.281831,48.000000,9799.423584,0.518625,0.303052,anonymous,,2026-04-13T12:03:16
+105,scripts/test photo for similarity_label_tool/29.jpg,__PCG_GENERATED__,pcg_generated,1,42963606,1,0.578067,20.000000,7967.316406,0.363745,0.842588,anonymous,,2026-04-13T12:03:20
+106,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/95.jpg,same_dir,0,0,0,0.395511,40.000000,19173.836182,0.266969,0.492518,anonymous,,2026-04-13T12:03:20
+107,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/41.jpg,same_dir,0,0,2,0.511862,18.000000,19748.613525,0.449579,0.691648,anonymous,,2026-04-13T12:03:22
+108,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,42991134,1,0.592397,25.000000,20088.529541,0.085155,0.820662,anonymous,,2026-04-13T12:03:23
+109,scripts/test photo for similarity_label_tool/33.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.238265,17.000000,12851.900879,0.328074,0.305491,anonymous,,2026-04-13T12:03:23
+110,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/83.jpg,same_dir,0,0,0,0.326276,22.000000,29123.536865,0.240197,0.403443,anonymous,,2026-04-13T12:03:24
+111,scripts/test photo for similarity_label_tool/68.jpg,__PCG_GENERATED__,pcg_generated,1,43018662,2,0.457794,26.000000,4939.561768,0.382886,0.596323,anonymous,,2026-04-13T12:03:25
+112,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/140.jpg,same_dir,0,0,1,0.446224,28.000000,19681.259033,0.158447,0.577040,anonymous,,2026-04-13T12:03:26
+113,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/158.jpg,same_dir,0,0,0,0.327443,44.000000,16392.615479,0.321224,0.379071,anonymous,,2026-04-13T12:03:27
+114,scripts/test photo for similarity_label_tool/8.jpg,__PCG_GENERATED__,pcg_generated,1,43046190,2,0.491441,10.000000,5152.419434,0.577797,0.754472,anonymous,,2026-04-13T12:03:28
+115,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/29.jpg,same_dir,0,0,0,0.247938,15.000000,12119.387207,0.392053,0.341106,anonymous,,2026-04-13T12:03:29
+116,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/29.jpg,same_dir,0,0,0,0.357298,42.000000,27526.723145,0.241779,0.428830,anonymous,,2026-04-13T12:03:30
+117,scripts/test photo for similarity_label_tool/101.jpg,__PCG_GENERATED__,pcg_generated,1,43073718,3,0.729848,5.000000,2257.493164,0.678050,0.936845,anonymous,,2026-04-13T12:03:31
+118,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/41.jpg,same_dir,0,0,0,0.354512,41.000000,20869.816162,0.311697,0.424187,anonymous,,2026-04-13T12:03:32
+119,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/14.jpg,same_dir,0,0,0,0.378894,24.000000,23391.897705,0.246375,0.471646,anonymous,,2026-04-13T12:03:33
+120,scripts/test photo for similarity_label_tool/50.jpg,__PCG_GENERATED__,pcg_generated,1,43101246,2,0.582566,23.000000,22385.659912,0.396041,0.820846,anonymous,,2026-04-13T12:03:40
+121,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/8.jpg,same_dir,0,0,0,0.329345,23.000000,16911.997314,0.400135,0.398811,anonymous,,2026-04-13T12:03:41
+122,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/20.jpg,same_dir,0,0,0,0.336052,19.000000,19634.863281,0.269817,0.448976,anonymous,,2026-04-13T12:03:42
+123,scripts/test photo for similarity_label_tool/68.jpg,__PCG_GENERATED__,pcg_generated,1,43128774,2,0.557258,18.000000,5481.216553,0.287452,0.799825,anonymous,,2026-04-13T12:03:44
+124,scripts/test photo for similarity_label_tool/185.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.367320,46.000000,18744.387451,0.193230,0.445533,anonymous,,2026-04-13T12:03:45
+125,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/26.jpg,same_dir,0,0,0,0.317726,21.000000,17888.576172,0.231948,0.398939,anonymous,,2026-04-13T12:03:45
+126,scripts/test photo for similarity_label_tool/128.jpg,__PCG_GENERATED__,pcg_generated,1,43156302,1,0.637116,34.000000,21489.786377,0.133403,0.895194,anonymous,,2026-04-13T12:03:47
+127,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/65.jpg,same_dir,0,0,1,0.406480,39.000000,22924.283691,0.210261,0.510799,anonymous,,2026-04-13T12:03:49
+128,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/68.jpg,same_dir,0,0,0,0.383740,40.000000,10455.692139,0.264102,0.472901,anonymous,,2026-04-13T12:03:50
+129,scripts/test photo for similarity_label_tool/38.jpg,__PCG_GENERATED__,pcg_generated,1,43183830,2,0.440453,13.000000,4730.043457,0.498559,0.681456,anonymous,,2026-04-13T12:03:51
+130,scripts/test photo for similarity_label_tool/116.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.346240,45.000000,12124.747803,0.192079,0.410399,anonymous,,2026-04-13T12:03:52
+131,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/173.jpg,same_dir,0,0,1,0.495051,50.000000,13961.884277,0.367818,0.591406,anonymous,,2026-04-13T12:03:59
+132,scripts/test photo for similarity_label_tool/173.jpg,__PCG_GENERATED__,pcg_generated,1,43211358,1,0.495725,41.000000,14028.266357,0.276936,0.659541,anonymous,,2026-04-13T12:04:00
+133,scripts/test photo for similarity_label_tool/179.jpg,scripts/test photo for similarity_label_tool/8.jpg,same_dir,0,0,0,0.418151,19.000000,21624.851563,0.327225,0.585807,anonymous,,2026-04-13T12:04:01
+134,scripts/test photo for similarity_label_tool/33.jpg,scripts/test photo for similarity_label_tool/35.jpg,same_dir,0,0,0,0.278701,48.000000,11578.008057,0.468569,0.297836,anonymous,,2026-04-13T12:04:02
+135,scripts/test photo for similarity_label_tool/158.jpg,__PCG_GENERATED__,pcg_generated,1,43238886,2,0.554755,8.000000,8581.095703,0.515914,0.920693,anonymous,,2026-04-13T12:04:03
+136,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/17.jpg,same_dir,0,0,0,0.376130,53.000000,14639.258789,0.416173,0.460217,anonymous,,2026-04-13T12:04:04
+137,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/140.jpg,same_dir,0,0,1,0.525979,21.000000,18387.813477,0.190682,0.646965,anonymous,,2026-04-13T12:04:05
+138,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,43266414,2,0.409467,21.000000,17356.815430,0.328350,0.551841,anonymous,,2026-04-13T12:04:06
+139,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/26.jpg,same_dir,0,0,0,0.381209,43.000000,24450.412842,0.249126,0.468681,anonymous,,2026-04-13T12:04:07
+140,scripts/test photo for similarity_label_tool/131.jpg,scripts/test photo for similarity_label_tool/173.jpg,same_dir,0,0,1,0.372691,11.000000,17710.005127,0.245766,0.582282,anonymous,,2026-04-13T12:04:08
+141,scripts/test photo for similarity_label_tool/125.jpg,__PCG_GENERATED__,pcg_generated,1,43293942,1,0.549522,35.000000,21507.157959,0.111915,0.749204,anonymous,,2026-04-13T12:04:09
+142,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/179.jpg,same_dir,0,0,1,0.556672,23.000000,28122.988525,0.182177,0.752889,anonymous,,2026-04-13T12:04:10
+143,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/68.jpg,same_dir,0,0,0,0.313708,35.000000,31214.888672,0.259283,0.356180,anonymous,,2026-04-13T12:04:11
+144,scripts/test photo for similarity_label_tool/137.jpg,__PCG_GENERATED__,pcg_generated,1,43321470,3,0.624922,9.000000,7244.770752,0.534932,0.925356,anonymous,,2026-04-13T12:04:13
+145,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/33.jpg,same_dir,0,0,0,0.312202,21.000000,15938.496338,0.450500,0.389732,anonymous,,2026-04-13T12:04:14
+146,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/98.jpg,same_dir,0,0,0,0.347858,40.000000,17826.565430,0.318812,0.413096,anonymous,,2026-04-13T12:04:14
+147,scripts/test photo for similarity_label_tool/95.jpg,__PCG_GENERATED__,pcg_generated,1,43348998,2,0.451282,10.000000,4839.362061,0.561420,0.646523,anonymous,,2026-04-13T12:04:16
+148,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/170.jpg,same_dir,0,0,1,0.429546,45.000000,16847.884033,0.221448,0.549244,anonymous,,2026-04-13T12:04:16
+149,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/182.jpg,same_dir,0,0,1,0.599538,28.000000,25269.052490,0.216629,0.781676,anonymous,,2026-04-13T12:04:17
+150,scripts/test photo for similarity_label_tool/50.jpg,__PCG_GENERATED__,pcg_generated,1,43376526,1,0.664359,53.000000,3949.263916,0.547899,0.921673,anonymous,,2026-04-13T12:04:18
+151,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/83.jpg,same_dir,0,0,1,0.569366,21.000000,21044.974854,0.244900,0.782396,anonymous,,2026-04-13T12:04:19
+152,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/167.jpg,same_dir,0,0,1,0.439574,50.000000,8964.656494,0.399357,0.519707,anonymous,,2026-04-13T12:04:20
+153,scripts/test photo for similarity_label_tool/158.jpg,__PCG_GENERATED__,pcg_generated,1,43404054,2,0.537588,5.000000,4992.957520,0.495504,0.895981,anonymous,,2026-04-13T12:04:23
+154,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/89.jpg,same_dir,0,0,0,0.396481,46.000000,20111.583984,0.235913,0.494135,anonymous,,2026-04-13T12:04:25
+155,scripts/test photo for similarity_label_tool/149.jpg,scripts/test photo for similarity_label_tool/173.jpg,same_dir,0,0,0,0.262906,16.000000,17117.835693,0.353124,0.356306,anonymous,,2026-04-13T12:04:26
+156,scripts/test photo for similarity_label_tool/116.jpg,__PCG_GENERATED__,pcg_generated,1,43431582,2,0.489397,20.000000,15162.882568,0.340651,0.694803,anonymous,,2026-04-13T12:04:27
+157,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/134.jpg,same_dir,0,0,2,0.662471,4.000000,7676.460693,0.393449,0.937451,anonymous,,2026-04-13T12:04:28
+158,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/47.jpg,same_dir,0,0,2,0.509566,20.000000,19846.943359,0.470938,0.668622,anonymous,,2026-04-13T12:04:29
+159,scripts/test photo for similarity_label_tool/113.jpg,__PCG_GENERATED__,pcg_generated,1,43459110,2,0.659783,19.000000,13423.300781,0.187999,0.886470,anonymous,,2026-04-13T12:04:31
+160,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/29.jpg,same_dir,0,0,0,0.354587,51.000000,20205.718994,0.319355,0.424311,anonymous,,2026-04-13T12:04:31
+161,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/95.jpg,same_dir,0,0,0,0.264584,17.000000,15628.103760,0.368116,0.349356,anonymous,,2026-04-13T12:04:32
+162,scripts/test photo for similarity_label_tool/167.jpg,__PCG_GENERATED__,pcg_generated,1,43486638,1,0.719208,42.000000,9029.559082,0.379338,0.904384,anonymous,,2026-04-13T12:04:34
+163,scripts/test photo for similarity_label_tool/131.jpg,scripts/test photo for similarity_label_tool/77.jpg,same_dir,0,0,0,0.339968,23.000000,16452.603760,0.236133,0.416515,anonymous,,2026-04-13T12:04:35
+164,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/17.jpg,same_dir,0,0,0,0.316934,21.000000,16374.739746,0.264337,0.397619,anonymous,,2026-04-13T12:04:36
+165,scripts/test photo for similarity_label_tool/116.jpg,__PCG_GENERATED__,pcg_generated,1,43514166,2,0.517286,22.000000,15009.879883,0.399032,0.721792,anonymous,,2026-04-13T12:04:37
+166,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/30.jpg,same_dir,0,0,0,0.354403,48.000000,18500.020996,0.302210,0.424005,anonymous,,2026-04-13T12:04:38
+167,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/31.jpg,same_dir,0,0,0,0.392053,40.000000,19059.865479,0.238319,0.486755,anonymous,,2026-04-13T12:04:38
+168,scripts/test photo for similarity_label_tool/161.jpg,__PCG_GENERATED__,pcg_generated,1,43541694,3,0.603352,5.000000,4614.517334,0.632898,0.923322,anonymous,,2026-04-13T12:04:42
+169,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/34.jpg,same_dir,0,0,0,0.327971,41.000000,15092.169434,0.285429,0.379952,anonymous,,2026-04-13T12:04:43
+170,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/41.jpg,same_dir,0,0,0,0.336385,44.000000,13471.797363,0.281599,0.393975,anonymous,,2026-04-13T12:04:44
+171,scripts/test photo for similarity_label_tool/77.jpg,__PCG_GENERATED__,pcg_generated,1,43569222,3,0.617238,10.000000,1802.612549,0.664413,0.878033,anonymous,,2026-04-13T12:04:47
+172,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/143.jpg,same_dir,0,0,2,0.681076,7.000000,9267.830322,0.606676,0.905736,anonymous,,2026-04-13T12:04:50
+173,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/179.jpg,same_dir,0,0,1,0.493214,17.000000,24522.058838,0.354196,0.730405,anonymous,,2026-04-13T12:04:51
+174,scripts/test photo for similarity_label_tool/161.jpg,__PCG_GENERATED__,pcg_generated,1,43596750,2,0.438788,57.000000,7635.950684,0.438987,0.564647,anonymous,,2026-04-13T12:04:52
+175,scripts/test photo for similarity_label_tool/50.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.319330,47.000000,20989.360107,0.311102,0.365550,anonymous,,2026-04-13T12:04:53
+176,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.421761,14.000000,14781.263672,0.278859,0.580686,anonymous,,2026-04-13T12:04:54
+177,scripts/test photo for similarity_label_tool/30.jpg,__PCG_GENERATED__,pcg_generated,1,43624278,3,0.609037,5.000000,5630.964111,0.667572,0.906961,anonymous,,2026-04-13T12:04:55
+178,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/179.jpg,random,0,0,0,0.400779,47.000000,25618.630615,0.440141,0.501299,anonymous,,2026-04-13T12:04:56
+179,scripts/test photo for similarity_label_tool/28.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,0,0.271651,19.000000,14251.737793,0.301865,0.341641,anonymous,,2026-04-13T12:04:57
+180,scripts/test photo for similarity_label_tool/143.jpg,__PCG_GENERATED__,pcg_generated,1,43651806,0,0.487765,6.000000,9349.653076,0.368334,0.812942,anonymous,,2026-04-13T12:05:14
+181,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/116.jpg,random,0,0,0,0.348056,46.000000,17676.120117,0.324680,0.413427,anonymous,,2026-04-13T12:05:16
+182,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/26.jpg,random,0,0,0,0.354650,23.000000,21044.742432,0.169736,0.440985,anonymous,,2026-04-13T12:05:16
+183,scripts/test photo for similarity_label_tool/68.jpg,__PCG_GENERATED__,pcg_generated,1,43679334,2,0.443989,27.000000,4816.856689,0.332094,0.573315,anonymous,,2026-04-13T12:05:20
+184,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/20.jpg,random,0,0,0,0.307533,16.000000,18527.198486,0.347993,0.430684,anonymous,,2026-04-13T12:05:20
+185,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.307279,38.000000,19686.757568,0.228598,0.345466,anonymous,,2026-04-13T12:05:21
+186,scripts/test photo for similarity_label_tool/107.jpg,__PCG_GENERATED__,pcg_generated,1,43706862,2,0.724990,23.000000,14459.839600,0.214935,0.912821,anonymous,,2026-04-13T12:05:23
+187,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,1,0.461799,14.000000,13276.420654,0.421831,0.635293,anonymous,,2026-04-13T12:05:24
+188,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,0,0.442354,15.000000,15342.721924,0.316896,0.605213,anonymous,,2026-04-13T12:05:26
+189,scripts/test photo for similarity_label_tool/44.jpg,__PCG_GENERATED__,pcg_generated,1,43734390,2,0.636357,23.000000,18047.387939,0.441349,0.910498,anonymous,,2026-04-13T12:05:27
+190,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/164.jpg,random,0,0,0,0.419889,45.000000,20221.828369,0.183246,0.533148,anonymous,,2026-04-13T12:05:28
+191,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/149.jpg,random,0,0,0,0.286366,19.000000,17393.100830,0.208843,0.366165,anonymous,,2026-04-13T12:05:29
+192,scripts/test photo for similarity_label_tool/179.jpg,__PCG_GENERATED__,pcg_generated,1,43761918,2,0.409010,18.000000,30720.460205,0.405032,0.580319,anonymous,,2026-04-13T12:05:30
+193,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,0,0.309785,35.000000,30772.665283,0.249877,0.349642,anonymous,,2026-04-13T12:05:30
+194,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,0,0.297008,24.000000,17192.778320,0.256762,0.335169,anonymous,,2026-04-13T12:05:31
+195,scripts/test photo for similarity_label_tool/26.jpg,__PCG_GENERATED__,pcg_generated,1,43789446,2,0.650789,4.000000,2666.449707,0.686867,0.962170,anonymous,,2026-04-13T12:05:33
+196,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,0,0.248050,43.000000,19883.470459,0.238505,0.246749,anonymous,,2026-04-13T12:05:33
+197,scripts/test photo for similarity_label_tool/68.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,0,0.314984,37.000000,8795.535645,0.344265,0.358307,anonymous,,2026-04-13T12:05:34
+198,scripts/test photo for similarity_label_tool/119.jpg,__PCG_GENERATED__,pcg_generated,1,43816974,3,0.754353,6.000000,2564.246826,0.775195,0.931731,anonymous,,2026-04-13T12:05:36
+199,scripts/test photo for similarity_label_tool/23.jpg,scripts/test photo for similarity_label_tool/33.jpg,random,0,0,0,0.260336,43.000000,13793.576172,0.405062,0.267227,anonymous,,2026-04-13T12:05:36
+200,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,0,0.295599,20.000000,10671.270508,0.292482,0.371807,anonymous,,2026-04-13T12:05:37
+201,scripts/test photo for similarity_label_tool/98.jpg,__PCG_GENERATED__,pcg_generated,1,43844502,2,0.399207,8.000000,4199.197021,0.657225,0.510829,anonymous,,2026-04-13T12:05:38
+202,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/71.jpg,random,0,0,0,0.292524,24.000000,13771.447998,0.317345,0.327697,anonymous,,2026-04-13T12:05:39
+203,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.286933,47.000000,16741.511230,0.323581,0.311555,anonymous,,2026-04-13T12:05:39
+204,scripts/test photo for similarity_label_tool/89.jpg,__PCG_GENERATED__,pcg_generated,1,43872030,2,0.585120,8.000000,5934.945313,0.659887,0.838874,anonymous,,2026-04-13T12:05:42
+205,scripts/test photo for similarity_label_tool/80.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,0,0.276073,18.000000,12332.684814,0.449164,0.346203,anonymous,,2026-04-13T12:05:43
+206,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/143.jpg,random,0,0,1,0.432601,26.000000,17498.759033,0.270182,0.554335,anonymous,,2026-04-13T12:05:47
+207,scripts/test photo for similarity_label_tool/167.jpg,__PCG_GENERATED__,pcg_generated,1,43899558,3,0.661897,40.000000,4259.949707,0.583665,0.890917,anonymous,,2026-04-13T12:05:52
+208,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,0,0.315271,40.000000,20166.446533,0.254101,0.358785,anonymous,,2026-04-13T12:05:53
+209,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/27.jpg,random,0,0,0,0.322693,19.000000,15319.894287,0.258547,0.426710,anonymous,,2026-04-13T12:05:54
+210,scripts/test photo for similarity_label_tool/113.jpg,__PCG_GENERATED__,pcg_generated,1,43927086,2,0.533026,30.000000,18895.350830,0.268052,0.721709,anonymous,,2026-04-13T12:05:55
+211,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/149.jpg,random,0,0,1,0.505122,20.000000,19923.631348,0.261696,0.721012,anonymous,,2026-04-13T12:05:56
+212,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/30.jpg,random,0,0,0,0.388336,40.000000,21941.013916,0.159053,0.480560,anonymous,,2026-04-13T12:05:57
+213,scripts/test photo for similarity_label_tool/27.jpg,__PCG_GENERATED__,pcg_generated,1,43954614,3,0.653124,10.000000,2740.659668,0.523249,0.933696,anonymous,,2026-04-13T12:05:58
+214,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,2,0.551496,25.000000,24835.858398,0.374028,0.692575,anonymous,,2026-04-13T12:05:59
+215,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/35.jpg,random,0,0,0,0.317201,30.000000,20180.999512,0.211820,0.362002,anonymous,,2026-04-13T12:06:00
+216,scripts/test photo for similarity_label_tool/149.jpg,__PCG_GENERATED__,pcg_generated,1,43982142,2,0.512237,3.000000,5024.825928,0.589404,0.803875,anonymous,,2026-04-13T12:06:01
+217,scripts/test photo for similarity_label_tool/32.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,0,0.347356,22.000000,5013.339600,0.327545,0.438576,anonymous,,2026-04-13T12:06:01
+218,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/185.jpg,random,0,0,1,0.533294,21.000000,28564.124512,0.224948,0.709933,anonymous,,2026-04-13T12:06:02
+219,scripts/test photo for similarity_label_tool/74.jpg,__PCG_GENERATED__,pcg_generated,1,44009670,3,0.517506,12.000000,2854.344482,0.532649,0.812062,anonymous,,2026-04-13T12:06:03
+220,scripts/test photo for similarity_label_tool/83.jpg,scripts/test photo for similarity_label_tool/86.jpg,random,0,0,2,0.734909,18.000000,18585.882568,0.197239,0.956817,anonymous,,2026-04-13T12:06:04
+221,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,0,0.331928,46.000000,21396.015137,0.166650,0.386547,anonymous,,2026-04-13T12:06:05
+222,scripts/test photo for similarity_label_tool/32.jpg,__PCG_GENERATED__,pcg_generated,1,44037198,2,0.720457,5.000000,1343.512207,0.855040,0.914978,anonymous,,2026-04-13T12:06:07
+223,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/32.jpg,random,0,0,0,0.387871,23.000000,20312.166748,0.279424,0.496354,anonymous,,2026-04-13T12:06:08
+224,scripts/test photo for similarity_label_tool/173.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,0,0.298341,22.000000,13366.344482,0.274053,0.356884,anonymous,,2026-04-13T12:06:09
+225,scripts/test photo for similarity_label_tool/31.jpg,__PCG_GENERATED__,pcg_generated,1,44064726,3,0.677020,4.000000,3331.793701,0.638618,0.929524,anonymous,,2026-04-13T12:06:11
+226,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/146.jpg,random,0,0,1,0.491322,47.000000,18141.378662,0.249041,0.652203,anonymous,,2026-04-13T12:06:12
+227,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/158.jpg,random,0,0,0,0.330961,47.000000,13607.046387,0.428712,0.350391,anonymous,,2026-04-13T12:06:13
+228,scripts/test photo for similarity_label_tool/80.jpg,__PCG_GENERATED__,pcg_generated,1,44092254,3,0.687649,50.000000,12204.370605,0.401790,0.886658,anonymous,,2026-04-13T12:06:14
+229,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/56.jpg,random,0,0,0,0.283149,37.000000,20789.305908,0.281763,0.305248,anonymous,,2026-04-13T12:06:15
+230,scripts/test photo for similarity_label_tool/32.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,0,0.320839,47.000000,7001.448975,0.442045,0.368066,anonymous,,2026-04-13T12:06:16
+231,scripts/test photo for similarity_label_tool/8.jpg,__PCG_GENERATED__,pcg_generated,1,44119782,3,0.686232,2.000000,1161.853027,0.758210,0.923588,anonymous,,2026-04-13T12:06:19
+232,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/143.jpg,random,0,0,1,0.501837,18.000000,14396.585938,0.414371,0.636187,anonymous,,2026-04-13T12:06:21
+233,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/47.jpg,random,0,0,2,0.531011,41.000000,23136.453857,0.375738,0.718352,anonymous,,2026-04-13T12:06:23
+234,scripts/test photo for similarity_label_tool/164.jpg,__PCG_GENERATED__,pcg_generated,1,44147310,2,0.461601,10.000000,7114.524414,0.402803,0.745943,anonymous,,2026-04-13T12:06:27
+235,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,0,0.332675,16.000000,16415.367188,0.396497,0.472588,anonymous,,2026-04-13T12:06:28
+236,scripts/test photo for similarity_label_tool/173.jpg,scripts/test photo for similarity_label_tool/27.jpg,random,0,0,0,0.264998,12.000000,10927.167725,0.442290,0.397294,anonymous,,2026-04-13T12:06:29
+237,scripts/test photo for similarity_label_tool/28.jpg,__PCG_GENERATED__,pcg_generated,1,44174838,3,0.668479,15.000000,6179.520508,0.389912,0.917469,anonymous,,2026-04-13T12:06:31
+238,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/119.jpg,random,0,0,0,0.337309,40.000000,18055.699951,0.264618,0.395515,anonymous,,2026-04-13T12:06:32
+239,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,1,0.429626,15.000000,11313.119629,0.359449,0.616713,anonymous,,2026-04-13T12:06:34
+240,scripts/test photo for similarity_label_tool/134.jpg,__PCG_GENERATED__,pcg_generated,1,44202366,1,0.637247,40.000000,16990.964844,0.321206,0.895412,anonymous,,2026-04-13T12:06:35
+241,scripts/test photo for similarity_label_tool/38.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,0,0.323504,44.000000,14412.061768,0.400396,0.372506,anonymous,,2026-04-13T12:06:36
+242,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,0,0.363247,44.000000,19881.480225,0.210796,0.438745,anonymous,,2026-04-13T12:06:37
+243,scripts/test photo for similarity_label_tool/41.jpg,__PCG_GENERATED__,pcg_generated,1,44229894,2,0.579360,46.000000,17446.604004,0.385201,0.798934,anonymous,,2026-04-13T12:06:40
+244,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/26.jpg,random,0,0,0,0.378723,45.000000,16479.355225,0.279801,0.464538,anonymous,,2026-04-13T12:06:40
+245,scripts/test photo for similarity_label_tool/164.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,0,0.392323,37.000000,11159.494385,0.209459,0.487205,anonymous,,2026-04-13T12:06:41
+246,scripts/test photo for similarity_label_tool/110.jpg,__PCG_GENERATED__,pcg_generated,1,44257422,3,0.757589,45.000000,6410.452148,0.550745,0.944457,anonymous,,2026-04-13T12:06:42
+247,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,1,0.404795,13.000000,16162.893066,0.276096,0.616124,anonymous,,2026-04-13T12:06:43
+248,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/122.jpg,random,0,0,0,0.377174,42.000000,19190.760010,0.183758,0.461957,anonymous,,2026-04-13T12:06:44
+249,scripts/test photo for similarity_label_tool/107.jpg,__PCG_GENERATED__,pcg_generated,1,44284950,3,0.583272,10.000000,6647.946289,0.563539,0.918147,anonymous,,2026-04-13T12:06:48
+250,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/164.jpg,random,0,0,0,0.299289,47.000000,15506.287109,0.371196,0.332148,anonymous,,2026-04-13T12:06:48
+251,scripts/test photo for similarity_label_tool/83.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,2,0.728372,20.000000,17446.547119,0.256734,0.926429,anonymous,,2026-04-13T12:06:50
+252,scripts/test photo for similarity_label_tool/34.jpg,__PCG_GENERATED__,pcg_generated,1,44312478,2,0.530056,19.000000,6356.467773,0.188678,0.696468,anonymous,,2026-04-13T12:06:51
+253,scripts/test photo for similarity_label_tool/65.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,0,0.273943,20.000000,14994.435303,0.306816,0.335714,anonymous,,2026-04-13T12:06:52
+254,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,0,0.392285,45.000000,15402.772949,0.347862,0.487142,anonymous,,2026-04-13T12:06:52
+255,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,44340006,2,0.631054,17.000000,16749.663818,0.210980,0.917692,anonymous,,2026-04-13T12:06:57
+256,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,1,0.468387,15.000000,13059.026611,0.366271,0.636771,anonymous,,2026-04-13T12:06:59
+257,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,0,0.393242,40.000000,15496.337891,0.204873,0.488736,anonymous,,2026-04-13T12:06:59
+258,scripts/test photo for similarity_label_tool/56.jpg,__PCG_GENERATED__,pcg_generated,1,44367534,3,0.727061,5.000000,4670.968994,0.775801,0.894481,anonymous,,2026-04-13T12:07:01
+259,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/56.jpg,random,0,0,0,0.276206,50.000000,12178.287842,0.474091,0.293677,anonymous,,2026-04-13T12:07:01
+260,scripts/test photo for similarity_label_tool/8.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,0,0.307354,42.000000,16137.448486,0.466433,0.345589,anonymous,,2026-04-13T12:07:02
+261,scripts/test photo for similarity_label_tool/149.jpg,__PCG_GENERATED__,pcg_generated,1,44395062,1,0.572608,39.000000,24972.362549,0.310647,0.787680,anonymous,,2026-04-13T12:07:06
+262,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,1,0.387622,13.000000,9164.364502,0.454796,0.550714,anonymous,,2026-04-13T12:07:07
+263,scripts/test photo for similarity_label_tool/31.jpg,scripts/test photo for similarity_label_tool/47.jpg,random,0,0,0,0.305319,43.000000,21429.241699,0.269496,0.342198,anonymous,,2026-04-13T12:07:08
+264,scripts/test photo for similarity_label_tool/113.jpg,__PCG_GENERATED__,pcg_generated,1,44422590,2,0.517196,22.000000,10838.526123,0.266676,0.721642,anonymous,,2026-04-13T12:07:09
+265,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.363273,46.000000,19116.404297,0.202335,0.438788,anonymous,,2026-04-13T12:07:10
+266,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.395662,47.000000,19893.646240,0.223389,0.492770,anonymous,,2026-04-13T12:07:11
+267,scripts/test photo for similarity_label_tool/77.jpg,__PCG_GENERATED__,pcg_generated,1,44450118,2,0.594184,18.000000,3395.864746,0.405812,0.888942,anonymous,,2026-04-13T12:07:13
+268,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,0,0.378797,19.000000,17181.620117,0.249703,0.520217,anonymous,,2026-04-13T12:07:14
+269,scripts/test photo for similarity_label_tool/131.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,0,0.338054,23.000000,16455.326904,0.232939,0.413325,anonymous,,2026-04-13T12:07:15
+270,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,44477646,2,0.606273,17.000000,15688.430420,0.244496,0.918837,anonymous,,2026-04-13T12:07:17
+271,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,1,0.459610,14.000000,13135.300781,0.380118,0.631227,anonymous,,2026-04-13T12:07:18
+272,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/131.jpg,random,0,0,1,0.443944,20.000000,17915.395020,0.239797,0.619049,anonymous,,2026-04-13T12:07:20
+273,scripts/test photo for similarity_label_tool/8.jpg,__PCG_GENERATED__,pcg_generated,1,44505174,2,0.476619,19.000000,11005.851074,0.501096,0.683255,anonymous,,2026-04-13T12:07:20
+274,scripts/test photo for similarity_label_tool/47.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,0,0.300014,47.000000,20912.131104,0.309162,0.333356,anonymous,,2026-04-13T12:07:21
+275,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,0,0.255269,38.000000,20314.283203,0.279529,0.258782,anonymous,,2026-04-13T12:07:23
+276,scripts/test photo for similarity_label_tool/116.jpg,__PCG_GENERATED__,pcg_generated,1,44532702,2,0.544755,10.000000,12526.544922,0.260270,0.884532,anonymous,,2026-04-13T12:07:26
+277,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,1,0.465028,15.000000,14393.811768,0.339507,0.631272,anonymous,,2026-04-13T12:07:27
+278,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,0,0.261739,44.000000,14779.887939,0.332522,0.269565,anonymous,,2026-04-13T12:07:28
+279,scripts/test photo for similarity_label_tool/167.jpg,__PCG_GENERATED__,pcg_generated,1,44560230,1,0.697756,51.000000,3542.605469,0.616589,0.926148,anonymous,,2026-04-13T12:07:30
+280,scripts/test photo for similarity_label_tool/47.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,0,0.313706,14.000000,14915.700439,0.387273,0.460466,anonymous,,2026-04-13T12:07:30
+281,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,0,0.312873,22.000000,19432.526123,0.309655,0.381105,anonymous,,2026-04-13T12:07:31
+282,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,44587758,3,0.514879,6.000000,8100.441406,0.433173,0.858132,anonymous,,2026-04-13T12:07:33
+283,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/146.jpg,random,0,0,1,0.510671,19.000000,15177.216064,0.322333,0.641581,anonymous,,2026-04-13T12:07:34
+284,scripts/test photo for similarity_label_tool/38.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,0,0.304617,47.000000,17412.955322,0.367012,0.341028,anonymous,,2026-04-13T12:07:34
+285,scripts/test photo for similarity_label_tool/179.jpg,__PCG_GENERATED__,pcg_generated,1,44615286,2,0.602785,41.000000,17891.520508,0.285918,0.837975,anonymous,,2026-04-13T12:07:36
+286,scripts/test photo for similarity_label_tool/116.jpg,scripts/test photo for similarity_label_tool/167.jpg,random,0,0,0,0.298261,15.000000,18719.221680,0.302669,0.424978,anonymous,,2026-04-13T12:07:37
+287,scripts/test photo for similarity_label_tool/182.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,0,0.309325,21.000000,28613.144287,0.235159,0.384937,anonymous,,2026-04-13T12:07:38
+288,scripts/test photo for similarity_label_tool/32.jpg,__PCG_GENERATED__,pcg_generated,1,44642814,3,0.758662,5.000000,1131.099121,0.753034,0.936242,anonymous,,2026-04-13T12:07:39
+289,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/14.jpg,random,0,0,0,0.378981,30.000000,24711.116699,0.133104,0.464968,anonymous,,2026-04-13T12:07:40
+290,scripts/test photo for similarity_label_tool/71.jpg,scripts/test photo for similarity_label_tool/86.jpg,random,0,0,0,0.324407,41.000000,16197.756836,0.241504,0.374011,anonymous,,2026-04-13T12:07:42
+291,scripts/test photo for similarity_label_tool/74.jpg,__PCG_GENERATED__,pcg_generated,1,44670342,3,0.625705,15.000000,1995.200684,0.591909,0.904330,anonymous,,2026-04-13T12:07:44
+292,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/179.jpg,random,0,0,0,0.396414,45.000000,28645.959473,0.308051,0.494023,anonymous,,2026-04-13T12:07:45
+293,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/71.jpg,random,0,0,0,0.245145,24.000000,13361.846680,0.391217,0.248730,anonymous,,2026-04-13T12:07:46
+294,scripts/test photo for similarity_label_tool/164.jpg,__PCG_GENERATED__,pcg_generated,1,44697870,3,0.519393,8.000000,6679.083740,0.509068,0.861756,anonymous,,2026-04-13T12:07:49
+295,scripts/test photo for similarity_label_tool/65.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,0,0.324648,45.000000,16337.988037,0.312104,0.374413,anonymous,,2026-04-13T12:07:49
+296,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/14.jpg,random,0,0,0,0.374890,38.000000,23555.900391,0.266109,0.458150,anonymous,,2026-04-13T12:07:51
+297,scripts/test photo for similarity_label_tool/128.jpg,__PCG_GENERATED__,pcg_generated,1,44725398,2,0.622371,34.000000,21642.495605,0.152298,0.870618,anonymous,,2026-04-13T12:07:52
+298,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,0,0.366016,45.000000,13920.549805,0.169776,0.443360,anonymous,,2026-04-13T12:07:53
+299,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/17.jpg,random,0,0,0,0.282108,20.000000,15322.684814,0.386438,0.349322,anonymous,,2026-04-13T12:07:54
+300,scripts/test photo for similarity_label_tool/164.jpg,__PCG_GENERATED__,pcg_generated,1,44752926,,,,,,,,,
+301,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,,,,,,,,,
+302,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/95.jpg,random,0,0,,,,,,,,,
+303,scripts/test photo for similarity_label_tool/161.jpg,__PCG_GENERATED__,pcg_generated,1,44780454,,,,,,,,,
+304,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/56.jpg,random,0,0,,,,,,,,,
+305,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/33.jpg,random,0,0,,,,,,,,,
+306,scripts/test photo for similarity_label_tool/137.jpg,__PCG_GENERATED__,pcg_generated,1,44807982,,,,,,,,,
+307,scripts/test photo for similarity_label_tool/17.jpg,scripts/test photo for similarity_label_tool/20.jpg,random,0,0,,,,,,,,,
+308,scripts/test photo for similarity_label_tool/35.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,,,,,,,,,
+309,scripts/test photo for similarity_label_tool/34.jpg,__PCG_GENERATED__,pcg_generated,1,44835510,,,,,,,,,
+310,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,,,,,,,,,
+311,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+312,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,44863038,,,,,,,,,
+313,scripts/test photo for similarity_label_tool/80.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,,,,,,,,,
+314,scripts/test photo for similarity_label_tool/131.jpg,scripts/test photo for similarity_label_tool/143.jpg,random,0,0,,,,,,,,,
+315,scripts/test photo for similarity_label_tool/38.jpg,__PCG_GENERATED__,pcg_generated,1,44890566,,,,,,,,,
+316,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/95.jpg,random,0,0,,,,,,,,,
+317,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,,,,,,,,,
+318,scripts/test photo for similarity_label_tool/89.jpg,__PCG_GENERATED__,pcg_generated,1,44918094,,,,,,,,,
+319,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/116.jpg,random,0,0,,,,,,,,,
+320,scripts/test photo for similarity_label_tool/173.jpg,scripts/test photo for similarity_label_tool/30.jpg,random,0,0,,,,,,,,,
+321,scripts/test photo for similarity_label_tool/35.jpg,__PCG_GENERATED__,pcg_generated,1,44945622,,,,,,,,,
+322,scripts/test photo for similarity_label_tool/161.jpg,scripts/test photo for similarity_label_tool/44.jpg,random,0,0,,,,,,,,,
+323,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,,,,,,,,,
+324,scripts/test photo for similarity_label_tool/33.jpg,__PCG_GENERATED__,pcg_generated,1,44973150,,,,,,,,,
+325,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/167.jpg,random,0,0,,,,,,,,,
+326,scripts/test photo for similarity_label_tool/28.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+327,scripts/test photo for similarity_label_tool/110.jpg,__PCG_GENERATED__,pcg_generated,1,45000678,,,,,,,,,
+328,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/143.jpg,random,0,0,,,,,,,,,
+329,scripts/test photo for similarity_label_tool/107.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,,,,,,,,,
+330,scripts/test photo for similarity_label_tool/30.jpg,__PCG_GENERATED__,pcg_generated,1,45028206,,,,,,,,,
+331,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,,,,,,,,,
+332,scripts/test photo for similarity_label_tool/23.jpg,scripts/test photo for similarity_label_tool/89.jpg,random,0,0,,,,,,,,,
+333,scripts/test photo for similarity_label_tool/32.jpg,__PCG_GENERATED__,pcg_generated,1,45055734,,,,,,,,,
+334,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,,,,,,,,,
+335,scripts/test photo for similarity_label_tool/47.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+336,scripts/test photo for similarity_label_tool/128.jpg,__PCG_GENERATED__,pcg_generated,1,45083262,,,,,,,,,
+337,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/47.jpg,random,0,0,,,,,,,,,
+338,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/164.jpg,random,0,0,,,,,,,,,
+339,scripts/test photo for similarity_label_tool/26.jpg,__PCG_GENERATED__,pcg_generated,1,45110790,,,,,,,,,
+340,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,,,,,,,,,
+341,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+342,scripts/test photo for similarity_label_tool/44.jpg,__PCG_GENERATED__,pcg_generated,1,45138318,,,,,,,,,
+343,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/86.jpg,random,0,0,,,,,,,,,
+344,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,,,,,,,,,
+345,scripts/test photo for similarity_label_tool/140.jpg,__PCG_GENERATED__,pcg_generated,1,45165846,,,,,,,,,
+346,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,,,,,,,,,
+347,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/44.jpg,random,0,0,,,,,,,,,
+348,scripts/test photo for similarity_label_tool/128.jpg,__PCG_GENERATED__,pcg_generated,1,45193374,,,,,,,,,
+349,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+350,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/20.jpg,random,0,0,,,,,,,,,
+351,scripts/test photo for similarity_label_tool/179.jpg,__PCG_GENERATED__,pcg_generated,1,45220902,,,,,,,,,
+352,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,,,,,,,,,
+353,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/17.jpg,random,0,0,,,,,,,,,
+354,scripts/test photo for similarity_label_tool/167.jpg,__PCG_GENERATED__,pcg_generated,1,45248430,,,,,,,,,
+355,scripts/test photo for similarity_label_tool/149.jpg,scripts/test photo for similarity_label_tool/38.jpg,random,0,0,,,,,,,,,
+356,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/27.jpg,random,0,0,,,,,,,,,
+357,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,45275958,,,,,,,,,
+358,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/170.jpg,random,0,0,,,,,,,,,
+359,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/35.jpg,random,0,0,,,,,,,,,
+360,scripts/test photo for similarity_label_tool/89.jpg,__PCG_GENERATED__,pcg_generated,1,45303486,,,,,,,,,
+361,scripts/test photo for similarity_label_tool/47.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+362,scripts/test photo for similarity_label_tool/131.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,,,,,,,,,
+363,scripts/test photo for similarity_label_tool/32.jpg,__PCG_GENERATED__,pcg_generated,1,45331014,,,,,,,,,
+364,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/28.jpg,random,0,0,,,,,,,,,
+365,scripts/test photo for similarity_label_tool/17.jpg,scripts/test photo for similarity_label_tool/27.jpg,random,0,0,,,,,,,,,
+366,scripts/test photo for similarity_label_tool/38.jpg,__PCG_GENERATED__,pcg_generated,1,45358542,,,,,,,,,
+367,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,,,,,,,,,
+368,scripts/test photo for similarity_label_tool/149.jpg,scripts/test photo for similarity_label_tool/152.jpg,random,0,0,,,,,,,,,
+369,scripts/test photo for similarity_label_tool/27.jpg,__PCG_GENERATED__,pcg_generated,1,45386070,,,,,,,,,
+370,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,,,,,,,,,
+371,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,,,,,,,,,
+372,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,45413598,,,,,,,,,
+373,scripts/test photo for similarity_label_tool/30.jpg,scripts/test photo for similarity_label_tool/33.jpg,random,0,0,,,,,,,,,
+374,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/35.jpg,random,0,0,,,,,,,,,
+375,scripts/test photo for similarity_label_tool/35.jpg,__PCG_GENERATED__,pcg_generated,1,45441126,,,,,,,,,
+376,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/20.jpg,random,0,0,,,,,,,,,
+377,scripts/test photo for similarity_label_tool/182.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,,,,,,,,,
+378,scripts/test photo for similarity_label_tool/155.jpg,__PCG_GENERATED__,pcg_generated,1,45468654,,,,,,,,,
+379,scripts/test photo for similarity_label_tool/83.jpg,scripts/test photo for similarity_label_tool/95.jpg,random,0,0,,,,,,,,,
+380,scripts/test photo for similarity_label_tool/47.jpg,scripts/test photo for similarity_label_tool/65.jpg,random,0,0,,,,,,,,,
+381,scripts/test photo for similarity_label_tool/74.jpg,__PCG_GENERATED__,pcg_generated,1,45496182,,,,,,,,,
+382,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,,,,,,,,,
+383,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/149.jpg,random,0,0,,,,,,,,,
+384,scripts/test photo for similarity_label_tool/56.jpg,__PCG_GENERATED__,pcg_generated,1,45523710,,,,,,,,,
+385,scripts/test photo for similarity_label_tool/20.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,,,,,,,,,
+386,scripts/test photo for similarity_label_tool/31.jpg,scripts/test photo for similarity_label_tool/32.jpg,random,0,0,,,,,,,,,
+387,scripts/test photo for similarity_label_tool/56.jpg,__PCG_GENERATED__,pcg_generated,1,45551238,,,,,,,,,
+388,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/158.jpg,random,0,0,,,,,,,,,
+389,scripts/test photo for similarity_label_tool/71.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+390,scripts/test photo for similarity_label_tool/11.jpg,__PCG_GENERATED__,pcg_generated,1,45578766,,,,,,,,,
+391,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/50.jpg,random,0,0,,,,,,,,,
+392,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/35.jpg,random,0,0,,,,,,,,,
+393,scripts/test photo for similarity_label_tool/14.jpg,__PCG_GENERATED__,pcg_generated,1,45606294,,,,,,,,,
+394,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,,,,,,,,,
+395,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/107.jpg,random,0,0,,,,,,,,,
+396,scripts/test photo for similarity_label_tool/71.jpg,__PCG_GENERATED__,pcg_generated,1,45633822,,,,,,,,,
+397,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/98.jpg,random,0,0,,,,,,,,,
+398,scripts/test photo for similarity_label_tool/182.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,,,,,,,,,
+399,scripts/test photo for similarity_label_tool/107.jpg,__PCG_GENERATED__,pcg_generated,1,45661350,,,,,,,,,
+400,scripts/test photo for similarity_label_tool/56.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,,,,,,,,,
+401,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/179.jpg,random,0,0,,,,,,,,,
+402,scripts/test photo for similarity_label_tool/68.jpg,__PCG_GENERATED__,pcg_generated,1,45688878,,,,,,,,,
+403,scripts/test photo for similarity_label_tool/28.jpg,scripts/test photo for similarity_label_tool/32.jpg,random,0,0,,,,,,,,,
+404,scripts/test photo for similarity_label_tool/134.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,,,,,,,,,
+405,scripts/test photo for similarity_label_tool/155.jpg,__PCG_GENERATED__,pcg_generated,1,45716406,,,,,,,,,
+406,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/38.jpg,random,0,0,,,,,,,,,
+407,scripts/test photo for similarity_label_tool/17.jpg,scripts/test photo for similarity_label_tool/185.jpg,random,0,0,,,,,,,,,
+408,scripts/test photo for similarity_label_tool/17.jpg,__PCG_GENERATED__,pcg_generated,1,45743934,,,,,,,,,
+409,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/140.jpg,random,0,0,,,,,,,,,
+410,scripts/test photo for similarity_label_tool/33.jpg,scripts/test photo for similarity_label_tool/38.jpg,random,0,0,,,,,,,,,
+411,scripts/test photo for similarity_label_tool/146.jpg,__PCG_GENERATED__,pcg_generated,1,45771462,,,,,,,,,
+412,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+413,scripts/test photo for similarity_label_tool/50.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,,,,,,,,,
+414,scripts/test photo for similarity_label_tool/110.jpg,__PCG_GENERATED__,pcg_generated,1,45798990,,,,,,,,,
+415,scripts/test photo for similarity_label_tool/56.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,,,,,,,,,
+416,scripts/test photo for similarity_label_tool/116.jpg,scripts/test photo for similarity_label_tool/56.jpg,random,0,0,,,,,,,,,
+417,scripts/test photo for similarity_label_tool/137.jpg,__PCG_GENERATED__,pcg_generated,1,45826518,,,,,,,,,
+418,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,,,,,,,,,
+419,scripts/test photo for similarity_label_tool/38.jpg,scripts/test photo for similarity_label_tool/95.jpg,random,0,0,,,,,,,,,
+420,scripts/test photo for similarity_label_tool/86.jpg,__PCG_GENERATED__,pcg_generated,1,45854046,,,,,,,,,
+421,scripts/test photo for similarity_label_tool/179.jpg,scripts/test photo for similarity_label_tool/23.jpg,random,0,0,,,,,,,,,
+422,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/27.jpg,random,0,0,,,,,,,,,
+423,scripts/test photo for similarity_label_tool/92.jpg,__PCG_GENERATED__,pcg_generated,1,45881574,,,,,,,,,
+424,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/86.jpg,random,0,0,,,,,,,,,
+425,scripts/test photo for similarity_label_tool/119.jpg,scripts/test photo for similarity_label_tool/77.jpg,random,0,0,,,,,,,,,
+426,scripts/test photo for similarity_label_tool/28.jpg,__PCG_GENERATED__,pcg_generated,1,45909102,,,,,,,,,
+427,scripts/test photo for similarity_label_tool/122.jpg,scripts/test photo for similarity_label_tool/179.jpg,random,0,0,,,,,,,,,
+428,scripts/test photo for similarity_label_tool/179.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,,,,,,,,,
+429,scripts/test photo for similarity_label_tool/80.jpg,__PCG_GENERATED__,pcg_generated,1,45936630,,,,,,,,,
+430,scripts/test photo for similarity_label_tool/23.jpg,scripts/test photo for similarity_label_tool/34.jpg,random,0,0,,,,,,,,,
+431,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/30.jpg,random,0,0,,,,,,,,,
+432,scripts/test photo for similarity_label_tool/41.jpg,__PCG_GENERATED__,pcg_generated,1,45964158,,,,,,,,,
+433,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+434,scripts/test photo for similarity_label_tool/50.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+435,scripts/test photo for similarity_label_tool/155.jpg,__PCG_GENERATED__,pcg_generated,1,45991686,,,,,,,,,
+436,scripts/test photo for similarity_label_tool/176.jpg,scripts/test photo for similarity_label_tool/31.jpg,random,0,0,,,,,,,,,
+437,scripts/test photo for similarity_label_tool/44.jpg,scripts/test photo for similarity_label_tool/71.jpg,random,0,0,,,,,,,,,
+438,scripts/test photo for similarity_label_tool/137.jpg,__PCG_GENERATED__,pcg_generated,1,46019214,,,,,,,,,
+439,scripts/test photo for similarity_label_tool/20.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+440,scripts/test photo for similarity_label_tool/27.jpg,scripts/test photo for similarity_label_tool/86.jpg,random,0,0,,,,,,,,,
+441,scripts/test photo for similarity_label_tool/33.jpg,__PCG_GENERATED__,pcg_generated,1,46046742,,,,,,,,,
+442,scripts/test photo for similarity_label_tool/128.jpg,scripts/test photo for similarity_label_tool/47.jpg,random,0,0,,,,,,,,,
+443,scripts/test photo for similarity_label_tool/182.jpg,scripts/test photo for similarity_label_tool/8.jpg,random,0,0,,,,,,,,,
+444,scripts/test photo for similarity_label_tool/185.jpg,__PCG_GENERATED__,pcg_generated,1,46074270,,,,,,,,,
+445,scripts/test photo for similarity_label_tool/143.jpg,scripts/test photo for similarity_label_tool/176.jpg,random,0,0,,,,,,,,,
+446,scripts/test photo for similarity_label_tool/23.jpg,scripts/test photo for similarity_label_tool/56.jpg,random,0,0,,,,,,,,,
+447,scripts/test photo for similarity_label_tool/17.jpg,__PCG_GENERATED__,pcg_generated,1,46101798,,,,,,,,,
+448,scripts/test photo for similarity_label_tool/185.jpg,scripts/test photo for similarity_label_tool/32.jpg,random,0,0,,,,,,,,,
+449,scripts/test photo for similarity_label_tool/140.jpg,scripts/test photo for similarity_label_tool/146.jpg,random,0,0,,,,,,,,,
+450,scripts/test photo for similarity_label_tool/80.jpg,__PCG_GENERATED__,pcg_generated,1,46129326,,,,,,,,,
+451,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/176.jpg,random,0,0,,,,,,,,,
+452,scripts/test photo for similarity_label_tool/149.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,,,,,,,,,
+453,scripts/test photo for similarity_label_tool/86.jpg,__PCG_GENERATED__,pcg_generated,1,46156854,,,,,,,,,
+454,scripts/test photo for similarity_label_tool/155.jpg,scripts/test photo for similarity_label_tool/158.jpg,random,0,0,,,,,,,,,
+455,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+456,scripts/test photo for similarity_label_tool/33.jpg,__PCG_GENERATED__,pcg_generated,1,46184382,,,,,,,,,
+457,scripts/test photo for similarity_label_tool/113.jpg,scripts/test photo for similarity_label_tool/122.jpg,random,0,0,,,,,,,,,
+458,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/14.jpg,random,0,0,,,,,,,,,
+459,scripts/test photo for similarity_label_tool/179.jpg,__PCG_GENERATED__,pcg_generated,1,46211910,,,,,,,,,
+460,scripts/test photo for similarity_label_tool/125.jpg,scripts/test photo for similarity_label_tool/41.jpg,random,0,0,,,,,,,,,
+461,scripts/test photo for similarity_label_tool/110.jpg,scripts/test photo for similarity_label_tool/137.jpg,random,0,0,,,,,,,,,
+462,scripts/test photo for similarity_label_tool/125.jpg,__PCG_GENERATED__,pcg_generated,1,46239438,,,,,,,,,
+463,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/170.jpg,random,0,0,,,,,,,,,
+464,scripts/test photo for similarity_label_tool/179.jpg,scripts/test photo for similarity_label_tool/26.jpg,random,0,0,,,,,,,,,
+465,scripts/test photo for similarity_label_tool/143.jpg,__PCG_GENERATED__,pcg_generated,1,46266966,,,,,,,,,
+466,scripts/test photo for similarity_label_tool/11.jpg,scripts/test photo for similarity_label_tool/170.jpg,random,0,0,,,,,,,,,
+467,scripts/test photo for similarity_label_tool/137.jpg,scripts/test photo for similarity_label_tool/74.jpg,random,0,0,,,,,,,,,
+468,scripts/test photo for similarity_label_tool/122.jpg,__PCG_GENERATED__,pcg_generated,1,46294494,,,,,,,,,
+469,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/170.jpg,random,0,0,,,,,,,,,
+470,scripts/test photo for similarity_label_tool/56.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+471,scripts/test photo for similarity_label_tool/140.jpg,__PCG_GENERATED__,pcg_generated,1,46322022,,,,,,,,,
+472,scripts/test photo for similarity_label_tool/29.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+473,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/38.jpg,random,0,0,,,,,,,,,
+474,scripts/test photo for similarity_label_tool/47.jpg,__PCG_GENERATED__,pcg_generated,1,46349550,,,,,,,,,
+475,scripts/test photo for similarity_label_tool/77.jpg,scripts/test photo for similarity_label_tool/80.jpg,random,0,0,,,,,,,,,
+476,scripts/test photo for similarity_label_tool/28.jpg,scripts/test photo for similarity_label_tool/50.jpg,random,0,0,,,,,,,,,
+477,scripts/test photo for similarity_label_tool/27.jpg,__PCG_GENERATED__,pcg_generated,1,46377078,,,,,,,,,
+478,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/182.jpg,random,0,0,,,,,,,,,
+479,scripts/test photo for similarity_label_tool/101.jpg,scripts/test photo for similarity_label_tool/92.jpg,random,0,0,,,,,,,,,
+480,scripts/test photo for similarity_label_tool/26.jpg,__PCG_GENERATED__,pcg_generated,1,46404606,,,,,,,,,
+481,scripts/test photo for similarity_label_tool/152.jpg,scripts/test photo for similarity_label_tool/161.jpg,random,0,0,,,,,,,,,
+482,scripts/test photo for similarity_label_tool/167.jpg,scripts/test photo for similarity_label_tool/50.jpg,random,0,0,,,,,,,,,
+483,scripts/test photo for similarity_label_tool/143.jpg,__PCG_GENERATED__,pcg_generated,1,46432134,,,,,,,,,
+484,scripts/test photo for similarity_label_tool/77.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+485,scripts/test photo for similarity_label_tool/74.jpg,scripts/test photo for similarity_label_tool/95.jpg,random,0,0,,,,,,,,,
+486,scripts/test photo for similarity_label_tool/47.jpg,__PCG_GENERATED__,pcg_generated,1,46459662,,,,,,,,,
+487,scripts/test photo for similarity_label_tool/170.jpg,scripts/test photo for similarity_label_tool/26.jpg,random,0,0,,,,,,,,,
+488,scripts/test photo for similarity_label_tool/26.jpg,scripts/test photo for similarity_label_tool/47.jpg,random,0,0,,,,,,,,,
+489,scripts/test photo for similarity_label_tool/29.jpg,__PCG_GENERATED__,pcg_generated,1,46487190,,,,,,,,,
+490,scripts/test photo for similarity_label_tool/30.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,,,,,,,,,
+491,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/83.jpg,random,0,0,,,,,,,,,
+492,scripts/test photo for similarity_label_tool/173.jpg,__PCG_GENERATED__,pcg_generated,1,46514718,,,,,,,,,
+493,scripts/test photo for similarity_label_tool/14.jpg,scripts/test photo for similarity_label_tool/185.jpg,random,0,0,,,,,,,,,
+494,scripts/test photo for similarity_label_tool/146.jpg,scripts/test photo for similarity_label_tool/173.jpg,random,0,0,,,,,,,,,
+495,scripts/test photo for similarity_label_tool/83.jpg,__PCG_GENERATED__,pcg_generated,1,46542246,,,,,,,,,
+496,scripts/test photo for similarity_label_tool/104.jpg,scripts/test photo for similarity_label_tool/185.jpg,random,0,0,,,,,,,,,
+497,scripts/test photo for similarity_label_tool/158.jpg,scripts/test photo for similarity_label_tool/167.jpg,random,0,0,,,,,,,,,
+498,scripts/test photo for similarity_label_tool/29.jpg,__PCG_GENERATED__,pcg_generated,1,46569774,,,,,,,,,
+499,scripts/test photo for similarity_label_tool/34.jpg,scripts/test photo for similarity_label_tool/35.jpg,random,0,0,,,,,,,,,
+500,scripts/test photo for similarity_label_tool/17.jpg,scripts/test photo for similarity_label_tool/68.jpg,random,0,0,,,,,,,,,

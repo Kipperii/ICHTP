@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-04-12T01:20:17",
+  "workspace": "C:/Users/Administrator/Desktop/ICHTP",
+  "roots": [
+    "scripts/test photo for similarity_label_tool"
+  ],
+  "sample_size": 500,
+  "seed": 42,
+  "pcg_every": 3,
+  "session": "similarity_20260412_012017"
+}
