@@ -1270,5 +1270,30 @@ function initGame(){
 }
 initGame();
 </script>
+
+<!-- BGM added -->
+<audio id="game-bgm" src="/static/games/bgm/game_bgm.mp3" loop></audio>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgm = document.getElementById('game-bgm');
+    bgm.volume = 0.5; // set volume to 50%
+    
+    // Attempt to play immediately
+    const playPromise = bgm.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // Auto-play was prevented, need user interaction
+        const playOnInteract = () => {
+          bgm.play();
+          document.removeEventListener('pointerdown', playOnInteract);
+          document.removeEventListener('keydown', playOnInteract);
+        };
+        document.addEventListener('pointerdown', playOnInteract);
+        document.addEventListener('keydown', playOnInteract);
+      });
+    }
+  });
+</script>
 </body>
+
 </html>

@@ -54,7 +54,33 @@
       max-width: 60%;
       max-height: 60%;
       opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      transform: scale(0.8);
+      animation: logoEntrance 3.5s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes logoEntrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        filter: blur(5px);
+      }
+      15% {
+        opacity: 1;
+        transform: scale(1.05) translateY(0);
+        filter: blur(0px);
+      }
+      25% {
+        transform: scale(1);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.1);
+        filter: blur(5px);
+      }
     }
   </style>
 </head>
@@ -214,27 +240,56 @@
     const logo = document.getElementById('splash-logo');
     
     if (splash && logo) {
-      // 1. Fade Logo In (0.5s)
-      setTimeout(() => {
-        logo.style.opacity = '1';
-      }, 500);
-
-      // 2. Hold Logo (2s) -> Fade Logo Out (1s)
-      setTimeout(() => {
-        logo.style.opacity = '0';
-      }, 2500);
-
-      // 3. Fade Screen Out (1s after logo fade starts, total ~3.5s)
+      // 1. The CSS animation 'logoEntrance' plays for 3.5s
+      
+      // 2. Fade Screen Out (starts right as logo animation ends)
       setTimeout(() => {
         splash.style.opacity = '0';
       }, 3500);
 
-      // 4. Remove from DOM
+      // 3. Remove from DOM completely
       setTimeout(() => {
         splash.style.display = 'none';
       }, 4500);
     }
   });
 </script>
+
+<!-- BGM added -->
+<button id="bgm-mute-btn" style="position: fixed; top: 15px; right: 15px; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 8px 12px; border: none; border-radius: 5px; z-index: 1000; cursor: pointer; font-size: 16px;">🔊</button>
+<audio id="game-bgm" src="/static/games/bgm/game_bgm.mp3" loop></audio>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgm = document.getElementById('game-bgm');
+    const muteBtn = document.getElementById('bgm-mute-btn');
+
+    if (muteBtn) {
+      muteBtn.addEventListener('click', (e) => {
+        // Prevent pointer event from propagating to game canvas if needed
+        e.stopPropagation();
+        bgm.muted = !bgm.muted;
+        muteBtn.textContent = bgm.muted ? '🔇' : '🔊';
+      });
+    }
+
+    bgm.volume = 0.5; // set volume to 50%
+    
+    // Attempt to play immediately
+    const playPromise = bgm.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // Auto-play was prevented, need user interaction
+        const playOnInteract = () => {
+          bgm.play();
+          document.removeEventListener('pointerdown', playOnInteract);
+          document.removeEventListener('keydown', playOnInteract);
+        };
+        document.addEventListener('pointerdown', playOnInteract);
+        document.addEventListener('keydown', playOnInteract);
+      });
+    }
+  });
+</script>
 </body>
+
 </html>

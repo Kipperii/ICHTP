@@ -453,6 +453,9 @@
     let tries=0;
 
     while(accepted.length < count && tries < triesLimit){
+      // Yield to the event loop so the UI (like loading screens) can update and not freeze
+      await new Promise(r => setTimeout(r, 10));
+
       tries++;
       const canvas = genVariantCanvasBasic(img, difficulty);
       const signature = answerKey + '|' + canvas.width + 'x' + canvas.height + '|' + canvas._sig;

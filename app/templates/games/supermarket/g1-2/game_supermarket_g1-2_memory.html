@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="utf-8"/>
@@ -8,7 +8,10 @@
 <!-- OpenCV WebAssembly (async) -->
 <script async src="https://docs.opencv.org/4.x/opencv.js" onload="onOpenCvReady()" onerror="window.__cvErr=true;"></script>
 <!-- 相似度 / 變體管線 -->
-<script src="/static/lib/similarity-pipeline.js"></script>
+    <!-- TFJS & MobileNet for SimilarityPipeline -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+    <script src="/static/lib/similarity-pipeline.js"></script>
 <style>
 html,body{
   margin:0;padding:0;height:100%;background:#000;
@@ -17,6 +20,12 @@ html,body{
 #game-container{width:100%;height:100%;overflow:hidden;}
 img,canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
 </style>
+      <script>
+        // 在遊戲頁面一載入就嘗試非同步加載 AI 模組，爭取提早準備好
+        document.addEventListener('DOMContentLoaded', () => {
+          if (window.SimilarityPipeline) window.SimilarityPipeline.loadAIModel().catch(e=>console.log('Preload AI failed: ',e));
+        });
+      </script>
 </head>
 <body>
 <div id="game-container"></div>
@@ -683,7 +692,9 @@ class SceneBoot extends Phaser.Scene{
   async prepareGame(){
     try{
       initSimilarityPipeline();
-      this.statusText.setText("準備資源中...");
+        this.statusText.setText("載入AI模組中...");
+        if(window.SimilarityPipeline) await window.SimilarityPipeline.loadAIModel();
+        this.statusText.setText("準備資源中...");
       const res=await fetch('/api/games/supermarket/images');
       if(!res.ok) throw new Error(`圖片列表取得失敗 (${res.status})`);
       let list=await res.json();
@@ -1076,7 +1087,9 @@ class SceneGame extends Phaser.Scene{
       }
       
       if(CV_FEATURE.enabled){
-        this.generateVariantsAsync(replaceIndices, opts);
+        const genText = this.add.text(GAME_W/2, GAME_H/2, "正在準備進階選項...", {font:"32px Arial", fill:"#0ff"}).setOrigin(0.5).setDepth(9999);
+          await this.generateVariantsAsync(replaceIndices, opts);
+          if (genText) genText.destroy();
       }
     }
 
@@ -1118,6 +1131,7 @@ class SceneGame extends Phaser.Scene{
         const variants=await SimilarityPipeline.generateVariants(this,this.answerKey,1,this.ddm.d);
         if(variants && variants[0]){
           this.tempKeys.push(variants[0]);
+            opts[idx] = variants[0];
         }
       }catch(e){ }
     }
@@ -1270,5 +1284,37 @@ function initGame(){
 }
 initGame();
 </script>
+
+<!-- BGM added -->
+<audio id="game-bgm" src="/static/games/bgm/game_bgm.mp3" loop></audio>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgm = document.getElementById('game-bgm');
+    bgm.volume = 0.5; // set volume to 50%
+    
+    // Attempt to play immediately
+    const playPromise = bgm.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // Auto-play was prevented, need user interaction
+        const playOnInteract = () => {
+          bgm.play();
+          document.removeEventListener('pointerdown', playOnInteract);
+          document.removeEventListener('keydown', playOnInteract);
+        };
+        document.addEventListener('pointerdown', playOnInteract);
+        document.addEventListener('keydown', playOnInteract);
+      });
+    }
+  });
+</script>
 </body>
+
 </html>
+
+
+
+
+
+
+
