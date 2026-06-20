@@ -103,9 +103,15 @@
       // --- Performance Optimization: Warm Up ---
       // Execute a dummy inference to compile WebGL shaders immediately.
       // This prevents the "lag" (freeze) during the first gameplay interaction.
-      tf.tidy(() => {
-        const output = SP.aiModel.infer(tf.zeros([1, 224, 224, 3]), true);
-      });
+              // 使用 218x192 的 Canvas 預熱，這是我們遊戲中實際會塞給 infer 的圖片尺寸
+        // 這樣 WebGL 的 Shader 才會針對這個解析度提早編譯，完全消除第一次進入特殊關時的卡頓。
+        const dummyCanvas = document.createElement('canvas');
+        dummyCanvas.width = 218; dummyCanvas.height = 192;
+        const dummyCtx = dummyCanvas.getContext('2d');
+        dummyCtx.fillStyle = '#8287d9';
+        dummyCtx.fillRect(0, 0, 218, 192);
+        const dummyEmb = SP.aiModel.infer(dummyCanvas, true);
+        if(dummyEmb) dummyEmb.dispose();
       console.log('MobileNet loaded & Warmed up (Performance Optimization Applied)');
       
       return SP.aiModel;
