@@ -852,7 +852,7 @@ class SceneGame extends Phaser.Scene{
     this.lifeText=this.add.text(SAFE+240,SAFE+56,`${TEXTS.lives}: ${this.lives}`,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6});
     this.phaseText=this.add.text(GAME_W/2,SAFE+58,"",{font:"bold 28px Arial",fill:"#ffd166",stroke:"#000",strokeThickness:6}).setOrigin(0.5).setDepth(25);
       this.timerGfx=this.add.graphics().setDepth(25);
-      this.timerText=this.add.text(GAME_W-SAFE-380,SAFE+0,${TEXTS.time}: ,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6}).setOrigin(0,0.5).setDepth(25);
+      this.timerText=this.add.text(GAME_W-SAFE-380,SAFE+0,`${TEXTS.time}: ${this.timeLeft}`,{font:"bold 28px Arial",fill:"#fff",stroke:"#000",strokeThickness:6}).setOrigin(0,0.5).setDepth(25);
       this.updateTimerBar();
 
       this.timeEvent=this.time.addEvent({
@@ -915,7 +915,7 @@ class SceneGame extends Phaser.Scene{
       const x=GAME_W-SAFE-380,y=SAFE+30,w=360,h=22;
       const ratio=Phaser.Math.Clamp(this.timeLeft/TIME_START,0,1);
       const color=this.timeLeft>15?0x3ac66e:0xdc3545;
-      this.timerText.setText(${TEXTS.time}: );
+      this.timerText.setText(`${TEXTS.time}: ${this.timeLeft}`);
       this.timerGfx.clear();
       this.timerGfx.fillStyle(0x000000,0.35).fillRoundedRect(x-2,y-2,w+4,h+4,10);
       this.timerGfx.lineStyle(2,0xffffff,1).strokeRoundedRect(x,y,w,h,10);
