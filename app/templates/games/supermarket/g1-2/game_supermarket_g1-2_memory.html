@@ -708,17 +708,9 @@ class SceneBoot extends Phaser.Scene{
       IMG_KEYS.forEach((key,idx)=>KEY_URL_MAP.set(key,ALL_IMAGES[idx]));
       await this.preloadImages();
       this.statusText.setText("遊戲加載中...");
-      const progressTimer=this.time.addEvent({
-        delay:120,
-        loop:true,
-        callback:()=>{
-          const pct=Math.floor((similarityTierSystem.progress||0)*100);
-          this.statusText.setText(`遊戲加載中... ${pct}%`);
-        }
-      });
-      await similarityTierSystem.buildTiersAsync(this, IMG_KEYS);
-      progressTimer.remove(false);
-      this.statusText.setText("分析完成");
+      // 啟動背景 Tier 分析而不阻塞遊戲載入
+        similarityTierSystem.buildTiersAsync(this, IMG_KEYS).catch(e => console.error("Tier Build Error", e));
+        this.statusText.setText("載入完成");
       this.scene.start('menu');
       this.scene.stop();
     }catch(err){

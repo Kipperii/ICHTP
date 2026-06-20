@@ -455,6 +455,7 @@
     while(accepted.length < count && tries < triesLimit){
       // Yield to the event loop so the UI (like loading screens) can update and not freeze
       await new Promise(r => setTimeout(r, 10));
+      if (typeof tf !== 'undefined') await tf.nextFrame();
 
       tries++;
       const canvas = genVariantCanvasBasic(img, difficulty);
